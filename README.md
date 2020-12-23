@@ -1,4 +1,5 @@
-# Kobayashi Maru, Section 31 - PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
+# TMT - Too Many Taskers
+Kobayashi Maru, Section 31 - PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
 ### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) & [Project Schedule](https://docs.google.com/spreadsheets/d/1YTrmCJHOMmBMSd7XV9xjTJuAYHYHGg7y88qxi99rLQ0/edit#gid=0)
 
@@ -16,14 +17,14 @@ Styling: https://www.astrouxds.com/
 Single React App - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
 
 ## Members
-- William Jantscher 
-- Alden Davidson
-- Antonio Daehler
-- Brianna Tanusi
-- Tom Thorpe
+- William Jantscher - 
+- Alden Davidson - 
+- Antonio Daehler - 
+- Brianna Tanusi - User Management Lead
+- Tom Thorpe - 
 
 ## Daily Ceremonies
- - Stand-up 0800 MST
+ - Stand-up 8:00 MST
  - Stand-down 3:45 MST
 
 ## Application Components
@@ -48,6 +49,7 @@ Single React App - Main page only has routes to major app components -> Using Re
         - Edit taskers and resubmit (opt)
         - View sent taskers and statuses (MVP)
 - Notification System (MVP)
+- Database (MVP)
 - TMT workload report/graph (opt)
 - Org Structure/Routing (opt)
 
