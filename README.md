@@ -28,9 +28,9 @@ Single React App - Main page only has routes to major app components -> Using Re
 
 ## Application Components
 - User management (login/logout, permissions, user data, preferences/settings)
-    + Login/Logout (MVP)
-    + User permissions/roles (MFP)
-    ! User Preferences/Settings (opt)
+    - <div class="text-blue"> Login/Logout (MVP) </div>
+    - User permissions/roles (MFP)
+    - User Preferences/Settings (opt)
 
 - Tasker creation (create a tasker and send it appropriately, edit a tasker, fibanacci workload)
 - Tasker viewer/response (workload assessment)
