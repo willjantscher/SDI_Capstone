@@ -6,8 +6,7 @@
 
 ### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program management
 
-## github
-https://github.com/willjantscher/SDI_Capstone
+### [Github Repository](https://github.com/willjantscher/SDI_Capstone)
 
 ## Project Parameters
 DB: Express with postgreSQL
@@ -17,15 +16,11 @@ Styling: https://www.astrouxds.com/
 Single React App - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
 
 ## Members
-William Jantscher 
-
-Alden Davidson
-
-Antonio Daehler
-
-Brianna Tanusi
-
-Tom Thorpe
+- William Jantscher 
+- Alden Davidson
+- Antonio Daehler
+- Brianna Tanusi
+- Tom Thorpe
 
 ## Daily Ceremonies
  - Stand-up 0800 MST
@@ -33,6 +28,9 @@ Tom Thorpe
 
 ## Application Components
 - User management (login/logout, permissions, user data, preferences/settings)
+
+
+
 - Tasker creation (create a tasker and send it appropriately, edit a tasker, fibanacci workload)
 - Tasker viewer/response (workload assessment)
     - message originator directly 
@@ -48,5 +46,8 @@ Tom Thorpe
 Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
 
 USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
+
+
+
 
 
