@@ -1,6 +1,6 @@
 # Kobayashi Maru, Section 31 - PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
-### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) and Project Schedule
+### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) & [Project Schedule](https://docs.google.com/spreadsheets/d/1YTrmCJHOMmBMSd7XV9xjTJuAYHYHGg7y88qxi99rLQ0/edit#gid=0)
 
 ### [Miro](https://miro.com/app/board/o9J_laKxjS0=/) - Project Outline, Web Design, & ERD
 
@@ -43,9 +43,9 @@ Single React App - Main page only has routes to major app components -> Using Re
 - Fibinacci workload report/graph
 
 ## References
-Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+[Space words](https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/)
 
-USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
+[USSF Org Chart](https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/)
 
 
 
