@@ -12,9 +12,6 @@ https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapston
 https://github.com/willjantscher/SDI_Capstone
 
 
-
-
-
 1. Project idea
     what tools Express/Spring? Bootstrap and theme? workflow with coding/TDD? Schedule? Branches? 
     Create a readme with requirements etc..?
@@ -28,6 +25,8 @@ https://github.com/willjantscher/SDI_Capstone
 
 
 
+DB: Express with postgreSQL
+Styling: https://www.astrouxds.com/ 
 
 
 
