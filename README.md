@@ -10,21 +10,10 @@ https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapston
 ## github
 https://github.com/willjantscher/SDI_Capstone
 
-
-1. Project idea
-    what tools Express/Spring? Bootstrap and theme? workflow with coding/TDD? Schedule? Branches? 
-    Create a readme with requirements etc..?
-2. Project outline (4 microservices)
-3. User stories
-4. ERDs
-5. Environment setup stuff
-
-
 ## Project Parameters
 DB: Express with postgreSQL
 Styling: https://www.astrouxds.com/ 
-1 React App - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
-
+Single React App - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
 
 ## Members
 William Jantscher 
@@ -33,11 +22,11 @@ Antonio Daehler
 Brianna Tanusi
 Tom Thorpe
 
-
-
 ## References
-https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
 
 
 
 
+ 
