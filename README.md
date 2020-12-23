@@ -8,7 +8,7 @@ Distribution and completion of taskers from both internal and external organizat
 
 ### [Miro](https://miro.com/app/board/o9J_laKxjS0=/) - Project Outline, Web Design, & ERD
 
-### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program P=Management
+### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program Management
 
 ### [Draw.io](https://app.diagrams.net/#G1jkGSQCSomfDGiqsOGYZKOYyLPRaWZflG) - Brainstorming Platform
 
