@@ -1,12 +1,10 @@
 # Kobayashi Maru, Section 31 - PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
-## Instructions/Requirements/Schedule
-Capstone Instructions: https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md
+### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) and Project Schedule
 
-## [Mirro](https://miro.com/app/board/o9J_laKxjS0=/) - Project Outline, Web Design, & ERD
+### [Miro](https://miro.com/app/board/o9J_laKxjS0=/) - Project Outline, Web Design, & ERD
 
-## Trello - Program management
-https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone
+### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program management
 
 ## github
 https://github.com/willjantscher/SDI_Capstone
