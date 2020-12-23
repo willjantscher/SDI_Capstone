@@ -21,12 +21,24 @@ https://github.com/willjantscher/SDI_Capstone
 5. Environment setup stuff
 
 
-
-
-
-
+## Project Parameters
 DB: Express with postgreSQL
 Styling: https://www.astrouxds.com/ 
+
+## Members
+William Jantscher
+Alden Davidson
+Antonio Daehler
+Brianna Tanusi
+Tom Thorpe
+
+
+
+
+## References
+https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+
+
 
 
 
