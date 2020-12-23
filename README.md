@@ -25,7 +25,9 @@ Single React App - Main page only has routes to major app components -> Using Re
 ## Daily Ceremonies
  - Stand-up 0800 MST
  - Stand-down 3:45 MST
-
+<div class="text-orange mb-2">
+  .text-orange on white
+</div>
 ## Application Components
 - User management (login/logout, permissions, user data, preferences/settings)
     - <div class="text-blue"> Login/Logout (MVP) </div>
