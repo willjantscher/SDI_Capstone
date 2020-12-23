@@ -25,25 +25,31 @@ Single React App - Main page only has routes to major app components -> Using Re
 ## Daily Ceremonies
  - Stand-up 0800 MST
  - Stand-down 3:45 MST
-<div class="text-orange mb-2">
-  .text-orange on white
-</div>
-## Application Components
-- User management (login/logout, permissions, user data, preferences/settings)
-    - <div class="text-blue"> Login/Logout (MVP) </div>
-    - User permissions/roles (MFP)
-    - User Preferences/Settings (opt)
 
-- Tasker creation (create a tasker and send it appropriately, edit a tasker, fibanacci workload)
-- Tasker viewer/response (workload assessment)
-    - message originator directly 
-- Task lists/report (different scopes/report options)
-    1. In Box
-    2. Through Box (approve/deny routing request)
-    3. Outbox (taskers you have sent out with their status)
-- Tasker Routing page (approve, deny, comments)
-- Notification System
-- Fibinacci workload report/graph
+## Application Components
+- User management (MVP)
+    - Log in/out (MVP)
+    - User permissions/roles (MVP)
+    - User Preferences/Settings (opt)
+- Tasker Creation (MVP)
+    - Populate tasker (MVP)
+    - Workload fibanacci rating (opt)
+    - Select route (MVP)
+    - Submit (MVP)
+    - Attach files (MVP)
+    - Save drafts (opt)
+- Tasker Viewing (MVP)
+    - In box, assigned to user (MVP)
+        - appove/deny with comments (MVP)
+        - provide time spent/fibanacci assesment (opt)
+        - attach files (MVP)
+    - Through box, approve routing (MVP)
+    - Out box, taskers you sent out with statuses (MVP)
+        - Edit taskers and resubmit (opt)
+        - View sent taskers and statuses (MVP)
+- Notification System (MVP)
+- TMT workload report/graph (opt)
+- Org Structure/Routing (opt)
 
 ## References
 [Space words](https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/)
