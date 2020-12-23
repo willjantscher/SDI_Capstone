@@ -39,7 +39,7 @@ Styling: CSS - https://www.astrouxds.com/
     - User Preferences/Settings (opt)
 - Tasker Creation (MVP)
     - Populate tasker (MVP)
-    - Workload fibanacci rating (opt)
+    - Workload fibonacci rating (opt)
     - Select route (MVP)
     - Submit (MVP)
     - Attach files (MVP)
@@ -47,7 +47,7 @@ Styling: CSS - https://www.astrouxds.com/
 - Tasker Viewing (MVP)
     - In box, assigned to user (MVP)
         - appove/deny with comments (MVP)
-        - provide time spent/fibanacci assesment (opt)
+        - provide time spent/fibonacci assesment (opt)
         - attach files (MVP)
     - Through box, approve routing (MVP)
     - Out box, taskers you sent out with statuses (MVP)
@@ -63,7 +63,8 @@ Styling: CSS - https://www.astrouxds.com/
 
 [USSF Org Chart](https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/)
 
+[OAuth](https://oauth.net/2/browser-based-apps/)
 
-
+[Fibonacci](https://www.atlassian.com/agile/project-management/estimation)
 
 
