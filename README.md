@@ -24,9 +24,11 @@ https://github.com/willjantscher/SDI_Capstone
 ## Project Parameters
 DB: Express with postgreSQL
 Styling: https://www.astrouxds.com/ 
+1 React App - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
+
 
 ## Members
-William Jantscher
+William Jantscher 
 Alden Davidson
 Antonio Daehler
 Brianna Tanusi
@@ -41,5 +43,6 @@ https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
 
 
 
+Units - each unit has many users
 
 
