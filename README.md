@@ -32,16 +32,11 @@ Brianna Tanusi
 
 Tom Thorpe
 
-## References
-Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
-
-USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
-
-### Daily Ceremonies
+## Daily Ceremonies
  - Stand-up 0800 MST
  - Stand-down 3:45 MST
 
-### Application Components
+## Application Components
 - User management (login/logout, permissions, user data, preferences/settings)
 - Tasker creation (create a tasker and send it appropriately, edit a tasker, fibanacci workload)
 - Tasker viewer/response (workload assessment)
@@ -54,9 +49,9 @@ USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/will
 - Notification System
 - Fibinacci workload report/graph
 
+## References
+Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+
+USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
 
 
-<<<<<<< HEAD
-=======
- 
->>>>>>> 94f25c5b8c345cd94e5ed06c2cd8a98d7bf2fb52
