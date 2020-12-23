@@ -1,13 +1,16 @@
 # TMT - Too Many Taskers
-## Kobayashi Maru, Section 31 - PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
+## Kobayashi Maru, Section 31 - PS 2: 
+Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
 ### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) & [Project Schedule](https://docs.google.com/spreadsheets/d/1YTrmCJHOMmBMSd7XV9xjTJuAYHYHGg7y88qxi99rLQ0/edit#gid=0)
 
+### [Project Github Repository](https://github.com/willjantscher/SDI_Capstone)
+
 ### [Miro](https://miro.com/app/board/o9J_laKxjS0=/) - Project Outline, Web Design, & ERD
 
-### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program management
+### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program P=Management
 
-### [Project Github Repository](https://github.com/willjantscher/SDI_Capstone)
+### [Draw.io](https://app.diagrams.net/#G1jkGSQCSomfDGiqsOGYZKOYyLPRaWZflG) - Brainstorming Platform
 
 ## Project Parameters
 Front End: Javascript/React - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
