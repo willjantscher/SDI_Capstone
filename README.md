@@ -34,6 +34,7 @@ Tom Thorpe
 
 ## References
 Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+
 USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
 
 ### Daily Ceremonies
@@ -55,3 +56,7 @@ USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/will
 
 
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 94f25c5b8c345cd94e5ed06c2cd8a98d7bf2fb52
