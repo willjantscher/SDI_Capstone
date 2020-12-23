@@ -29,8 +29,8 @@ Styling: CSS - https://www.astrouxds.com/
 - Tom Thorpe - Tasker Through Box and Notification System Lead
 
 ## Daily Ceremonies
- - Stand-up 8:00 MST
- - Stand-down 3:45 MST
+ - Stand-up: 8:00 MST
+ - Stand-down: 3:45 MST
 
 ## Application Components
 - User management (MVP)
