@@ -1,5 +1,5 @@
 # TMT - Too Many Taskers
-## Kobayashi Maru, Section 31 - PS 2: 
+## Kobayashi Maru, Section 31 - Problem Statement 2: 
 Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
 ### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) & [Project Schedule](https://docs.google.com/spreadsheets/d/1YTrmCJHOMmBMSd7XV9xjTJuAYHYHGg7y88qxi99rLQ0/edit#gid=0)
@@ -22,11 +22,11 @@ API: Javascript/Express
 Styling: CSS - https://www.astrouxds.com/ 
 
 ## Project Members
-- William Jantscher - >Tasker Creation Lead<
-- Alden Davidson - >Tasker In-Box Lead<
-- Antonio Daehler - >Tasker Out-Box Lead<
-- Brianna Tanusi - >User Management Lead<
-- Tom Thorpe - >Tasker Through Box and Notification System Lead<
+- William Jantscher - Tasker Creation Lead
+- Alden Davidson - Tasker In-Box Lead
+- Antonio Daehler - Tasker Out-Box Lead
+- Brianna Tanusi - User Management Lead
+- Tom Thorpe - Tasker Through Box and Notification System Lead
 
 ## Daily Ceremonies
  - Stand-up 8:00 MST
