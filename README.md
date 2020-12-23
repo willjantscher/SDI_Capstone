@@ -12,18 +12,25 @@ https://github.com/willjantscher/SDI_Capstone
 
 ## Project Parameters
 DB: Express with postgreSQL
+
 Styling: https://www.astrouxds.com/ 
+
 Single React App - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
 
 ## Members
 William Jantscher 
+
 Alden Davidson
+
 Antonio Daehler
+
 Brianna Tanusi
+
 Tom Thorpe
 
 ## References
 Space words: https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
+
 USSF Org Chart: https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/
 
 
