@@ -1,5 +1,4 @@
-# Kobayashi Maru, Section 31 - SMC Space C2 Problem Statements
-PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
+# Kobayashi Maru, Section 31 - PS 2: Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
 ## Instructions/Requirements
 https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md
@@ -36,13 +35,9 @@ Tom Thorpe
 
 
 
-
 ## References
 https://www.teachstarter.com/us/teaching-resource/space-word-wall-vocabulary-us/
 
 
-
-
-Units - each unit has many users
 
 
