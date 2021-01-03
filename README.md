@@ -1,3 +1,5 @@
+![alt text](https://media1.giphy.com/media/H7r5XcQccQvlXPwUOR/giphy.gif)
+
 # TMT - Too Many Taskers
 ## Kobayashi Maru, Section 31 - Problem Statement 2: 
 Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
