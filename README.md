@@ -1,4 +1,7 @@
 # TMT - Too Many Taskers
+
+![alt text](https://media1.giphy.com/media/H7r5XcQccQvlXPwUOR/giphy.gif)
+
 ## Kobayashi Maru, Section 31 - Problem Statement 2: 
 Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
@@ -66,5 +69,3 @@ Styling: CSS - https://www.astrouxds.com/
 [OAuth](https://oauth.net/2/browser-based-apps/)
 
 [Fibonacci](https://www.atlassian.com/agile/project-management/estimation)
-
-
