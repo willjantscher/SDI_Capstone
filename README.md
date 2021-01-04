@@ -13,7 +13,7 @@ Distribution and completion of taskers from both internal and external organizat
 
 ### [Trello](https://trello.com/invite/b/f0oja1MK/16d1189bcc4e505508b9bb71d2a16555/sdicapstone) - Program Management
 
-### [Draw.io](https://app.diagrams.net/#G1jkGSQCSomfDGiqsOGYZKOYyLPRaWZflG) - Entity Relationship Diagram (ERD) and site layout
+### [Draw.io](https://app.diagrams.net/#G1jkGSQCSomfDGiqsOGYZKOYyLPRaWZflG) - Entity Relationship Diagram (ERD) and Site Layout
 
 ## Project Parameters
 Front End: Javascript/React - Main page only has routes to major app components -> Using React Router <- major components can have internal routing to other react components (kept seperate to keep version control management simple)
