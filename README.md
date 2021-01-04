@@ -69,3 +69,28 @@ Styling: CSS - https://www.astrouxds.com/
 [OAuth](https://oauth.net/2/browser-based-apps/)
 
 [Fibonacci](https://www.atlassian.com/agile/project-management/estimation)
+
+
+
+
+Project setup
+
+npx create-react-app tmt
+
+
+
+
+
+## Daily Schedule
+
+### 1/4/2021
+1. Create user stories (Trello)
+2. Create ERD for database
+3. React/file structure setup
+4. 
+
+
+
+
+
+
