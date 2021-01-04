@@ -42,21 +42,23 @@ Styling: CSS - https://www.astrouxds.com/
     - User Preferences/Settings (opt)
 - Tasker Creation (MVP)
     - Populate tasker (MVP)
-    - Workload fibonacci rating (opt)
-    - Select route (MVP)
+    - Workload fibonacci rating/expected task duration (opt)
+    - Select route (opt)
     - Submit (MVP)
-    - Attach files (MVP)
+    - Attach files (opt)
     - Save drafts (opt)
+    - Send to parent organization and allow that organization to further disseminate (opt)
 - Tasker Viewing (MVP)
     - In box, assigned to user (MVP)
-        - appove/deny with comments (MVP)
+        - submit response or reject tasker with comments (MVP)
         - provide time spent/fibonacci assesment (opt)
         - attach files (MVP)
-    - Through box, approve routing (MVP)
+    - Through box (opt)
+        - approve/deny routing with comments (opt)
     - Out box, taskers you sent out with statuses (MVP)
         - Edit taskers and resubmit (opt)
         - View sent taskers and statuses (MVP)
-- Notification System (MVP)
+- Notification System (opt)
 - Database (MVP)
 - TMT workload report/graph (opt)
 - Org Structure/Routing (opt)
@@ -78,14 +80,27 @@ Styling: CSS - https://www.astrouxds.com/
 3. React/file structure setup
 4. 
 
+### 1/5/2021
+
+### 1/6/2021
+
+### 1/7/2021
+- MVPs due!
 
 
 
 
-
-Project setup
+## Notes
+### Project setup
 
 npx create-react-app at-at
 
+### Saving files!!!
+use node fs write file/read file in express (use async)
+save files in local file structure, save file location in database
+
+### proxy?
+do the same way as project 1?
+use CORS middleware for express
 
 
