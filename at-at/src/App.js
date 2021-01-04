@@ -26,7 +26,7 @@ class App extends React.Component {
         <Navbar/>
 
         <Router>
-          
+          <Route exact path="/" ><Redirect to="/login"></Redirect> </Route>
           <Route path="/login" component={LoginMain} />
           <Route path="/create_tasker" component={TaskerCreationMain} />
           <Route path="/tasker_inbox" component={TaskerInboxMain} />
