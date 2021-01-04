@@ -1,4 +1,4 @@
-# TMT - Too Many Taskers
+# AT-AT  - Aggregate Tasker Administration Tool
 
 ![alt text](https://media1.giphy.com/media/H7r5XcQccQvlXPwUOR/giphy.gif)
 
@@ -70,17 +70,6 @@ Styling: CSS - https://www.astrouxds.com/
 
 [Fibonacci](https://www.atlassian.com/agile/project-management/estimation)
 
-
-
-
-Project setup
-
-npx create-react-app tmt
-
-
-
-
-
 ## Daily Schedule
 
 ### 1/4/2021
@@ -91,6 +80,12 @@ npx create-react-app tmt
 
 
 
+
+
+
+Project setup
+
+npx create-react-app at-at
 
 
 
