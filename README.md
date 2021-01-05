@@ -89,6 +89,8 @@ Styling: CSS - https://www.astrouxds.com/
     - Component tests
     - End-to-End tests
     - API tests
+2. Working branches setup
+3. MVP coding
 
 ### 1/6/2021
 
