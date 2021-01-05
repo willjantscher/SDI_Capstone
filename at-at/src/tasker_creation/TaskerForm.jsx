@@ -1,104 +1,158 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 
 // create a variable that holds the whole form
 // buttons will update that variable
-// return is that variable
+// return is that
 
 
-class TaskerForm extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-
-        };
-    }
-
-    render() {
+const TaskerForm = (props) => {
+    let i = 0;
+    let unitNames = props.units.map((unit) => {
+        i += 1;
         return(
-            <div>
-                {console.log(this.props.units)}
-                <div>stuff</div>
-            </div>
+            <option
+                value={unit}
+                key={i}
+            >
+                {unit}
+            </option>
         )
-    }
+    })
+
+    const [inputFields, setInputFields] = useState([
+        { unit : '' }
+    ]);
+
+    const handleAddFields = () => {
+        const values = [...inputFields];
+        values.push({ unit: '' });
+        setInputFields(values);
+    };
+
+    const handleRemoveFields = index => {
+        const values = [...inputFields];
+        values.splice(index, 1);
+        setInputFields(values);
+    };
 
 
-    // let i = 0;
-    // let unitNames = props.units.map((unit) => {
-    //     i += 1;
-    //     return(
-    //         <option
-    //             value={unit}
-    //             key={i}
-    //         >
-    //             {unit}
-    //         </option>
-    //     )
-    // })
+//will want to replace some handlers with ones in main page to set local state in there
+    const handleInputChange = (index, event) => {
+        const values = [...inputFields];
+            values[index].unit = event.target.value;
+        setInputFields(values);
+    };
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log("inputFields", inputFields);
+        console.log(inputFields[0].unit)
+    };
 
-    // var form = (
-    // <form onSubmit={props.onSubmitTasker}>
-    //         <div>I am inside of the TaskerForm</div>
-    //         <div>
+    return(
+        <>
+            <div>Select Units to send this Tasker to</div>
+            <form onSubmit={handleSubmit, props.onSubmitTasker}>
+                <div className="form-row">
+                    {inputFields.map((inputField, index) => (
+                        <Fragment key={`${inputField}~${index}`}>
+                        <div className="form-group col-sm-6">
+                            <label htmlFor="unit">Unit: </label>
+                            <select
+                                className="form-control"
+                                id="unit"
+                                name="unit"
+                                value={inputField.unit}
+                                onChange={event => handleInputChange(index, event)}
+                                ><option key="empty" value=""></option>
+                                {unitNames}
+                            </select>
+                        </div>
 
-    //             {/* 
-    //                 send to individual unit/units 
+                        <div className="form-group col-sm-2">
+                            <button
+                            className="btn btn-link"
+                            type="button"
+                            onClick={() => handleRemoveFields(index)}
+                            >
+                            -
+                            </button>
+                            <button
+                            className="btn btn-link"
+                            type="button"
+                            onClick={() => handleAddFields()}
+                            >
+                            +
+                            </button>
+                        </div>
 
-    //                 send to individual commands
-    //                 send to all units in a command
-    //             */}
-                
-    //             <span>Assign Units</span>
-    //             <select defaultValue="" key="1">
-    //                 <option key="empty" value=""></option>
-    //                 {unitNames}
-    //             </select>
+                        </Fragment>
+                    ))}
+                </div>
 
-    //             <button onClick={props.onAddAnotherUnit}>Add Another Unit</button>   
-    //             {/* on click function to add another selector */}
+                <div>
+                    <span>Tasker Name:</span>
+                    <input 
+                        id="tasker_name"
+                        name="Tasker Name"
+                        placeholder="Tasker Name"
+                        onChange={props.onInputChange} 
+                    ></input>
+                </div>
 
+                <div>
+                    <span>Suspense Date</span>
+                    <input
+                        id="suspense_date"
+                        type="date"
+                        onChange={props.onInputChange}
+                    ></input>
+                </div>
 
-    //         </div>
+                <div>
+                    <span>Priority</span>
+                    <select id="priority" defaultValue = "Low" onChange={props.onInputChange}>
+                        <option key="Low" value="Low">Low</option>
+                        <option key="Medium" value="Medium">Medium</option>
+                        <option key="High" value="High">High</option>
+                    </select>
+                </div>
 
+                <div>
+                    <span>Predicted Workload (hours)</span>
+                    <input
+                        id="predicted_workload"
+                        type="number"
+                        min="1"
+                        max="24"
+                        placeholder="hrs"
+                        onChange={props.onInputChange} 
+                    ></input>
+                </div>
 
+                <div>
+                    <textarea 
+                        id="description"
+                        placeholder="Tasker Description"
+                        onChange={props.onInputChange} 
+                    ></textarea>
+                </div>
 
+                <input type="submit" value="Send Tasker with Extreme Prejudice"/>
 
-
-    //         <div>
-    //             <span>Tasker Name:</span>
-    //             <input></input>
-    //         </div>
-    //         <div>
-    //             <span>Suspense Date</span>
-    //             <input
-    //                 id="suspense_date"
-    //                 type="date"
-    //             ></input>
-    //         </div>
-    //         <div>
-    //             <span>Priority</span>
-    //             <select defaultValue = "Low">
-    //                 <option key="Low" value="Low">Low</option>
-    //                 <option key="Medium" value="Medium">Medium</option>
-    //                 <option key="High" value="High">High</option>
-    //             </select>
-    //         </div>
-    //         <div>
-    //             <span>Expected Workload</span>
-    //         </div>
-    //         <div>
-    //             <textarea placeholder="Tasker Description"></textarea>
-    //         </div>
-
-    //         <input type="submit" value="Send Tasker"/>
-    //         <input type="submit" value="Send Tasker with Extreme Prejudice"/>
-    //     </form>
-    // )
-
-    // return(
-    //     form
-    // )
+{/* remove this button when done */}
+                <div className="submit-button">
+                    <button
+                        className="btn btn-primary mr-2"
+                        onClick={handleSubmit}
+                    >
+                        Save
+                    </button>
+                </div>
+                </form>
+            <span> ------------------------------------------------------------------------ </span>
+        </>
+    )
 }
 
 export default TaskerForm;
