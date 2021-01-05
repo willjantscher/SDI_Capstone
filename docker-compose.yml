@@ -1,11 +1,8 @@
 version: '3'
 
 services:
-  at-at:
-    container_name: at-at
-    build:
-      context: ./at-at
-      dockerfile: Dockerfile
+  app:
+    build: at-at
     ports: 
       - '3000:3000'
     depends_on:
@@ -22,6 +19,11 @@ services:
       - '3001:3001'
     depends_on:
       - 'database'
+    volumes:
+      - './server:/server'
+      - '/server/node_modules'
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
 
   database:
     image: postgres:latest
