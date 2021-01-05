@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const userQueries = require('./userQueries')
+const sentQueries = require('./taskerOutQueries')
 const loginQueries = require('./loginQueries')
 
 const app = express()
@@ -14,6 +15,8 @@ app.use(
 )
 
 app.get('/users', userQueries.getAllUsers)
+app.get('/mytaskers/:id', sentQueries.taskers)
+app.get('/myresponses/:id', sentQueries.responses)
 
 app.post('/authenticate', loginQueries.authenticateUser)
 
