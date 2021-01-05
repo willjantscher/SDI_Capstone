@@ -68,10 +68,13 @@ Styling: CSS - https://www.astrouxds.com/
 
 [USSF Org Chart](https://www.militarytimes.com/opinion/commentary/2020/10/21/william-shatner-and-the-military-times-brought-america-into-the-most-important-debate-in-the-ndaa/)
 
+[React TDD](https://create-react-app.dev/docs/running-tests/)
+
 [OAuth](https://oauth.net/2/browser-based-apps/)
 
 [Fibonacci](https://www.atlassian.com/agile/project-management/estimation)
 
+[DB Trees](https://www.postgresql.org/docs/9.3/ltree.html)
 ## Daily Schedule
 
 ### 1/4/2021
