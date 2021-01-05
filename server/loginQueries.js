@@ -23,8 +23,8 @@ const authenticateUser = async (request, response) => {
             response.status(401).send("incorrect password")
         }})
       } else {
-        console.log("user doesnt exist")
-        response.status(401).send("user doesnt exist")
+        console.log("username not found")
+        response.status(404).send("username not found")
       }
     })
 }

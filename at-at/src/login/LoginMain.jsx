@@ -24,11 +24,14 @@ class LoginMain extends React.Component {
               })
            });
         if(response.status == 401){
-            alert("Incorrect password or username")
+            alert("Incorrect password or username.")
+        } else if(response.status == 404){
+            alert("Username not found. Please register first.")
+        } else {
+            const resDetails = await response.json();
+            alert(`Welcome ${resDetails[0].first_name} ${resDetails[0].last_name}!`)
+            this.props.history.push('/create_tasker')
         }
-        const resDetails = await response.json();
-        alert(`Welcome ${resDetails[0].first_name} ${resDetails[0].last_name}!`)
-        this.props.history.push('/create_tasker')
     }
 
     render() {
