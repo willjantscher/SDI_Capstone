@@ -1,12 +1,15 @@
 FROM node:current-alpine
 
-RUN mkdir -p /src/app
+WORKDIR /app
 
-WORKDIR /src/app
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY . /src/app
+COPY package.json /app
+COPY package-lock.json /app
 
-RUN npm install
+RUN npm install --silent
+
+COPY . /app
 
 EXPOSE 3000
 
