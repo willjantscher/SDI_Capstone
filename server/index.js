@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const userQueries = require('./userQueries')
+const loginQueries = require('./loginQueries')
 
 const app = express()
 const port = 3001
@@ -13,6 +14,9 @@ app.use(
 )
 
 app.get('/users', userQueries.getAllUsers)
+
+app.post('/authenticate', loginQueries.authenticateUser)
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
