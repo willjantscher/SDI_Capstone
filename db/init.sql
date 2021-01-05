@@ -27,7 +27,7 @@ CREATE TABLE units_assigned_taskers (
 	routing_at_unit_id INT REFERENCES units(id) ON DELETE CASCADE,
 	response TEXT,
 	current_status TEXT NOT NULL,
-	actual_workload TIME
+	actual_workload INT
 );
 
 CREATE TABLE tasker_reply_attachments (
@@ -50,7 +50,7 @@ CREATE TABLE tasker_version (
 	tasker_name TEXT NOT NULL,
 	suspense_date DATE NOT NULL,
 	priority_lvl TEXT NOT NULL,
-	predicted_workload TIME,
+	predicted_workload INT,
 	desc_text TEXT NOT NULL
 );
 
@@ -142,19 +142,19 @@ INSERT INTO units_assigned_taskers (tasker_id, unit_id, routing_at_unit_id, resp
 	(3, 38, NULL, NULL, 'in progress', NULL),
 	(3, 39, NULL, NULL, 'in progress', NULL),
 	(2, 16, NULL, NULL, 'in progress', NULL),
-	(2, 17, NULL, 'ECXCO Nominates General Daehler for Ghost program', 'completed', '00:30:00'),
-	(1, 24, NULL, 'Nothing to report', 'completed', '00:10:00');
+	(2, 17, NULL, 'ECXCO Nominates General Daehler for Ghost program', 'completed', 5),
+	(1, 24, NULL, 'Nothing to report', 'completed', 2);
 
 -- tasker versions
 INSERT INTO 
 	tasker_version( tasker_id, version_num, updated_on, tasker_name, suspense_date, priority_lvl, predicted_workload, desc_text )
 VALUES
-	(1, 1, '2020-12-01', 'Celebrate Space Force Birthday', '2020-12-20', 'Low', '00:00:01', 'Mandatory fun'),
-	(2, 1, '2020-12-25', 'Finish the MVP', '2021-02-07', 'Medium', '21:30:00', 'Have a minimum viable product to deploy to P1'),
-	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', '23:59:59', 'Have a finished product to present')
+	(1, 1, '2020-12-01', 'Celebrate Space Force Birthday', '2020-12-20', 'Low', 1, 'Mandatory fun'),
+	(2, 1, '2020-12-25', 'Finish the MVP', '2021-02-07', 'Medium', 22, 'Have a minimum viable product to deploy to P1'),
+	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', 55, 'Have a finished product to present')
 	;
 
-INSERT INTO notifications( unit_to, details, isRead) 
+INSERT INTO notifications( unit_to, details, isRead)
 VALUES 
 	(23, 'Space Force Birthday', false), 
 	(38, 'Capstone', false), 
