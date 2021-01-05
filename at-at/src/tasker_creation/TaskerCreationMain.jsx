@@ -25,22 +25,26 @@ class TaskerCreationMain extends React.Component {
     }
 
     handleInputChange = (e) => {
-        console.log('input changed')
         let tempTasker = this.state.tasker;
-        console.log(e.target.id, e.target.value)
         tempTasker[e.target.id] = e.target.value;
         this.setState({ tasker : tempTasker })
     }
 
-    handleAddAnotherUnit = (e) => {
-        return(
-            <div>added unit</div>
-        )
+    handleUnitChange = (values) => {
+        let tempSendToUnits = []
+        for(let i = 0; i < values.length; i++) {
+            if(values[i].unit !== "") {
+                tempSendToUnits.push(values[i].unit)
+            }
+        }
+        console.log(tempSendToUnits)
+        this.setState({ sendToUnits : tempSendToUnits })
     }
+
 
     handleSubmitTasker = (e) => {
         e.preventDefault();     //may want to change this later
-        console.log(this.state.tasker);
+        console.log(this.state.sendToUnits, this.state.tasker);
     }
 
     render() {
@@ -50,9 +54,8 @@ class TaskerCreationMain extends React.Component {
                 <h1>Create a Tasker</h1>
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
-                    onSubmitTasker = {this.handleSubmitTasker}
-                    onAddAnotherUnit = {this.handleAddAnotherUnit}
-                    units = {this.state.units}
+                    onUnitChange = {this.handleUnitChange}
+                    onSubmitTasker = {this.handleSubmitTasker}                    units = {this.state.units}
                 />
                 {/* <FormExample/> */}
             </div>

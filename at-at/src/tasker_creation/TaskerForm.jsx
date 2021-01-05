@@ -35,24 +35,24 @@ const TaskerForm = (props) => {
         setInputFields(values);
     };
 
-
-//will want to replace some handlers with ones in main page to set local state in there
     const handleInputChange = (index, event) => {
         const values = [...inputFields];
             values[index].unit = event.target.value;
+            //create a handler for this that sets the values when called from in here
         setInputFields(values);
+        props.onUnitChange(values);
     };
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log("inputFields", inputFields);
-        console.log(inputFields[0].unit)
-    };
+    // const handleSubmit = e => {
+    //     e.preventDefault();
+    //     console.log("inputFields", inputFields);
+    //     console.log(inputFields[0].unit)
+    // };
 
     return(
         <>
             <div>Select Units to send this Tasker to</div>
-            <form onSubmit={handleSubmit, props.onSubmitTasker}>
+            <form onSubmit={props.onSubmitTasker}>
                 <div className="form-row">
                     {inputFields.map((inputField, index) => (
                         <Fragment key={`${inputField}~${index}`}>
@@ -63,7 +63,7 @@ const TaskerForm = (props) => {
                                 id="unit"
                                 name="unit"
                                 value={inputField.unit}
-                                onChange={event => handleInputChange(index, event)}
+                                onChange={event => { handleInputChange(index, event)}}
                                 ><option key="empty" value=""></option>
                                 {unitNames}
                             </select>
@@ -141,14 +141,14 @@ const TaskerForm = (props) => {
                 <input type="submit" value="Send Tasker with Extreme Prejudice"/>
 
 {/* remove this button when done */}
-                <div className="submit-button">
+                {/* <div className="submit-button">
                     <button
                         className="btn btn-primary mr-2"
                         onClick={handleSubmit}
                     >
                         Save
                     </button>
-                </div>
+                </div> */}
                 </form>
             <span> ------------------------------------------------------------------------ </span>
         </>
