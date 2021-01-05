@@ -54,6 +54,13 @@ CREATE TABLE tasker_version (
 	desc_text TEXT NOT NULL
 );
 
+CREATE TABLE notifications (
+	id serial PRIMARY KEY,
+	unit_to INT NOT NULL REFERENCES units(id),
+	details TEXT,
+	isRead BOOLEAN NOT NULL
+);
+
 -- Populate with mock data
 -- units
 INSERT INTO units (unit_name, unique_id, parent_unique_id) VALUES 
@@ -146,3 +153,12 @@ VALUES
 	(2, 1, '2020-12-25', 'Finish the MVP', '2021-02-07', 'Medium', '21:30:00', 'Have a minimum viable product to deploy to P1'),
 	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', '23:59:59', 'Have a finished product to present')
 	;
+
+INSERT INTO notifications( unit_to, details, isRead) 
+VALUES 
+	(23, 'Space Force Birthday', false), 
+	(38, 'Capstone', false), 
+	(39, 'Capstone', false), 
+	(16, 'MVP', true), 
+	(17, 'MVP', true), 
+	(24, 'Space Force Birthday', true); 
