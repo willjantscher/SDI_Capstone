@@ -81,9 +81,14 @@ Styling: CSS - https://www.astrouxds.com/
 1. Create user stories (Trello)
 2. Create ERD for database
 3. React/file structure setup
-4. 
+4. Postgress DB and Server API setup
 
 ### 1/5/2021
+1. Setup testing environment
+    - Unit tests
+    - Component tests
+    - End-to-End tests
+    - API tests
 
 ### 1/6/2021
 
