@@ -43,6 +43,43 @@ const TaskerForm = (props) => {
         props.onUnitChange(values);
     };
 
+    const buttonHandler = (index) => {
+        {console.log(inputFields.length)}
+        if(inputFields.length<2) {
+            console.log("stuff"); 
+            return(
+                <button
+                className="btn btn-link"
+                type="button"
+                onClick={() => handleAddFields()}
+                >
+                +
+                </button>
+            )
+        } else return(
+            <div>
+                <button
+                className="btn btn-link"
+                type="button"
+                onClick={() => handleRemoveFields(index)}
+                >
+                -
+                </button>
+
+                <button
+                className="btn btn-link"
+                type="button"
+                onClick={() => handleAddFields()}
+                >
+                +
+                </button>
+            </div>
+        )
+
+
+
+    }
+
     // const handleSubmit = e => {
     //     e.preventDefault();
     //     console.log("inputFields", inputFields);
@@ -70,20 +107,7 @@ const TaskerForm = (props) => {
                         </div>
 
                         <div className="form-group col-sm-2">
-                            <button
-                            className="btn btn-link"
-                            type="button"
-                            onClick={() => handleRemoveFields(index)}
-                            >
-                            -
-                            </button>
-                            <button
-                            className="btn btn-link"
-                            type="button"
-                            onClick={() => handleAddFields()}
-                            >
-                            +
-                            </button>
+                            {buttonHandler(index)}
                         </div>
 
                         </Fragment>
