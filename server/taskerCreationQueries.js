@@ -75,7 +75,7 @@ const postUnitsAssignedTaskers = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).json(results.rows)
+        response.status(200).json('taskers distributed to units')
     })
 }
 
@@ -90,3 +90,5 @@ module.exports = {
     getAllTaskerVersion,
     postUnitsAssignedTaskers
 }
+
+
