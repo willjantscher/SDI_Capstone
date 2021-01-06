@@ -5,14 +5,13 @@ const taskerInQueries = require('./taskerInQueries')
 const taskerCreationQueries = require('./taskerCreationQueries')
 const sentQueries = require('./taskerOutQueries')
 const loginQueries = require('./loginQueries')
+const notificationQueries = require('./notificationQueries')
 
 const cors = require('cors')
 const app = express()
 app.use(cors())
 const port = 3001
 
-const cors = require('cors');
-app.use(cors())
 app.options('*', cors())
 
 app.use(express.json())
@@ -40,6 +39,10 @@ app.post('/authenticate', loginQueries.authenticateUser)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.put('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
+
+app.get('/notifications', notificationQueries.getAllNotifications)
+app.get('/notifications/:id', notificationQueries.myNotifications)
+app.post('/notifications', (request, response) => taskerCreationQueries.postToNotifications(request,response))
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

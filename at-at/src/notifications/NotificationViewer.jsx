@@ -1,20 +1,15 @@
 import React from "react";
 
-class NotificationViewer extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            
-        }
-    }
+const NotificationViewer = (props) => {
 
-    render(){
-        return(
+    let notificationList = props.notifications.map((notification => <li>{notification}</li>))
+
+    return(
             <div>
-                I am inside NotificationViewer
+                NotificationViewer
+                <ul> {notificationList}</ul>
             </div>
         )
-    }
 }
 
 export default NotificationViewer;

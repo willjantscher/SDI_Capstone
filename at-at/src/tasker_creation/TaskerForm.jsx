@@ -33,6 +33,7 @@ const TaskerForm = (props) => {
         const values = [...inputFields];
         values.splice(index, 1);
         setInputFields(values);
+        props.onUnitChange(values);
     };
 
     const handleInputChange = (index, event) => {
