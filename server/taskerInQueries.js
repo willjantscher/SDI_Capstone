@@ -7,7 +7,8 @@ const getIncomingTaskers = (request, response) => {
       WHERE unit_id = $1',
     [request.params.unitId], (error, result) => {
       if (error) {
-          throw error;
+        response.sendStatus(500);
+        throw error;
       }
       response.status(200).json(result.rows);
   });
@@ -19,7 +20,8 @@ const updateTaskerResponse = (request, response) => {
     [request.params.unitId, request.params.taskerId, request.body.response, "completed"],
     (error, result) => {
       if (error) {
-          throw error;
+        response.sendStatus(500);
+        throw error;
       }
       response.status(200).json(result.rows);
   });
