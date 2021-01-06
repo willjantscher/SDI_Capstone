@@ -58,14 +58,14 @@ class TaskerInboxMain extends React.Component {
   render() {
     return(
       <div>
-          <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
-          <p>{this.state.selectedTasker.desc_text}</p>
-          {Object.keys(this.state.selectedTasker).length > 0
-          ? <form onSubmit={this.handleResponseSubmit}>
-              <textarea name="taskerResponseData" autoFocus={true} defaultValue={this.state.selectedTasker.response}/>
-              <input type="submit" value="Submit" name="taskerResponseSubmitButton"/>
-            </form>
-          : <div/>}
+        <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
+        <p>{this.state.selectedTasker.desc_text}</p>
+        {Object.keys(this.state.selectedTasker).length > 0
+        ? <form onSubmit={this.handleResponseSubmit}>
+            <textarea name="taskerResponseData" autoFocus={true} defaultValue={this.state.selectedTasker.response}/>
+            <input type="submit" value="Submit" name="taskerResponseSubmitButton"/>
+          </form>
+        : <div/>}
       </div>
     );
   }
