@@ -43,7 +43,7 @@ const authenticateUser = async (request, response) => {
           console.log("authenticated")
           response.cookie('user_id', user_id)
           response.cookie('unit_id', unit_id)
-          response.status(200).json(results.rows)
+          response.status(200).json(user)
         } else{
           console.log("incorrect password")
           response.status(401).send("incorrect password")
