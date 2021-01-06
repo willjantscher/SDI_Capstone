@@ -45,6 +45,7 @@ app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
 
 app.post('/authenticate', loginQueries.authenticateUser)
+app.post('/register', loginQueries.registerUser)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.put('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);

@@ -2,19 +2,22 @@ const pool = require('./pool.js').getPool()
 const crypto = require('crypto'); 
 
 const registerUser = async (request, response) => {
-  let { username, passphrase } = request.body;
+  let { unit_id, username, passphrase, first_name, last_name } = request.body;
   let salt = crypto.randomBytes(16).toString('hex');
   let hash = crypto.pbkdf2Sync(passphrase, salt,  
     1000, 64, `sha512`).toString(`hex`);
   console.log(typeof(salt))
   pool.query(
-    'INSERT INTO users (unit_id, username, passphrase, salt, first_name, last_name) VALUES ($1, $2, $3, $4, $5, $6)',
-    [1, username, hash, salt, "TestFirstName", "TestLastName"],
+    'INSERT INTO users (unit_id, username, passphrase, salt, first_name, last_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, unit_id, first_name, last_name',
+    [unit_id, username, hash, salt, first_name, last_name],
     (err,results) => {
       if(err){
         throw err;
       }
-      response.status(200).send("registered")
+      const user = results.rows[0];
+      response.cookie('user_id', user.id)
+      response.cookie('unit_id', user.unit_id)
+      response.status(200).json(user)
   })
 }
 
@@ -53,5 +56,6 @@ const authenticateUser = async (request, response) => {
 }
 
 module.exports = {
-    authenticateUser
+    authenticateUser,
+    registerUser
 }
