@@ -25,9 +25,10 @@ class TaskerInboxMain extends React.Component {
 
   render() {
     return(
-        <div>
-            <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
-        </div>
+      <div>
+          <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
+          <p>{this.state.selectedTasker.desc_text}</p>
+      </div>
     );
   }
 }
