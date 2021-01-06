@@ -10,19 +10,18 @@ class TaskerCreationMain extends React.Component {
             units: [],  //api querry should only return array of names
             sendToUnits: [],
             tasker: {
+                originator_unit_id : 1,
                 tasker_name : null,
                 suspense_date : null,
                 priority : null,
                 predicted_workload : null,
                 description : null,
             },
+            loged_in_unit: null,
         }
     }
 
     componentDidMount() {
-        // do initial api queries here - get the values for the units to populate the pulldown in the taskerform
-        // this.setState({ units: ['Chief of Space Operations (CSO)', 'USSF Element - NRO', 'Space Operations Command (SpOC)'] })
-    
         fetch(`http://localhost:3001/unit_names`, {
             headers : {
                 'Content-Type': 'application/json',
@@ -56,10 +55,18 @@ class TaskerCreationMain extends React.Component {
 
     handleSubmitTasker = (e) => {
         e.preventDefault();     //may want to change this later
-        console.log(this.state.sendToUnits, this.state.tasker);
+        console.log(this.state.tasker);
 
         //send a post to taskers table with originator unit
-        
+        fetch(`http://localhost:3001/taskers`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.tasker)
+        })
+            .then((res) => res.json())
+                .then((res) => {console.log(res)})
         //send post to tasker version with all info, version 0 
 
         //send post to units_assigned_taskers table for each unit assigned

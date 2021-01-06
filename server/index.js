@@ -18,7 +18,13 @@ app.use(
 )
 
 app.get('/users', userQueries.getAllUsers)
+
+
 app.get('/unit_names', taskerCreationQueries.getAllUnitNames)
+app.get('/taskers', taskerCreationQueries.getAllTaskers)
+app.post('/taskers', (request, response) => taskerCreationQueries.postTasker(request, response))
+
+
 app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
 

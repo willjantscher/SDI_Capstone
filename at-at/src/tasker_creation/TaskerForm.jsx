@@ -44,9 +44,7 @@ const TaskerForm = (props) => {
     };
 
     const buttonHandler = (index) => {
-        {console.log(inputFields.length)}
         if(inputFields.length<2) {
-            console.log("stuff"); 
             return(
                 <button
                 className="btn btn-link"
@@ -75,16 +73,7 @@ const TaskerForm = (props) => {
                 </button>
             </div>
         )
-
-
-
     }
-
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     console.log("inputFields", inputFields);
-    //     console.log(inputFields[0].unit)
-    // };
 
     return(
         <>
@@ -163,17 +152,7 @@ const TaskerForm = (props) => {
                 </div>
 
                 <input type="submit" value="Send Tasker with Extreme Prejudice"/>
-
-{/* remove this button when done */}
-                {/* <div className="submit-button">
-                    <button
-                        className="btn btn-primary mr-2"
-                        onClick={handleSubmit}
-                    >
-                        Save
-                    </button>
-                </div> */}
-                </form>
+            </form>
             <span> ------------------------------------------------------------------------ </span>
         </>
     )
