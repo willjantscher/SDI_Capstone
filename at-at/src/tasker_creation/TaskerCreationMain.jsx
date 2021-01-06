@@ -1,3 +1,26 @@
+/*
+to do:
+    update the originator_unit_id based on the unit logged in (cookie)
+
+    add conditional rendering for the form/success message
+
+    add alerts for input fields blank when they can't be null
+
+
+    beautification with https://www.astrouxds.com/
+    additional features:
+        add attachments'
+        change unit selectoer
+            have sub selects under their parents
+            https://github.com/insin/react-filtered-multiselect
+
+
+*/
+
+
+
+
+
 import React from "react"
 
 import TaskerForm from "./TaskerForm"
@@ -87,49 +110,52 @@ class TaskerCreationMain extends React.Component {
     handleSubmitTasker = async (e) => {
         e.preventDefault();     //may want to change this later
         console.log(this.state.tasker);
-        //check to see that all required fields are filled out, send error if not
 
-        //send a post to the taskers table with originator unit
-        fetch(`http://localhost:3001/taskers`, {
-            method: 'POST',
-            headers : {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state.tasker),
-        })
-            .then((res) => res.json())
-                //res is now the id assigned to the tasker in the taskers table, now post to the tasker_version table
-                .then((res) => {
-                    let newTasker = this.state.tasker;
-                    newTasker.tasker_id = res;
-                    // console.log(newTasker)
-                    this.setState({ tasker : newTasker });
+        if(this.state.tasker.sendToUnits.length === 0){
 
-                    fetch(`http://localhost:3001/tasker_version`, {
-                        method: 'POST',
-                        headers : {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(newTasker),
-                    });
+        } else (
+            //send a post to the taskers table with originator unit
+            fetch(`http://localhost:3001/taskers`, {
+                method: 'POST',
+                headers : {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.state.tasker),
+            })
+                .then((res) => res.json())
+                    //res is now the id assigned to the tasker in the taskers table, now post to the tasker_version table
+                    .then((res) => {
+                        let newTasker = this.state.tasker;
+                        newTasker.tasker_id = res;
+                        // console.log(newTasker)
+                        this.setState({ tasker : newTasker });
 
-                    fetch(`http://localhost:3001/units_assigned_taskers`, {
-                        method: 'POST',
-                        headers : {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(newTasker),
-                    }).then((res) => res.json()).then((res) => console.log(res))
-                        // .then((res) => {console.log(res)})
+                        fetch(`http://localhost:3001/tasker_version`, {
+                            method: 'POST',
+                            headers : {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(newTasker),
+                        });
 
-                })
-                //now send post to units_assigned_taskers table
+                        fetch(`http://localhost:3001/units_assigned_taskers`, {
+                            method: 'POST',
+                            headers : {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(newTasker),
+                        }).then((res) => res.json()).then((res) => console.log(res))
+                            // .then((res) => {console.log(res)})
 
-
-        //send post to tasker version with all info, version 0 
-
-        //send post to units_assigned_taskers table for each unit assigned
-
+                        fetch(`http://localhost:3001/notifications`, {
+                            method: 'POST',
+                            headers : {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(newTasker),
+                        })
+                    })
+        )
     }
 
     render() {
