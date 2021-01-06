@@ -10,16 +10,17 @@ const cors = require('cors');
 app.use(cors())
 app.options('*', cors())
 
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 )
 
 app.get('/users', userQueries.getAllUsers)
 
-app.get('/inbox/taskers/:id', taskerInQueries.getIncomingTaskers);
+app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
+app.put('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
