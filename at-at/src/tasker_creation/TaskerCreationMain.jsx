@@ -21,7 +21,19 @@ class TaskerCreationMain extends React.Component {
 
     componentDidMount() {
         // do initial api queries here - get the values for the units to populate the pulldown in the taskerform
-        this.setState({ units: ['Chief of Space Operations (CSO)', 'USSF Element - NRO', 'Space Operations Command (SpOC)'] })
+        // this.setState({ units: ['Chief of Space Operations (CSO)', 'USSF Element - NRO', 'Space Operations Command (SpOC)'] })
+    
+        fetch(`http://localhost:3001/unit_names`, {
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then((res) => res.json())
+                .then((res) => {
+                    // console.log(res);
+                    this.setState({ units : res })
+                })
     }
 
     handleInputChange = (e) => {
@@ -37,7 +49,7 @@ class TaskerCreationMain extends React.Component {
                 tempSendToUnits.push(values[i].unit)
             }
         }
-        console.log(tempSendToUnits)
+        // console.log(tempSendToUnits)
         this.setState({ sendToUnits : tempSendToUnits })
     }
 
@@ -45,6 +57,13 @@ class TaskerCreationMain extends React.Component {
     handleSubmitTasker = (e) => {
         e.preventDefault();     //may want to change this later
         console.log(this.state.sendToUnits, this.state.tasker);
+
+        //send a post to taskers table with originator unit
+        
+        //send post to tasker version with all info, version 0 
+
+        //send post to units_assigned_taskers table for each unit assigned
+
     }
 
     render() {
@@ -55,7 +74,8 @@ class TaskerCreationMain extends React.Component {
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
                     onUnitChange = {this.handleUnitChange}
-                    onSubmitTasker = {this.handleSubmitTasker}                    units = {this.state.units}
+                    onSubmitTasker = {this.handleSubmitTasker}                    
+                    units = {this.state.units}
                 />
                 {/* <FormExample/> */}
             </div>
