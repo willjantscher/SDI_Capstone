@@ -5,6 +5,8 @@ to do:
     add conditional rendering for the form/success message
 
     add alerts for input fields blank when they can't be null
+        create a switch based on the submit_flag!
+        set to null when clicking a button to submit another 
 
 
     beautification with https://www.astrouxds.com/
@@ -24,6 +26,7 @@ to do:
 import React from "react"
 
 import TaskerForm from "./TaskerForm"
+import SubmitTaskerChecker from "./SubmitTaskerChecker"
 
 class TaskerCreationMain extends React.Component {
     constructor(props) {
@@ -45,6 +48,7 @@ class TaskerCreationMain extends React.Component {
                 predicted_workload : null,
                 desc_text : null,
             },
+            submit_flag: null,
             loged_in_unit: null,
         }
     }
@@ -108,13 +112,11 @@ class TaskerCreationMain extends React.Component {
 
 
     handleSubmitTasker = async (e) => {
-        e.preventDefault();     //may want to change this later
-        console.log(this.state.tasker);
-
-        if(this.state.tasker.sendToUnits.length === 0){
-
-        } else (
-            //send a post to the taskers table with originator unit
+        e.preventDefault();
+        let flag = SubmitTaskerChecker(this.state.tasker)
+        this.setState({ submit_flag : flag })
+        //checks to see if data is good for a submit
+        if(flag === 'good'){
             fetch(`http://localhost:3001/taskers`, {
                 method: 'POST',
                 headers : {
@@ -155,6 +157,9 @@ class TaskerCreationMain extends React.Component {
                             body: JSON.stringify(newTasker),
                         })
                     })
+        } else (
+            //send a post to the taskers table with originator unit
+            console.log(flag)
         )
     }
 
