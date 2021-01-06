@@ -7,6 +7,11 @@ services:
       - '3000:3000'
     depends_on:
       - 'server'
+    volumes:
+      - './at-at:/app'
+      - '/app/node_modules'
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
   
   server:
     build: server
@@ -14,6 +19,11 @@ services:
       - '3001:3001'
     depends_on:
       - 'database'
+    volumes:
+      - './server:/server'
+      - '/server/node_modules'
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
 
   database:
     image: postgres:latest

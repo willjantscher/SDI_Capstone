@@ -109,19 +109,19 @@ INSERT INTO units (unit_name, unique_id, parent_unique_id) VALUES
 
 -- users
 INSERT INTO users (unit_id, username, passphrase, first_name, last_name) VALUES
-	(1, 'bigCheese', 'semperSupra', 'Jay', 'Raymond'),
-	(2, 'acqMan', 'acqMan', 'John', 'Thompson'),
-	(3, 'staffman', 'staffman', 'Jane', 'Staffer'),
-	(4, 'spook', 'spook', 'Government', 'Spook'),
-	(5, 'swhiting', 'swhiting', 'Stephen', 'Whiting'),
-	(6, 'pflores', 'pflores', 'Peter', 'Flores'),
-	(7, 'snuffy', 'snuffy', 'Guardian', 'Snuffy'),
-	(7, 'mcantore', 'mcantore', 'Matthew', 'Cantore'),
-	(8, 'jthien', 'jthien', 'John', 'Thien'),
-	(9, 'rbourquin', 'rbourquin', 'Richard', 'Bourquin'),
-	(37, 'mdelauter', 'mdelauter', 'Monique', 'DeLauter'),
-	(21, 'rrockwell', 'rrockwell', 'Roy', 'Rockwell'),
-	(12, 'catwood', 'catwood', 'Chandler', 'Atwood');
+	(1, 'bigCheese', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Jay', 'Raymond'),
+	(2, 'acqMan', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'John', 'Thompson'),
+	(3, 'staffman', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Jane', 'Staffer'),
+	(4, 'spook', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Government', 'Spook'),
+	(5, 'swhiting', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Stephen', 'Whiting'),
+	(6, 'pflores', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Peter', 'Flores'),
+	(7, 'snuffy', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Guardian', 'Snuffy'),
+	(7, 'mcantore', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Matthew', 'Cantore'),
+	(8, 'jthien', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'John', 'Thien'),
+	(9, 'rbourquin', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Richard', 'Bourquin'),
+	(37, 'mdelauter', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Monique', 'DeLauter'),
+	(21, 'rrockwell', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Roy', 'Rockwell'),
+	(12, 'catwood', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Chandler', 'Atwood');
 
 -- taskers
 INSERT INTO taskers (originator_unit_id) VALUES
