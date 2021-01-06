@@ -76,7 +76,7 @@ class TaskerCreationMain extends React.Component {
                 tempSendToUnits.push(values[i].unit)
             }
         }
-        tempSendToUnits_ids = tempSendToUnits.map((unit) => this.state.units.indexOf(unit))
+        tempSendToUnits_ids = tempSendToUnits.map((unit) => this.state.units.indexOf(unit) + 1)
         tempTasker.sendToUnits_ids = tempSendToUnits_ids;
         tempTasker.sendToUnits = tempSendToUnits;
         // console.log(tempSendToUnits)
@@ -86,9 +86,9 @@ class TaskerCreationMain extends React.Component {
 
     handleSubmitTasker = async (e) => {
         e.preventDefault();     //may want to change this later
-        // console.log(this.state.tasker);
+        console.log(this.state.tasker);
         //check to see that all required fields are filled out, send error if not
- 
+
         //send a post to the taskers table with originator unit
         fetch(`http://localhost:3001/taskers`, {
             method: 'POST',
