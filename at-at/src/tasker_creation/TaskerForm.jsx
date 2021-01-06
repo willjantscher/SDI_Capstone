@@ -12,7 +12,7 @@ const TaskerForm = (props) => {
         return(
             <option
                 value={unit}
-                key={i}
+                key={props.units.indexOf(unit)}
             >
                 {unit}
             </option>
@@ -20,7 +20,7 @@ const TaskerForm = (props) => {
     })
 
     const [inputFields, setInputFields] = useState([
-        { unit : '' }
+        { unit : '' , unit_id : ''}
     ]);
 
     const handleAddFields = () => {
@@ -43,11 +43,37 @@ const TaskerForm = (props) => {
         props.onUnitChange(values);
     };
 
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     console.log("inputFields", inputFields);
-    //     console.log(inputFields[0].unit)
-    // };
+    const buttonHandler = (index) => {
+        if(inputFields.length<2) {
+            return(
+                <button
+                className="btn btn-link"
+                type="button"
+                onClick={() => handleAddFields()}
+                >
+                +
+                </button>
+            )
+        } else return(
+            <div>
+                <button
+                className="btn btn-link"
+                type="button"
+                onClick={() => handleRemoveFields(index)}   //will need to update the list of units when one is removed!!!!
+                >
+                -
+                </button>
+
+                <button
+                className="btn btn-link"
+                type="button"
+                onClick={() => handleAddFields()}
+                >
+                +
+                </button>
+            </div>
+        )
+    }
 
     return(
         <>
@@ -70,20 +96,7 @@ const TaskerForm = (props) => {
                         </div>
 
                         <div className="form-group col-sm-2">
-                            <button
-                            className="btn btn-link"
-                            type="button"
-                            onClick={() => handleRemoveFields(index)}
-                            >
-                            -
-                            </button>
-                            <button
-                            className="btn btn-link"
-                            type="button"
-                            onClick={() => handleAddFields()}
-                            >
-                            +
-                            </button>
+                            {buttonHandler(index)}
                         </div>
 
                         </Fragment>
@@ -111,7 +124,7 @@ const TaskerForm = (props) => {
 
                 <div>
                     <span>Priority</span>
-                    <select id="priority" defaultValue = "Low" onChange={props.onInputChange}>
+                    <select id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
                         <option key="Low" value="Low">Low</option>
                         <option key="Medium" value="Medium">Medium</option>
                         <option key="High" value="High">High</option>
@@ -132,24 +145,14 @@ const TaskerForm = (props) => {
 
                 <div>
                     <textarea 
-                        id="description"
+                        id="desc_text"
                         placeholder="Tasker Description"
                         onChange={props.onInputChange} 
                     ></textarea>
                 </div>
 
                 <input type="submit" value="Send Tasker with Extreme Prejudice"/>
-
-{/* remove this button when done */}
-                {/* <div className="submit-button">
-                    <button
-                        className="btn btn-primary mr-2"
-                        onClick={handleSubmit}
-                    >
-                        Save
-                    </button>
-                </div> */}
-                </form>
+            </form>
             <span> ------------------------------------------------------------------------ </span>
         </>
     )
