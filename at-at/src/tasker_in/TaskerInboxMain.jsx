@@ -19,7 +19,8 @@ class TaskerInboxMain extends React.Component {
   }
 
   handleTaskerShowDetails = (e) => {
-    console.log(e.target);
+    const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === parseInt(e.target.id));
+    this.setState({selectedTasker: selectedTasker});
   }
 
   render() {
