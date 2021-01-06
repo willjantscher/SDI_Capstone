@@ -1,16 +1,20 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 const userQueries = require('./userQueries')
 const taskerCreationQueries = require('./taskerCreationQueries')
 const sentQueries = require('./taskerOutQueries')
 const loginQueries = require('./loginQueries')
  
-const cors = require('cors')
 const app = express()
-app.use(cors())
 const port = 3001
+
+const corsOptions = {
+  credentials: true
+}
+app.use(cors(corsOptions))
 
 app.use(bodyParser.json())
 app.use(
@@ -20,12 +24,6 @@ app.use(
 )
 
 app.use(cookieParser())
-
-//COOKIE
-app.get('/cookie', function(req, res){
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.cookie('name', 'express').send('cookie set'); //Sets name = express
-});
 
 app.get('/users', userQueries.getAllUsers)
 app.get('/unit_names', taskerCreationQueries.getAllUnitNames)
