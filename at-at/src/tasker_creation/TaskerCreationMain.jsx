@@ -5,6 +5,8 @@ to do:
     add conditional rendering for the form/success message
 
     add alerts for input fields blank when they can't be null
+        create a switch based on the submit_flag!
+        set to null when clicking a button to submit another 
 
 
     beautification with https://www.astrouxds.com/
