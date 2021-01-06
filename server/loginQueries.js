@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt')
 
 const authenticateUser = async (request, response) => {
   let { username, passphrase } = request.body;
+  response.cookie('username', username)
+  response.status(200).send()
+  /*
 
   pool.query(
     'SELECT * FROM users WHERE username = $1', [username], (err, results) => {
@@ -17,6 +20,7 @@ const authenticateUser = async (request, response) => {
           }
           if(isMatch){
             console.log("authenticated")
+            response.cookie('username', username)
             response.status(200).json(results.rows)
           } else{
             console.log("incorrect password")
@@ -27,6 +31,7 @@ const authenticateUser = async (request, response) => {
         response.status(404).send("username not found")
       }
     })
+    */
 }
 
 module.exports = {

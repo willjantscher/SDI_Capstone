@@ -1,5 +1,5 @@
 import React from "react"
-
+import Cookies from 'universal-cookie';
 
 class LoginMain extends React.Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class LoginMain extends React.Component {
     }    
 
     handleLogin = async () => {
+        /*
         const response = await fetch(`http://localhost:3001/authenticate`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
@@ -23,14 +24,22 @@ class LoginMain extends React.Component {
                 passphrase: this.state.passphrase,
               })
            });
+           */
+        const response = await fetch(`http://localhost:3001/cookie`, { credentials: 'include' })
         if(response.status == 401){
             alert("Incorrect password or username.")
         } else if(response.status == 404){
             alert("Username not found. Please register first.")
         } else {
+            alert('reached')
+            let cookie = new Cookies(); 
+            let name = cookie.get("name")
+            alert(name)
+            /*
             const resDetails = await response.json();
             alert(`Welcome ${resDetails[0].first_name} ${resDetails[0].last_name}!`)
             this.props.history.push('/create_tasker')
+            */
         }
     }
 
