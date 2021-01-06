@@ -3,7 +3,9 @@ const bodyParser = require('body-parser')
 const userQueries = require('./userQueries')
 const taskerCreationQueries = require('./taskerCreationQueries')
 
+const cors = require('cors')
 const app = express()
+app.use(cors())
 const port = 3001
 
 app.use(bodyParser.json())

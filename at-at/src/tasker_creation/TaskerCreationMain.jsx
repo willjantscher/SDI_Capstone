@@ -22,6 +22,18 @@ class TaskerCreationMain extends React.Component {
     componentDidMount() {
         // do initial api queries here - get the values for the units to populate the pulldown in the taskerform
         this.setState({ units: ['Chief of Space Operations (CSO)', 'USSF Element - NRO', 'Space Operations Command (SpOC)'] })
+    
+        fetch(`http://localhost:3001/unit_names`, {
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then((res) => res.json())
+                .then((res) => {
+                    console.log(res);
+                    this.setState({ units : res })
+                })
     }
 
     handleInputChange = (e) => {
