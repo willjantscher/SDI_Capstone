@@ -30,13 +30,16 @@ const authenticateUser = async (request, response) => {
         const user = results.rows[0];
         let user_salt = user.salt;
         let user_hash = user.passphrase;
+        let user_id = user.id;
+        let unit_id = user.unit_id;
         
         let input_hash = crypto.pbkdf2Sync(passphrase,  
           user_salt, 1000, 64, `sha512`).toString(`hex`);
         
         if(user_hash === input_hash){
           console.log("authenticated")
-          response.cookie('username', username)
+          response.cookie('user_id', user_id)
+          response.cookie('unit_id', unit_id)
           response.status(200).json(results.rows)
         } else{
           console.log("incorrect password")

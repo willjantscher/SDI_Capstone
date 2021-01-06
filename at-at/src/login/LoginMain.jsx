@@ -32,7 +32,10 @@ class LoginMain extends React.Component {
         } else {
             const resDetails = await response.json();
             alert(`Welcome ${resDetails[0].first_name} ${resDetails[0].last_name}!`)
-            //this.props.history.push('/create_tasker')
+            let cookies = new Cookies();
+            alert("user_id " + cookies.get("user_id"))
+            alert("unit_id " + cookies.get("unit_id"))
+            this.props.history.push('/create_tasker')
         }
     }
 
@@ -55,3 +58,4 @@ class LoginMain extends React.Component {
 
 
 export default LoginMain;
+
