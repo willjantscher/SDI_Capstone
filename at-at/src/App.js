@@ -2,7 +2,6 @@ import './App.css';
 import React from "react"
 import {
   BrowserRouter as Router,
-  Link,
   Redirect,
   Route,
 } from "react-router-dom";
@@ -17,9 +16,9 @@ import TaskerOutboxMain from "./tasker_out/TaskerOutboxMain"
 import NotificationsMain from "./notifications/NotificationsMain"
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
