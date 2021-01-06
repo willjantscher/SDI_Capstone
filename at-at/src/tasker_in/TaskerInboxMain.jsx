@@ -6,8 +6,9 @@ class TaskerInboxMain extends React.Component {
     super(props);
     this.apiURL = 'http://localhost:3001';
     this.state = {
-        unitId: 39,
+        unitId: 16,
         taskers: [],
+        selectedTasker: {},
     }
   }
 
@@ -17,11 +18,14 @@ class TaskerInboxMain extends React.Component {
     this.setState({taskers: taskers});
   }
 
+  handleTaskerShowDetails = (e) => {
+    console.log(e.target);
+  }
+
   render() {
     return(
         <div>
-            I am inside of the Tasker Inbox Main page
-            <TaskerList taskers={this.state.taskers}/>
+            <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
         </div>
     );
   }

@@ -1,26 +1,13 @@
 import React from "react";
-import { DateTime } from 'luxon';
+import TaskerItem from './TaskerItem';
 
 class TaskerList extends React.Component {
-  generateTaskerRow = () => {
-    const { tasker_id, priority_lvl, suspense_date, tasker_name, predicted_workload } = this.props.taskers[0];
-    const localSuspense = DateTime.fromISO(suspense_date, {zone: 'utc'});
-    return (
-      <tr>
-        <td>{tasker_id}</td>
-        <td>{priority_lvl}</td>
-        <td>{localSuspense.toLocaleString()}</td>
-        <td>{tasker_name}</td>
-        <td>{predicted_workload}</td>
-      </tr>
-    );
-  }
-
   render() {
     return(
         <table>
           <thead>
             <tr>
+              <td></td>
               <td>ID</td>
               <td>Priority</td>
               <td>Suspense</td>
@@ -29,7 +16,7 @@ class TaskerList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.taskers.length > 0 ? this.generateTaskerRow() : <tr/>}
+            {this.props.taskers.map(tasker => <TaskerItem key={`TaskerItem${tasker.tasker_id}`} tasker={tasker} showDetails={this.props.showDetails}/>)}
           </tbody>
         </table>
     );
