@@ -6,12 +6,23 @@ class NotificationsMain extends React.Component {
     constructor(props) {
         super(props) 
         this.state = {
-                notifications: [],
+                notifications: ['did not update'],
         }
     }
 
     componentDidMount(){
-        this.setState({notifications: ['test']})
+        fetch('http://localhost:3001/notifications', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res)
+            this.setState({notifications: res})
+        })
     }
 
     componentDidUpdate(){
@@ -22,10 +33,11 @@ class NotificationsMain extends React.Component {
 
     render() {
         return(
-            <div> I am inside of the Notification page
-            <NotificationViewer>
+            <div> NotificationsMain
 
-            </NotificationViewer>
+            <NotificationViewer
+                notifications = {this.state.notifications}
+            />
             </div>
         )
     }

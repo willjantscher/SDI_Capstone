@@ -1,5 +1,5 @@
 const pool = require('./pool.js').getPool()
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 
 const authenticateUser = async (request, response) => {
   let { username, passphrase } = request.body;

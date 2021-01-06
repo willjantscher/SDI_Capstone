@@ -23,8 +23,8 @@ app.post('/authenticate', loginQueries.authenticateUser)
 
 
 app.get('/notifications', notificationQueries.getAllNotifications)
-
 app.get('/notifications/:id', notificationQueries.myNotifications)
+app.post('/notifications', (request, response) => notificationQueries.postToNotifications(request,response))
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
