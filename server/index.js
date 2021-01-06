@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const userQueries = require('./userQueries')
+const taskerInQueries = require('./taskerInQueries')
 const taskerCreationQueries = require('./taskerCreationQueries')
 const sentQueries = require('./taskerOutQueries')
 const loginQueries = require('./loginQueries')
@@ -10,9 +11,13 @@ const app = express()
 app.use(cors())
 const port = 3001
 
-app.use(bodyParser.json())
+const cors = require('cors');
+app.use(cors())
+app.options('*', cors())
+
+app.use(express.json())
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 )
@@ -23,6 +28,9 @@ app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
 
 app.post('/authenticate', loginQueries.authenticateUser)
+
+app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
+app.put('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
