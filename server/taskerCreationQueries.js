@@ -69,6 +69,7 @@ const postUnitsAssignedTaskers = (request, response) => {
     for(let item of posts) {
         query += 'INSERT INTO units_assigned_taskers (tasker_id, unit_id, routing_at_unit_id, current_status) VALUES (' + item[0] + ', ' + item[1] + ', ' + item[2] + `, '` + item[3] +`'); `
     }
+    
     // console.log(query)
 
     pool.query(query, function(error, results) {
@@ -76,6 +77,26 @@ const postUnitsAssignedTaskers = (request, response) => {
             throw error
         }
         response.status(200).json('taskers distributed to units')
+    })
+}
+const postToNotifications = (request, response) => {
+    const tasker = request.body;
+    // console.log(tasker)
+    let posts = [];
+    for(let i = 0; i < tasker.sendToUnits.length; i ++) {
+        posts.push([tasker.sendToUnits_ids[i], `You have been assigned a tasker: ${tasker.tasker_name}`, false])
+    }
+    // console.log(posts)
+    let query = '';
+    for(let item of posts) {
+        query += 'INSERT INTO notifications (unit_to, details, isRead) VALUES (' + item[0] + `, '` + item[1] + `', ` + item[2] + `); `
+    }
+    // console.log(query)
+    pool.query(query, (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json('notifications posted')
     })
 }
 
@@ -88,7 +109,8 @@ module.exports = {
     postTasker,
     postTaskerVersion,
     getAllTaskerVersion,
-    postUnitsAssignedTaskers
+    postUnitsAssignedTaskers,
+    postToNotifications
 }
 
 
