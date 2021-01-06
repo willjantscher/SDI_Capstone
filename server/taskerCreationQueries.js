@@ -74,6 +74,7 @@ const postUnitsAssignedTaskers = (request, response) => {
 
     pool.query(query, function(error, results) {
         if (error) {
+            response.sendStatus(500)
             throw error
         }
         response.status(200).json('taskers distributed to units')
@@ -94,6 +95,7 @@ const postToNotifications = (request, response) => {
     // console.log(query)
     pool.query(query, (error, results) => {
         if (error) {
+            response.sendStatus(500)
             throw error
         }
         response.status(200).json('notifications posted')
