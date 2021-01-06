@@ -124,7 +124,7 @@ const TaskerForm = (props) => {
 
                 <div>
                     <span>Priority</span>
-                    <select id="priority" defaultValue = "Low" onChange={props.onInputChange}>
+                    <select id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
                         <option key="Low" value="Low">Low</option>
                         <option key="Medium" value="Medium">Medium</option>
                         <option key="High" value="High">High</option>
@@ -145,7 +145,7 @@ const TaskerForm = (props) => {
 
                 <div>
                     <textarea 
-                        id="description"
+                        id="desc_text"
                         placeholder="Tasker Description"
                         onChange={props.onInputChange} 
                     ></textarea>

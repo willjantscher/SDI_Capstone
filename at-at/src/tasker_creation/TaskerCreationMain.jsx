@@ -8,15 +8,16 @@ class TaskerCreationMain extends React.Component {
         this.state = {
             units: [],  //api querry should only return array of names
             tasker: {
+                tasker_id : null,
                 originator_unit_id : 1,
                 sendToUnits: [],
-                version : 0,
+                version_num : 0,
                 updated_on : null,
                 tasker_name : null,
                 suspense_date : null,
-                priority : null,
+                priority_lvl : null,
                 predicted_workload : null,
-                description : null,
+                desc_text : null,
             },
             loged_in_unit: null,
         }
@@ -37,7 +38,7 @@ class TaskerCreationMain extends React.Component {
     }
 
     componentDidMount() {
-        let date = this.formatDate(new Date(), 'yyyy-mm-dd');
+        let date = this.formatDate(new Date(), 'YYYY-MM-DD');
         // console.log(date)
         let tempTasker = this.state.tasker;
         tempTasker.updated_on = date;
@@ -79,21 +80,36 @@ class TaskerCreationMain extends React.Component {
 
     handleSubmitTasker = async (e) => {
         e.preventDefault();     //may want to change this later
-        console.log(this.state.tasker);
+        // console.log(this.state.tasker);
         //check to see that all required fields are filled out, send error if not
 
-        //send a post to /taskers with all tasker info
 
-        var res = await fetch(`http://localhost:3001/taskers`, {
+        //format data for post to units_assigned_taskers
+ 
+        //send a post to /taskers with originator unit
+        fetch(`http://localhost:3001/taskers`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            headers : {
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state.tasker)
+            body: JSON.stringify(this.state.tasker),
         })
-        console.log(await res.json())
-            // .then((res) => res.json())
-            //     .then((res) => {console.log(res)})
+            .then((res) => res.json())
+                //res is now the id assigned to the tasker in the taskers table, now post to the 
+                .then((res) => {
+                    // console.log(res)
+                    let newTasker = this.state.tasker;
+                    newTasker.tasker_id = res;
+                    console.log(newTasker)
+                    this.setState({ tasker : newTasker });
+                    fetch(`http://localhost:3001/tasker_version`, {
+                        method: 'POST',
+                        headers : {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(newTasker),
+                    })
+                })
         //send post to tasker version with all info, version 0 
 
         //send post to units_assigned_taskers table for each unit assigned

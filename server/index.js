@@ -23,7 +23,7 @@ app.get('/users', userQueries.getAllUsers)
 app.get('/unit_names', taskerCreationQueries.getAllUnitNames)
 app.get('/taskers', taskerCreationQueries.getAllTaskers)
 app.post('/taskers', (request, response) => taskerCreationQueries.postTasker(request, response))
-
+app.post('/tasker_version', (request, response) => taskerCreationQueries.postTaskerVersion(request, response))
 
 app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
