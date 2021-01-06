@@ -17,7 +17,7 @@ app.get('/users', userQueries.getAllUsers)
 
 app.get('/notifications', notificationQueries.getAllNotifications)
 
-app.get('/notifications/{id}', notificationQueries.myNotifications)
+app.get('/notifications/:id', notificationQueries.myNotifications)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
