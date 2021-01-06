@@ -11,8 +11,6 @@ const app = express()
 app.use(cors())
 const port = 3001
 
-const cors = require('cors');
-app.use(cors())
 app.options('*', cors())
 
 app.use(express.json())
