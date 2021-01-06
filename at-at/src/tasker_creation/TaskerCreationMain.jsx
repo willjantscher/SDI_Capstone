@@ -1,16 +1,17 @@
 import React from "react"
 
 import TaskerForm from "./TaskerForm"
-import FormExample from "./FormExample"
 
 class TaskerCreationMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             units: [],  //api querry should only return array of names
-            sendToUnits: [],
             tasker: {
                 originator_unit_id : 1,
+                sendToUnits: [],
+                version : 0,
+                updated_on : null,
                 tasker_name : null,
                 suspense_date : null,
                 priority : null,
@@ -21,7 +22,28 @@ class TaskerCreationMain extends React.Component {
         }
     }
 
+    formatDate = (date) => {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
+
     componentDidMount() {
+        let date = this.formatDate(new Date(), 'yyyy-mm-dd');
+        // console.log(date)
+        let tempTasker = this.state.tasker;
+        tempTasker.updated_on = date;
+        this.setState({ tasker : tempTasker })
+
+        // console.log(current_date)
         fetch(`http://localhost:3001/unit_names`, {
             headers : {
                 'Content-Type': 'application/json',
@@ -42,31 +64,36 @@ class TaskerCreationMain extends React.Component {
     }
 
     handleUnitChange = (values) => {
-        let tempSendToUnits = []
+        let tempSendToUnits = [];
+        let tempTasker = this.state.tasker;
         for(let i = 0; i < values.length; i++) {
             if(values[i].unit !== "") {
                 tempSendToUnits.push(values[i].unit)
             }
         }
+        tempTasker.sendToUnits = tempSendToUnits;
         // console.log(tempSendToUnits)
-        this.setState({ sendToUnits : tempSendToUnits })
+        this.setState({ tasker : tempTasker })
     }
 
 
-    handleSubmitTasker = (e) => {
+    handleSubmitTasker = async (e) => {
         e.preventDefault();     //may want to change this later
         console.log(this.state.tasker);
+        //check to see that all required fields are filled out, send error if not
 
-        //send a post to taskers table with originator unit
-        fetch(`http://localhost:3001/taskers`, {
+        //send a post to /taskers with all tasker info
+
+        var res = await fetch(`http://localhost:3001/taskers`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state.tasker)
         })
-            .then((res) => res.json())
-                .then((res) => {console.log(res)})
+        console.log(await res.json())
+            // .then((res) => res.json())
+            //     .then((res) => {console.log(res)})
         //send post to tasker version with all info, version 0 
 
         //send post to units_assigned_taskers table for each unit assigned

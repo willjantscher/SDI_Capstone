@@ -23,11 +23,11 @@ const getAllTaskers = (request, response) => {
 const postTasker = (request, response) => {
     const tasker = request.body;
     console.log(tasker)
-    pool.query('INSERT INTO taskers (originator_unit_id) VALUES ($1)', [tasker.originator_unit_id], function(error, results) {
+    pool.query('INSERT INTO taskers (originator_unit_id) VALUES ($1) RETURNING id', [tasker.originator_unit_id], function(error, results) {
         if (error) {
             throw error
         }
-        response.status(200).json("tasker sent")
+        response.status(200).json(results.rows[0].id)
     })
 }
 
