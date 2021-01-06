@@ -12,7 +12,7 @@ const TaskerForm = (props) => {
         return(
             <option
                 value={unit}
-                key={i}
+                key={props.units.indexOf(unit)}
             >
                 {unit}
             </option>
@@ -20,7 +20,7 @@ const TaskerForm = (props) => {
     })
 
     const [inputFields, setInputFields] = useState([
-        { unit : '' }
+        { unit : '' , unit_id : ''}
     ]);
 
     const handleAddFields = () => {
@@ -59,7 +59,7 @@ const TaskerForm = (props) => {
                 <button
                 className="btn btn-link"
                 type="button"
-                onClick={() => handleRemoveFields(index)}
+                onClick={() => handleRemoveFields(index)}   //will need to update the list of units when one is removed!!!!
                 >
                 -
                 </button>
