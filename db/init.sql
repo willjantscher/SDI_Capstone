@@ -27,7 +27,7 @@ CREATE TABLE units_assigned_taskers (
 	routing_at_unit_id INT REFERENCES units(id) ON DELETE CASCADE,
 	response TEXT,
 	current_status TEXT NOT NULL,
-	actual_workload TIME
+	actual_workload INT
 );
 
 CREATE TABLE tasker_reply_attachments (
@@ -50,8 +50,15 @@ CREATE TABLE tasker_version (
 	tasker_name TEXT NOT NULL,
 	suspense_date DATE NOT NULL,
 	priority_lvl TEXT NOT NULL,
-	predicted_workload TIME,
+	predicted_workload INT,
 	desc_text TEXT NOT NULL
+);
+
+CREATE TABLE notifications (
+	id serial PRIMARY KEY,
+	unit_to INT NOT NULL REFERENCES units(id),
+	details TEXT,
+	isRead BOOLEAN NOT NULL
 );
 
 -- Populate with mock data
@@ -109,19 +116,19 @@ INSERT INTO units (unit_name, unique_id, parent_unique_id) VALUES
 
 -- users
 INSERT INTO users (unit_id, username, passphrase, first_name, last_name) VALUES
-	(1, 'bigCheese', 'semperSupra', 'Jay', 'Raymond'),
-	(2, 'acqMan', 'acqMan', 'John', 'Thompson'),
-	(3, 'staffman', 'staffman', 'Jane', 'Staffer'),
-	(4, 'spook', 'spook', 'Government', 'Spook'),
-	(5, 'swhiting', 'swhiting', 'Stephen', 'Whiting'),
-	(6, 'pflores', 'pflores', 'Peter', 'Flores'),
-	(7, 'snuffy', 'snuffy', 'Guardian', 'Snuffy'),
-	(7, 'mcantore', 'mcantore', 'Matthew', 'Cantore'),
-	(8, 'jthien', 'jthien', 'John', 'Thien'),
-	(9, 'rbourquin', 'rbourquin', 'Richard', 'Bourquin'),
-	(37, 'mdelauter', 'mdelauter', 'Monique', 'DeLauter'),
-	(21, 'rrockwell', 'rrockwell', 'Roy', 'Rockwell'),
-	(12, 'catwood', 'catwood', 'Chandler', 'Atwood');
+	(1, 'bigCheese', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Jay', 'Raymond'),
+	(2, 'acqMan', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'John', 'Thompson'),
+	(3, 'staffman', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Jane', 'Staffer'),
+	(4, 'spook', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Government', 'Spook'),
+	(5, 'swhiting', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Stephen', 'Whiting'),
+	(6, 'pflores', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Peter', 'Flores'),
+	(7, 'snuffy', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Guardian', 'Snuffy'),
+	(7, 'mcantore', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Matthew', 'Cantore'),
+	(8, 'jthien', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'John', 'Thien'),
+	(9, 'rbourquin', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Richard', 'Bourquin'),
+	(37, 'mdelauter', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Monique', 'DeLauter'),
+	(21, 'rrockwell', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Roy', 'Rockwell'),
+	(12, 'catwood', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Chandler', 'Atwood');
 
 -- taskers
 INSERT INTO taskers (originator_unit_id) VALUES
@@ -135,14 +142,23 @@ INSERT INTO units_assigned_taskers (tasker_id, unit_id, routing_at_unit_id, resp
 	(3, 38, NULL, NULL, 'in progress', NULL),
 	(3, 39, NULL, NULL, 'in progress', NULL),
 	(2, 16, NULL, NULL, 'in progress', NULL),
-	(2, 17, NULL, 'ECXCO Nominates General Daehler for Ghost program', 'completed', '00:30:00'),
-	(1, 24, NULL, 'Nothing to report', 'completed', '00:10:00');
+	(2, 17, NULL, 'ECXCO Nominates General Daehler for Ghost program', 'completed', 5),
+	(1, 24, NULL, 'Nothing to report', 'completed', 2);
 
 -- tasker versions
 INSERT INTO 
 	tasker_version( tasker_id, version_num, updated_on, tasker_name, suspense_date, priority_lvl, predicted_workload, desc_text )
 VALUES
-	(1, 1, '2020-12-01', 'Celebrate Space Force Birthday', '2020-12-20', 'Low', '00:00:01', 'Mandatory fun'),
-	(2, 1, '2020-12-25', 'Finish the MVP', '2021-02-07', 'Medium', '21:30:00', 'Have a minimum viable product to deploy to P1'),
-	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', '23:59:59', 'Have a finished product to present')
+	(1, 1, '2020-12-01', 'Celebrate Space Force Birthday', '2020-12-20', 'Low', 1, 'Mandatory fun'),
+	(2, 1, '2020-12-25', 'Finish the MVP', '2021-02-07', 'Medium', 22, 'Have a minimum viable product to deploy to P1'),
+	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', 55, 'Have a finished product to present')
 	;
+
+INSERT INTO notifications( unit_to, details, isRead)
+VALUES 
+	(23, 'Space Force Birthday', false), 
+	(38, 'Capstone', false), 
+	(39, 'Capstone', false), 
+	(16, 'MVP', true), 
+	(17, 'MVP', true), 
+	(24, 'Space Force Birthday', true); 
