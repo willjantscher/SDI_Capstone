@@ -32,14 +32,13 @@ class RegisterMain extends React.Component {
             return
         }
         if(!this.state.selected_unit || !this.state.username || !this.state.passphrase || !this.state.first_name || !this.state.last_name){
-            alert('Please fill in all fields')
-            return
+            alert('Please input a unit')
         }
         const response = await fetch(`http://localhost:3001/register`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
-                unit_id: this.state.unit_names.indexOf(this.state.selected_unit),
+                unit_id: this.state.unit_names.indexOf(this.state.selected_unit) + 1,
                 username: this.state.username,
                 passphrase: this.state.passphrase,
                 first_name: this.state.first_name,
