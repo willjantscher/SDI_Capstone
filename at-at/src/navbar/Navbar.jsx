@@ -7,8 +7,6 @@ import { RuxButton } from '@astrouxds/rux-button/rux-button.js';
 import { RuxTabs } from '@astrouxds/rux-tabs/rux-tabs.js';
 import Cookies from 'universal-cookie';
 import { RuxClassification } from '@astrouxds/rux-classification-marking/rux-classification-marking.js';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 
 class Navbar extends React.Component {
