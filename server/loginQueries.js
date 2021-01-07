@@ -68,10 +68,10 @@ const authenticateUser = async (request, response) => {
 }
 
 const getUser = async (request, response) => {
-  const username = request.params.username
+  const id = request.params.id
   pool.query(
-    'SELECT * FROM users WHERE username = $1', 
-    [username],
+    'SELECT username, first_name, last_name, perms FROM users WHERE id = $1', 
+    [id],
     (err, results) => {
       if(err){
         throw err;

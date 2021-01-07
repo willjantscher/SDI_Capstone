@@ -1,4 +1,5 @@
 const express = require('express')
+const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
@@ -50,7 +51,7 @@ app.get('/myresponses/:id', sentQueries.responses)
 
 app.post('/authenticate', loginQueries.authenticateUser)
 app.post('/register', loginQueries.registerUser)
-app.get('/user/:username', loginQueries.getUser)
+app.get('/user/:id', loginQueries.getUser)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.get('/inbox/taskers/originators/:unitId', taskerInQueries.getTaskerOriginators);
