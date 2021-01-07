@@ -31,7 +31,7 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/home">
+          <a className="navbar-brand" href="/authenticated_user/home">
             Home
           </a>
           <button
@@ -47,40 +47,32 @@ class Navbar extends React.Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  Login
-                </a>
-              </li>
               <li className="nav-item">
-                <a className="nav-link" href="/create_tasker">
+                <a className="nav-link" href="/authenticated_user/create_tasker">
                   Create a tasker
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/tasker_inbox">
+                <a className="nav-link" href="/authenticated_user/tasker_inbox">
                   View tasker inbox
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/tasker_outbox">
+                <a className="nav-link" href="/authenticated_user/tasker_outbox">
                   View tasker outbox
                 </a>
               </li>
-
               {/* would want to conditionally render this item based on active notifications? */}
               <li className="nav-item">
-                <a className="nav-link" href="/notifications">
+                <a className="nav-link" href="/authenticated_user/notifications">
                   Notifications
                 </a>
               </li>
-
               <li className="nav-item">
                 <a className="nav-link" href="/login" onClick={this.removeCookies}>
                   Logout
                 </a>
               </li>
-
             </ul>
           </div>
         </div>

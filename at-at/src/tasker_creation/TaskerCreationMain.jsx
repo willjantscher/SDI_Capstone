@@ -2,9 +2,12 @@
 to do:
     update the originator_unit_id based on the unit logged in (cookie)
 
-    add conditional rendering for the form/success message
+    2. add conditional rendering for the form/success message
 
-    add alerts for input fields blank when they can't be null
+    better select for units
+        https://react-select.com/home
+
+    1. add alerts for input fields blank when they can't be null
         create a switch based on the submit_flag!
         set to null when clicking a button to submit another 
 
@@ -16,6 +19,19 @@ to do:
             have sub selects under their parents
             https://github.com/insin/react-filtered-multiselect
 
+import Cookies from 'universal-cookie';
+let cookies = new Cookies();
+let user_id = cookies.get("user_id");  //cookie name is user_id
+let unit_id = cookies.get("unit_id");  //cookie name is unit_id
+
+also for testing:
+username: bigCheese
+password: password
+
+docker-compose up --build
+
+
+redirect if no valid cookie!!
 
 */
 
@@ -23,12 +39,20 @@ to do:
 
 
 
+
 import React from "react"
+import Cookies from 'universal-cookie';
+import { Redirect, Route } from "react-router-dom";
 
 import TaskerForm from "./TaskerForm"
 import SubmitTaskerChecker from "./SubmitTaskerChecker"
 
+let cookies = new Cookies();
+
+
 class TaskerCreationMain extends React.Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +61,8 @@ class TaskerCreationMain extends React.Component {
                 tasker_id : null,
                 current_status : 'in progress',  //in progress, completed
                 routing_at_unit_id: null,
-                originator_unit_id : 1,
+                user_id : null,
+                originator_unit_id : null,
                 sendToUnits: [],
                 sendToUnits_ids: [],
                 version_num : 0,
@@ -68,11 +93,18 @@ class TaskerCreationMain extends React.Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+        let user_id = cookies.get("user_id");  //cookie name is user_id
+        let unit_id = cookies.get("unit_id");  //cookie name is unit_id
         let date = this.formatDate(new Date(), 'YYYY-MM-DD');
-        // console.log(date)
         let tempTasker = this.state.tasker;
+
+        tempTasker.originator_unit_id = unit_id;
+        tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
-        this.setState({ tasker : tempTasker })
+        if(this._isMounted = true) {
+            this.setState({ tasker : tempTasker});
+        }
 
         // console.log(current_date)
         fetch(`http://localhost:3001/unit_names`, {
@@ -84,8 +116,13 @@ class TaskerCreationMain extends React.Component {
             .then((res) => res.json())
                 .then((res) => {
                     // console.log(res);
-                    this.setState({ units : res })
+                    if(this._isMounted === true) {
+                        this.setState({ units : res })
+                    }
                 })
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleInputChange = (e) => {
@@ -113,6 +150,7 @@ class TaskerCreationMain extends React.Component {
 
     handleSubmitTasker = async (e) => {
         e.preventDefault();
+        // console.log(this.state.tasker)
         let flag = SubmitTaskerChecker(this.state.tasker)
         this.setState({ submit_flag : flag })
         //checks to see if data is good for a submit
@@ -163,18 +201,100 @@ class TaskerCreationMain extends React.Component {
         )
     }
 
-    render() {
-        //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
+    taskerRenderer = () => {
         return(
             <div>
                 <h1>Create a Tasker</h1>
+
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
                     onUnitChange = {this.handleUnitChange}
                     onSubmitTasker = {this.handleSubmitTasker}                    
                     units = {this.state.units}
                 />
-                {/* <FormExample/> */}
+
+                {(() => {
+                    switch (this.state.submit_flag) {
+                        case "bad_sendToUnits":
+                            return (
+                                <div className="alert-danger text-center">
+                                    You must select a unit!
+                                </div>
+                            );
+                        case "bad_tasker_name":
+                            return (
+                                <div className="alert-danger text-center">
+                                    You must input a tasker name!
+                                </div>
+                            );
+                        case "bad_suspense_date":
+                            return (
+                                <div className="alert-danger text-center">
+                                    You must select a valid suspense date!
+                                </div>
+                            );
+                        case "bad_predicted_workload":
+                            return (
+                                <div className="alert-danger text-center">
+                                    You must input a predicted workload!
+                                </div>
+                            );
+                        case "bad_desc_text":
+                            return (
+                                <div className="alert-danger text-center">
+                                    You must input a tasker description!
+                                </div>
+                            );
+                        case "good":
+                            return (
+                                <div className="alert-danger text-center">
+                                    Tasker sent successfuly!
+                                </div>
+                            );
+                        default:
+                            return <div></div>;
+                    }
+                })()}
+            </div>
+        )
+    }
+ 
+
+    render() {
+        //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
+        return(
+            
+            <div>
+
+                {(() => {
+                    switch (this.state.tasker.originator_unit_id) {
+                        case undefined:
+                            return(
+                                <div>
+                                    {console.log('No user logged in')}
+                                    <Redirect to = "/" />
+                                </div>
+                            )
+
+                            // return (
+                            //     <div className="alert-danger text-center">
+                            //         You do not have access to this page!
+                            //     </div>
+                            // );
+                    
+                        default:
+                            return (
+                                <div>
+                                    welcome!
+                                    <this.taskerRenderer />
+                                </div>
+                            )
+                    }
+                })()}
+
+
+                
+
             </div>
         )
     }
