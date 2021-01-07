@@ -70,6 +70,9 @@ class RegisterMain extends React.Component {
                 <input type='text' name='last_name' value={this.state.last_name} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleRegistration}>Register</button>
+                <br/><br/>
+                <label>Already have an account? </label>
+                <a className="nav-link" href="/login">Login </a>
             </div>
         )
     }

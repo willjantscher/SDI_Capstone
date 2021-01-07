@@ -49,10 +49,9 @@ class LoginMain extends React.Component {
                 <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleLogin}>Login</button>
-                <br/>
-
-                <label>Register here:</label>
-                <a className="nav-link" href="/register"> <button>Register</button> </a>
+                <br/><br/>
+                <label>Register </label> 
+                <a className="nav-link" href="/register">here </a>
             </div>
         )
     }
