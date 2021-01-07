@@ -1,5 +1,7 @@
 import React from "react"
+import { Redirect } from "react-router-dom";
 import Cookies from 'universal-cookie';
+import isAuthed from './utils';
 
 class LoginMain extends React.Component {
     constructor(props) {
@@ -39,6 +41,9 @@ class LoginMain extends React.Component {
     }
 
     render() {
+      if (isAuthed()) {
+        return (<Redirect to="/authenticated_user/home"/>);
+      } else {
         return(
             <div>
                 <h1>Login</h1>
@@ -54,6 +59,7 @@ class LoginMain extends React.Component {
                 <a className="nav-link" href="/register">here </a>
             </div>
         )
+      }
     }
 
 }
