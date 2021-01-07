@@ -13,6 +13,14 @@ class LoginMain extends React.Component {
         }
     }
 
+    componentDidMount = () => {
+        let cookies = new Cookies();
+        if(cookies.get("user_id")){
+            alert("You are already signed in")
+            this.props.history.push('/home')
+        }
+    }
+
     handleInput = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }    
@@ -28,17 +36,15 @@ class LoginMain extends React.Component {
             credentials: 'include'
            });
 
-        if(response.status == 401){
+        if(response.status === 401){
             alert("Incorrect password or username.")
-        } else if(response.status == 404){
+        } else if(response.status === 404){
             alert("Username not found. Please register first.")
         } else {
             const resDetails = await response.json();
             alert(`Welcome ${resDetails.first_name} ${resDetails.last_name}!`)
             let cookies = new Cookies();
-            alert("user_id " + cookies.get("user_id"))
-            alert("unit_id " + cookies.get("unit_id"))
-            this.props.history.push('/create_tasker')
+            this.props.history.push('/home')
         }
     }
 
@@ -60,7 +66,7 @@ class LoginMain extends React.Component {
         let cookies = new Cookies();
         alert("user_id " + cookies.get("user_id"))
         alert("unit_id " + cookies.get("unit_id"))
-        this.props.history.push('/create_tasker')
+        this.props.history.push('/home')
     }
 
     render() {
