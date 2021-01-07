@@ -8,19 +8,27 @@ class TaskerInboxMain extends React.Component {
     this.state = {
         unitId: 17,
         taskers: [],
+        originators: [],
         selectedTasker: {},
     }
   }
 
   componentDidMount = async() => {
     const taskers = await this.fetchTaskers();
-    this.setState({taskers: taskers});
+    const originators = await this.fetchOriginators();
+    this.setState({taskers: taskers, originators: originators});
   }
 
   fetchTaskers = async() => {
-    let response = await fetch(`${this.apiURL}/inbox/taskers/${this.state.unitId}`, {method: 'GET'})
+    const response = await fetch(`${this.apiURL}/inbox/taskers/${this.state.unitId}`, {method: 'GET'})
     const taskers = await response.json();
     return taskers;
+  }
+
+  fetchOriginators = async() => {
+    const response = await fetch(`${this.apiURL}/inbox/taskers/originators/${this.state.unitId}`, {method: 'GET'})
+    const originators = await response.json();
+    return originators;
   }
 
   handleTaskerShowDetails = (e) => {
@@ -52,6 +60,28 @@ class TaskerInboxMain extends React.Component {
     // update locally-stored tasker so that changes appear correctly
     const newTaskers = await this.fetchTaskers();
     const updatedTasker = {...this.state.selectedTasker, ...updatedTaskerData};
+
+    // get destination for tasker notification
+    const originator = this.state.originators.find(originator => {
+      return originator.tasker_id === this.state.selectedTasker.tasker_id
+    });
+
+    // build notification payload
+    const notification = {
+      unit_to: originator.originator_unit_id,
+      details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
+      isread: false,
+    }
+
+    // send notification to originator
+    fetch(`${this.apiURL}/inbox/notify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(notification)
+    });
+
     this.setState({taskers: newTaskers, selectedTasker: updatedTasker});
   }
 

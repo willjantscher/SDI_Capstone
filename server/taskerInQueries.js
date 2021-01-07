@@ -2,9 +2,32 @@ const pool = require('./pool.js').getPool()
 
 const getIncomingTaskers = (request, response) => {
   pool.query(
-    'SELECT * FROM units_assigned_taskers INNER JOIN tasker_version \
-      ON units_assigned_taskers.tasker_id = tasker_version.tasker_id \
-      WHERE unit_id = $1',
+    'SELECT units_assigned_taskers.tasker_id, \
+      tasker_version.priority_lvl, \
+      tasker_version.suspense_date, \
+      tasker_version.tasker_name, \
+      tasker_version.predicted_workload, \
+      units_assigned_taskers.unit_id, \
+      tasker_version.desc_text, \
+      units_assigned_taskers.response \
+    FROM units_assigned_taskers \
+    INNER JOIN tasker_version ON units_assigned_taskers.tasker_id = tasker_version.tasker_id \
+    WHERE unit_id = $1',
+    [request.params.unitId], (error, result) => {
+      if (error) {
+        response.sendStatus(500);
+        throw error;
+      }
+      response.status(200).json(result.rows);
+  });
+}
+
+const getTaskerOriginators = (request, response) => {
+  pool.query(
+    'SELECT taskers.originator_unit_id, units_assigned_taskers.tasker_id, units.unit_name FROM taskers \
+    INNER JOIN units_assigned_taskers ON units_assigned_taskers.tasker_id = taskers.id \
+    INNER JOIN units ON units_assigned_taskers.unit_id = units.id \
+    WHERE unit_id = $1',
     [request.params.unitId], (error, result) => {
       if (error) {
         response.sendStatus(500);
@@ -27,7 +50,24 @@ const updateTaskerResponse = (request, response) => {
   });
 }
 
+const notifyOriginatorOfResponse = (request, response) => {
+  const tasker = request.body;
+  console.log(tasker);
+  pool.query(
+    `INSERT INTO notifications (unit_to, details, isRead) VALUES ($1, $2, $3)`,
+    [tasker.unit_to, tasker.details, tasker.isread],
+    (error, result) => {
+      if (error) {
+        response.sendStatus(500);
+        throw error;
+      }
+      response.status(200).json(result.rows);
+  });
+}
+
 module.exports = {
     getIncomingTaskers,
-    updateTaskerResponse
+    updateTaskerResponse,
+    notifyOriginatorOfResponse,
+    getTaskerOriginators,
 }
