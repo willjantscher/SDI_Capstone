@@ -51,6 +51,8 @@ app.get('/myresponses/:id', sentQueries.responses)
 
 app.post('/authenticate', loginQueries.authenticateUser)
 app.post('/register', loginQueries.registerUser)
+app.get('/user/:id', loginQueries.getUser)
+app.post('/change_password', loginQueries.changePassword)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.get('/inbox/taskers/originators/:unitId', taskerInQueries.getTaskerOriginators);

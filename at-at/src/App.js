@@ -11,6 +11,7 @@ import Cookies from 'universal-cookie';
 import Navbar from "./navbar/Navbar";
 import LoginMain from "./login/LoginMain";
 import RegisterMain from "./login/RegisterMain";
+import UserProfileMain from "./login/UserProfileMain";
 import PrivateRoute from './login/PrivateRoute';
 import HomeMain from "./home/HomeMain";
 import TaskerCreationMain from "./tasker_creation/TaskerCreationMain";
@@ -36,6 +37,7 @@ class App extends React.Component {
           <PrivateRoute path="/authenticated_user/tasker_inbox" component={TaskerInboxMain} />
           <PrivateRoute path="/authenticated_user/tasker_outbox" component={TaskerOutboxMain} />
           <PrivateRoute path="/authenticated_user/notifications" component={NotificationsMain} />
+          <PrivateRoute path="/authenticated_user/user_profile" component={UserProfileMain} />
         </Router>
       </div>
 
