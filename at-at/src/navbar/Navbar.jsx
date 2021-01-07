@@ -43,8 +43,10 @@ class Navbar extends React.Component {
           <rux-tab id="tab-id-4"
             onClick={() => {this.props.history.push('/authenticated_user/tasker_outbox')}}
           >Tasker Out Box</rux-tab>
+          <rux-tab id="tab-id-4"
+            onClick={() => {this.props.history.push('/authenticated_user/user_profile' )}}
+          >User Profile</rux-tab>
         </rux-tabs>
-
 
         <rux-clock timezone={DateTime.local().zoneName} hideDate small></rux-clock>
 
