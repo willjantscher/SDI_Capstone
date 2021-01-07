@@ -71,7 +71,7 @@ class LoginMain extends React.Component {
                 <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
                 <br/>
                 <label>Password: </label>
-                <input type='text' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
+                <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleLogin}>Login</button>
                 <br/>
@@ -83,7 +83,7 @@ class LoginMain extends React.Component {
                 <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
                 <br/>
                 <label>Password: </label>
-                <input type='text' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
+                <input type='password' name='password' value={this.state.passphrase} onChange={this.handleInput}></input>
                 <br/>
                 <label>First Name: </label>
                 <input type='text' name='first_name' value={this.state.first_name} onChange={this.handleInput}></input>
