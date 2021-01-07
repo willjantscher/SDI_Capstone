@@ -11,12 +11,13 @@ class UserProfileMain extends React.Component {
             first_name: '',
             last_name: '',
             perms: '',
+            new_password: ''
         }
     }
 
     componentDidMount = () => {
         let cookies = new Cookies();
-        let user_id = cookies.get("user_id");  //cookie name is user_id
+        let user_id = cookies.get("user_id");
         fetch(`http://localhost:3001/user/${user_id}`)
         .then(response => response.json())
         .then(user => 
@@ -30,6 +31,26 @@ class UserProfileMain extends React.Component {
         )
     }
 
+    handleInput = (event) => {
+        this.setState({[event.target.name]: event.target.value})
+    }    
+
+    changePassword = (event) => {
+        fetch(`http://localhost:3001/change_password`, {
+            method: 'POST',
+            headers: { 'Content-Type':  'application/json' },
+            body: JSON.stringify({
+                username: this.state.username,
+                passphrase: this.state.new_password,
+              }),
+           })
+        .then(response => {
+            if(response.status === 200){
+                alert("worked?");
+            }}
+        )
+    }
+
     render() {
         return(
             <div> 
@@ -39,6 +60,8 @@ class UserProfileMain extends React.Component {
                 <label>Username: {this.state.username} </label>
                 <br/>
                 <label>Password: ***** </label>
+                <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
+                <button onClick={this.changePassword}>Change Password</button>
                 <br/>
                 <label>Unit: {this.state.unit_name} </label>
                 <br/>
