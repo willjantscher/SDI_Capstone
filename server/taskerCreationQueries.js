@@ -39,7 +39,7 @@ const getAllUnitsAssignedTaskers = (request, response) => {
 // POST Queries ------------------------------------------------------------------------------------------------------------
 const postTasker = (request, response) => {
     const tasker = request.body;
-    // console.log(tasker)
+    console.log(tasker)
     pool.query('INSERT INTO taskers (originator_unit_id) VALUES ($1) RETURNING id', [tasker.originator_unit_id], function(error, results) {
         if (error) {
             throw error

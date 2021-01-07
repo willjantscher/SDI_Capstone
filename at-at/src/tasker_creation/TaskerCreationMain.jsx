@@ -27,7 +27,10 @@ let unit_id = cookies.get("unit_id");  //cookie name is unit_id
 also for testing:
 username: bigCheese
 password: password
+
+docker-compose up --build
 */
+
 
 
 
@@ -85,16 +88,13 @@ class TaskerCreationMain extends React.Component {
     componentDidMount() {
         let user_id = cookies.get("user_id");  //cookie name is user_id
         let unit_id = cookies.get("unit_id");  //cookie name is unit_id
-        this.setState({ originator_unit_id : unit_id})
-        this.setState({ user_id : user_id})
-
-
-
         let date = this.formatDate(new Date(), 'YYYY-MM-DD');
-        // console.log(date)
         let tempTasker = this.state.tasker;
+
+        tempTasker.originator_unit_id = unit_id;
+        tempTasker.unit_id = unit_id;
         tempTasker.updated_on = date;
-        this.setState({ tasker : tempTasker })
+        this.setState({ tasker : tempTasker});
 
         // console.log(current_date)
         fetch(`http://localhost:3001/unit_names`, {
@@ -135,6 +135,7 @@ class TaskerCreationMain extends React.Component {
 
     handleSubmitTasker = async (e) => {
         e.preventDefault();
+        // console.log(this.state.tasker)
         let flag = SubmitTaskerChecker(this.state.tasker)
         this.setState({ submit_flag : flag })
         //checks to see if data is good for a submit
@@ -185,15 +186,9 @@ class TaskerCreationMain extends React.Component {
         )
     }
 
-    render() {
-        //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
+    taskerRenderer = () => {
         return(
-            
             <div>
-
-
-
-
                 <h1>Create a Tasker</h1>
 
                 <TaskerForm 
@@ -245,6 +240,38 @@ class TaskerCreationMain extends React.Component {
                             return <div></div>;
                     }
                 })()}
+            </div>
+        )
+    }
+ 
+
+    render() {
+        //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
+        return(
+            
+            <div>
+
+                {(() => {
+                    switch (this.state.tasker.originator_unit_id) {
+                        case undefined:
+                            return (
+                                <div className="alert-danger text-center">
+                                    You do not have access to this page!
+                                </div>
+                            );
+                    
+                        default:
+                            return (
+                                <div>
+                                    welcome!
+                                    <this.taskerRenderer />
+                                </div>
+                            )
+                    }
+                })()}
+
+
+                
 
             </div>
         )
