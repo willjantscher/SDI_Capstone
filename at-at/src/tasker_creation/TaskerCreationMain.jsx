@@ -29,6 +29,10 @@ username: bigCheese
 password: password
 
 docker-compose up --build
+
+
+redirect if no valid cookie!!
+
 */
 
 
@@ -38,6 +42,7 @@ docker-compose up --build
 
 import React from "react"
 import Cookies from 'universal-cookie';
+import { Redirect, Route } from "react-router-dom";
 
 import TaskerForm from "./TaskerForm"
 import SubmitTaskerChecker from "./SubmitTaskerChecker"
@@ -46,6 +51,8 @@ let cookies = new Cookies();
 
 
 class TaskerCreationMain extends React.Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -86,6 +93,7 @@ class TaskerCreationMain extends React.Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         let user_id = cookies.get("user_id");  //cookie name is user_id
         let unit_id = cookies.get("unit_id");  //cookie name is unit_id
         let date = this.formatDate(new Date(), 'YYYY-MM-DD');
@@ -94,7 +102,9 @@ class TaskerCreationMain extends React.Component {
         tempTasker.originator_unit_id = unit_id;
         tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
-        this.setState({ tasker : tempTasker});
+        if(this._isMounted = true) {
+            this.setState({ tasker : tempTasker});
+        }
 
         // console.log(current_date)
         fetch(`http://localhost:3001/unit_names`, {
@@ -106,8 +116,13 @@ class TaskerCreationMain extends React.Component {
             .then((res) => res.json())
                 .then((res) => {
                     // console.log(res);
-                    this.setState({ units : res })
+                    if(this._isMounted === true) {
+                        this.setState({ units : res })
+                    }
                 })
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleInputChange = (e) => {
@@ -254,11 +269,18 @@ class TaskerCreationMain extends React.Component {
                 {(() => {
                     switch (this.state.tasker.originator_unit_id) {
                         case undefined:
-                            return (
-                                <div className="alert-danger text-center">
-                                    You do not have access to this page!
+                            return(
+                                <div>
+                                    {console.log('No user logged in')}
+                                    <Redirect to = "/" />
                                 </div>
-                            );
+                            )
+
+                            // return (
+                            //     <div className="alert-danger text-center">
+                            //         You do not have access to this page!
+                            //     </div>
+                            // );
                     
                         default:
                             return (
