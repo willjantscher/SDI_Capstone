@@ -70,7 +70,7 @@ const authenticateUser = async (request, response) => {
 const getUser = async (request, response) => {
   const id = request.params.id
   pool.query(
-    'SELECT username, first_name, last_name, perms FROM users WHERE id = $1', 
+    'SELECT username, first_name, last_name, perms, unit_name FROM users INNER JOIN units on users.unit_id = units.unique_id WHERE users.id = $1', 
     [id],
     (err, results) => {
       if(err){
