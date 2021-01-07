@@ -6,9 +6,7 @@ import React, { useState, Fragment } from "react";
 
 
 const TaskerForm = (props) => {
-    let i = 0;
     let unitNames = props.units.map((unit) => {
-        i += 1;
         return(
             <option
                 value={unit}
@@ -18,6 +16,15 @@ const TaskerForm = (props) => {
             </option>
         )
     })
+
+
+    let workloadOptions = [];
+    for(let i = 0; i < 24; i ++) {
+        workloadOptions.push(
+            <option id={i} key = {i} value={i}>{i}</option>
+        )
+    }
+
 
     const [inputFields, setInputFields] = useState([
         { unit : '' , unit_id : ''}
@@ -48,7 +55,7 @@ const TaskerForm = (props) => {
         if(inputFields.length<2) {
             return(
                 <button
-                className="btn btn-link"
+                className="rux-button"
                 type="button"
                 onClick={() => handleAddFields()}
                 >
@@ -58,20 +65,14 @@ const TaskerForm = (props) => {
         } else return(
             <div>
                 <button
-                className="btn btn-link"
-                type="button"
-                onClick={() => handleRemoveFields(index)}   //will need to update the list of units when one is removed!!!!
-                >
-                -
-                </button>
+                className="rux-button"
+                type="button" 
+                onClick={() => handleRemoveFields(index)}>-</button>
 
                 <button
-                className="btn btn-link"
+                className="rux-button"
                 type="button"
-                onClick={() => handleAddFields()}
-                >
-                +
-                </button>
+                onClick={() => handleAddFields()}>+</button>
             </div>
         )
     }
@@ -79,34 +80,33 @@ const TaskerForm = (props) => {
     return(
         <>
             <div>Select Units to send this Tasker to</div>
-            <form onSubmit={props.onSubmitTasker}>
+            <form onSubmit={props.onSubmitTasker} className="rux-form-field rux-form-field--large">
                 <div className="form-row">
                     {inputFields.map((inputField, index) => (
                         <Fragment key={`${inputField}~${index}`}>
                         <div className="form-group col-sm-6">
                             <label htmlFor="unit">Unit: </label>
-                            <select
-                                className="form-control"
+                            <select 
+                                className="rux-select"
                                 id="unit"
                                 name="unit"
                                 value={inputField.unit}
                                 onChange={event => { handleInputChange(index, event)}}
-                                ><option key="empty" value=""></option>
+                                >
+                                    <optgroup label="All Options"></optgroup>
+                                    <option key="empty" value=""></option>
                                 {unitNames}
                             </select>
-                        </div>
-
-                        <div className="form-group col-sm-2">
                             {buttonHandler(index)}
                         </div>
-
                         </Fragment>
                     ))}
                 </div>
 
                 <div>
-                    <span>Tasker Name:</span>
+                    <label htmlFor="tasker_name">Tasker Name:</label>
                     <input 
+                        className="rux-input"
                         id="tasker_name"
                         name="Tasker Name"
                         placeholder="Tasker Name"
@@ -115,8 +115,9 @@ const TaskerForm = (props) => {
                 </div>
 
                 <div>
-                    <span>Suspense Date</span>
+                    <label htmlFor="suspense_date" >Suspense Date</label>
                     <input
+                        className="rux-input"
                         id="suspense_date"
                         type="date"
                         onChange={props.onInputChange}
@@ -125,7 +126,7 @@ const TaskerForm = (props) => {
 
                 <div>
                     <span>Priority</span>
-                    <select id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
+                    <select className="rux-select" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
                         <option key="Low" value="Low">Low</option>
                         <option key="Medium" value="Medium">Medium</option>
                         <option key="High" value="High">High</option>
@@ -133,28 +134,32 @@ const TaskerForm = (props) => {
                 </div>
 
                 <div>
-                    <span>Predicted Workload (hours)</span>
-                    <input
+                    <label htmlFor="predicted_workload">Predicted Workload</label>
+                    <select
+                        className="rux-select"
                         id="predicted_workload"
                         type="number"
                         min="1"
                         max="24"
                         placeholder="hrs"
-                        onChange={props.onInputChange} 
-                    ></input>
+                        onChange={props.onInputChange} >
+                        <option key="empty" value=""></option>
+                        {workloadOptions}
+                    </select>
                 </div>
 
                 <div>
+                    <label htmlFor="desc_text"></label>
                     <textarea 
+                        className="rux-form-field--large"
                         id="desc_text"
                         placeholder="Tasker Description"
                         onChange={props.onInputChange} 
                     ></textarea>
                 </div>
 
-                <input type="submit" value="Send Tasker with Extreme Prejudice"/>
+                <input className="rux-button" type="submit" value="Send Tasker with Extreme Prejudice"/>
             </form>
-            <span> ------------------------------------------------------------------------ </span>
         </>
     )
 }

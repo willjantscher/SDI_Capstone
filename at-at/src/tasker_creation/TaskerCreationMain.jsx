@@ -27,7 +27,14 @@ let unit_id = cookies.get("unit_id");  //cookie name is unit_id
 also for testing:
 username: bigCheese
 password: password
+
+docker-compose up --build
+
+
+redirect if no valid cookie!!
+
 */
+
 
 
 
@@ -35,6 +42,7 @@ password: password
 
 import React from "react"
 import Cookies from 'universal-cookie';
+import { Redirect, Route } from "react-router-dom";
 
 import TaskerForm from "./TaskerForm"
 import SubmitTaskerChecker from "./SubmitTaskerChecker"
@@ -43,6 +51,8 @@ let cookies = new Cookies();
 
 
 class TaskerCreationMain extends React.Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +62,7 @@ class TaskerCreationMain extends React.Component {
                 current_status : 'in progress',  //in progress, completed
                 routing_at_unit_id: null,
                 user_id : null,
-                originator_unit_id : 1,
+                originator_unit_id : null,
                 sendToUnits: [],
                 sendToUnits_ids: [],
                 version_num : 0,
@@ -83,18 +93,18 @@ class TaskerCreationMain extends React.Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
         let user_id = cookies.get("user_id");  //cookie name is user_id
         let unit_id = cookies.get("unit_id");  //cookie name is unit_id
-        this.setState({ originator_unit_id : unit_id})
-        this.setState({ user_id : user_id})
-
-
-
         let date = this.formatDate(new Date(), 'YYYY-MM-DD');
-        // console.log(date)
         let tempTasker = this.state.tasker;
+
+        tempTasker.originator_unit_id = unit_id;
+        tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
-        this.setState({ tasker : tempTasker })
+        if(this._isMounted = true) {
+            this.setState({ tasker : tempTasker});
+        }
 
         // console.log(current_date)
         fetch(`http://localhost:3001/unit_names`, {
@@ -106,8 +116,13 @@ class TaskerCreationMain extends React.Component {
             .then((res) => res.json())
                 .then((res) => {
                     // console.log(res);
-                    this.setState({ units : res })
+                    if(this._isMounted === true) {
+                        this.setState({ units : res })
+                    }
                 })
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleInputChange = (e) => {
@@ -135,6 +150,7 @@ class TaskerCreationMain extends React.Component {
 
     handleSubmitTasker = async (e) => {
         e.preventDefault();
+        // console.log(this.state.tasker)
         let flag = SubmitTaskerChecker(this.state.tasker)
         this.setState({ submit_flag : flag })
         //checks to see if data is good for a submit
@@ -185,10 +201,8 @@ class TaskerCreationMain extends React.Component {
         )
     }
 
-    render() {
-        //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
+    taskerRenderer = () => {
         return(
-            
             <div>
                 <h1>Create a Tasker</h1>
 
@@ -241,6 +255,49 @@ class TaskerCreationMain extends React.Component {
                             return <div></div>;
                     }
                 })()}
+            </div>
+        )
+    }
+ 
+
+    render() {
+        //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
+        return(
+            
+            <div>
+                <rux-classification-marking classification="controlled"></rux-classification-marking>
+
+
+                {(() => {
+                    switch (this.state.tasker.originator_unit_id) {
+                        case undefined:
+                            return(
+                                <div>
+                                    {console.log('No user logged in')}
+                                    <Redirect to = "/" />
+                                </div>
+                            )
+
+                            // return (
+                            //     <div className="alert-danger text-center">
+                            //         You do not have access to this page!
+                            //     </div>
+                            // );
+                    
+                        default:
+                            return (
+                                <div>
+                                    <div>
+                                        Welcome!
+                                    </div>
+                                    <this.taskerRenderer />
+                                </div>
+                            )
+                    }
+                })()}
+
+
+                
 
             </div>
         )

@@ -1,6 +1,3 @@
-import React from 'react'
-
-
 //will check fields and send 
 const  SubmitTaskerChecker = (tasker) => {
     // console.log(tasker)
