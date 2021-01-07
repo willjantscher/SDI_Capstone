@@ -1,6 +1,7 @@
 import React from "react"
 import { Redirect } from "react-router-dom";
 import Cookies from 'universal-cookie';
+import isAuthed from './utils';
 
 class LoginMain extends React.Component {
     constructor(props) {
@@ -40,8 +41,7 @@ class LoginMain extends React.Component {
     }
 
     render() {
-      let cookies = new Cookies();
-      if (cookies.get("user_id")) {
+      if (isAuthed()) {
         return (<Redirect to="/authenticated_user/home"/>);
       } else {
         return(
