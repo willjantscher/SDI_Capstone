@@ -67,7 +67,28 @@ const authenticateUser = async (request, response) => {
     })
 }
 
+const getUser = async (request, response) => {
+  const username = request.params.username
+  pool.query(
+    'SELECT * FROM users WHERE username = $1', 
+    [username],
+    (err, results) => {
+      if(err){
+        throw err;
+      }
+      if(results.rows.length > 0) {
+        const user = results.rows[0];
+        response.status(200).json(user)
+      } else {
+        console.log("user not found")
+        response.status(404).send("user not found")
+      }
+    }
+  )
+}
+
 module.exports = {
     authenticateUser,
-    registerUser
+    registerUser,
+    getUser
 }
