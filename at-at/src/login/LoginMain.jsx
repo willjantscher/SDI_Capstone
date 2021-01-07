@@ -10,14 +10,6 @@ class LoginMain extends React.Component {
         }
     }
 
-    componentDidMount = () => {
-        let cookies = new Cookies();
-        if(cookies.get("user_id")){
-            alert("You are already signed in. Please log out first.")
-            this.props.history.push('/authenticated_user/home')
-        }
-    }
-
     handleInput = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }    
