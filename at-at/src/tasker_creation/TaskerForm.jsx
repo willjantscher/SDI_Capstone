@@ -79,9 +79,10 @@ const TaskerForm = (props) => {
 
     return(
         <>
-            <div>Select Units to send this Tasker to</div>
+            <div className="rux-form-field__label">Select Units to send this Tasker to</div>
+
             <form onSubmit={props.onSubmitTasker} className="rux-form-field rux-form-field--large">
-                <div className="form-row">
+                <div>
                     {inputFields.map((inputField, index) => (
                         <Fragment key={`${inputField}~${index}`}>
                         <div className="form-group col-sm-6">
@@ -103,7 +104,7 @@ const TaskerForm = (props) => {
                     ))}
                 </div>
 
-                <div>
+                <div className="form-row"> 
                     <label htmlFor="tasker_name">Tasker Name:</label>
                     <input 
                         className="rux-input"

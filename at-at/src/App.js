@@ -7,7 +7,6 @@ import {
   Route,
 } from "react-router-dom";
 
-
 import Navbar from "./navbar/Navbar"
 import LoginMain from "./login/LoginMain"
 import RegisterMain from "./login/RegisterMain"
@@ -16,6 +15,8 @@ import TaskerCreationMain from "./tasker_creation/TaskerCreationMain"
 import TaskerInboxMain from "./tasker_in/TaskerInboxMain"
 import TaskerOutboxMain from "./tasker_out/TaskerOutboxMain"
 import NotificationsMain from "./notifications/NotificationsMain"
+
+
 
 class App extends React.Component {
   // constructor(props) {

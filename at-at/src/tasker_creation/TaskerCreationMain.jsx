@@ -1,15 +1,7 @@
 /*
 to do:
-    update the originator_unit_id based on the unit logged in (cookie)
-
-    2. add conditional rendering for the form/success message
-
     better select for units
         https://react-select.com/home
-
-    1. add alerts for input fields blank when they can't be null
-        create a switch based on the submit_flag!
-        set to null when clicking a button to submit another 
 
 
     beautification with https://www.astrouxds.com/
@@ -34,10 +26,6 @@ docker-compose up --build
 redirect if no valid cookie!!
 
 */
-
-
-
-
 
 
 import React from "react"
@@ -102,7 +90,7 @@ class TaskerCreationMain extends React.Component {
         tempTasker.originator_unit_id = unit_id;
         tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
-        if(this._isMounted = true) {
+        if(this._isMounted === true) {
             this.setState({ tasker : tempTasker});
         }
 
@@ -265,8 +253,6 @@ class TaskerCreationMain extends React.Component {
         return(
             
             <div>
-                <rux-classification-marking classification="controlled"></rux-classification-marking>
-
 
                 {(() => {
                     switch (this.state.tasker.originator_unit_id) {

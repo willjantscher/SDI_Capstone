@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@astrouxds/rux-button": "^4.1.2",
+    "@astrouxds/rux-classification-marking": "^1.0.0",
     "@astrouxds/rux-clock": "^4.1.1",
     "@astrouxds/rux-global-status-bar": "^4.0.3",
     "@astrouxds/rux-tabs": "^4.0.5",
