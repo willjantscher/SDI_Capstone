@@ -1,5 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+
 const userQueries = require('./userQueries')
 const taskerInQueries = require('./taskerInQueries')
 const taskerCreationQueries = require('./taskerCreationQueries')
@@ -7,19 +10,28 @@ const sentQueries = require('./taskerOutQueries')
 const loginQueries = require('./loginQueries')
 const notificationQueries = require('./notificationQueries')
 
-const cors = require('cors')
 const app = express()
-app.use(cors())
 const port = 3001
 
+const corsOptions = {
+  credentials: true,
+  origin: 'http://localhost:3000'
+}
+app.use(cors(corsOptions))
+ 
 app.options('*', cors())
 
+app.use(bodyParser.json())
+
 app.use(express.json())
+
 app.use(
   express.urlencoded({
     extended: true,
   })
 )
+
+app.use(cookieParser())
 
 app.get('/users', userQueries.getAllUsers)
 
@@ -36,6 +48,7 @@ app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
 
 app.post('/authenticate', loginQueries.authenticateUser)
+app.post('/register', loginQueries.registerUser)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.get('/inbox/taskers/originators/:unitId', taskerInQueries.getTaskerOriginators);

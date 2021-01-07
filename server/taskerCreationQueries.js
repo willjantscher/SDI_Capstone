@@ -39,7 +39,7 @@ const getAllUnitsAssignedTaskers = (request, response) => {
 // POST Queries ------------------------------------------------------------------------------------------------------------
 const postTasker = (request, response) => {
     const tasker = request.body;
-    // console.log(tasker)
+    console.log(tasker)
     pool.query('INSERT INTO taskers (originator_unit_id) VALUES ($1) RETURNING id', [tasker.originator_unit_id], function(error, results) {
         if (error) {
             throw error
@@ -74,6 +74,7 @@ const postUnitsAssignedTaskers = (request, response) => {
 
     pool.query(query, function(error, results) {
         if (error) {
+            response.sendStatus(500)
             throw error
         }
         response.status(200).json('taskers distributed to units')
@@ -94,6 +95,7 @@ const postToNotifications = (request, response) => {
     // console.log(query)
     pool.query(query, (error, results) => {
         if (error) {
+            response.sendStatus(500)
             throw error
         }
         response.status(200).json('notifications posted')
