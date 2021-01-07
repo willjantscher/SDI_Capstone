@@ -87,8 +87,26 @@ const getUser = async (request, response) => {
   )
 }
 
+const changePassword = async (request, response) => {
+  let { username, passphrase } = request.body;
+  let salt = crypto.randomBytes(16).toString('hex');
+  let hash = crypto.pbkdf2Sync(passphrase, salt,  
+    1000, 64, `sha512`).toString(`hex`);
+  
+  pool.query(
+    'UPDATE users SET passphrase = $1, salt = $2 WHERE username = $3',
+    [hash, salt, username],
+    (err, results) => {
+      if(err) {
+        throw err;
+      }
+      response.status(200).send()
+    })
+}
+
 module.exports = {
     authenticateUser,
     registerUser,
-    getUser
+    getUser,
+    changePassword
 }
