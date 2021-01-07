@@ -10,6 +10,7 @@ CREATE TABLE users (
 	unit_id INT NOT NULL REFERENCES units(id) ON DELETE CASCADE,
 	username TEXT NOT NULL,
 	passphrase TEXT NOT NULL,
+	salt TEXT NOT NULL,
 	first_name TEXT NOT NULL,
 	last_name TEXT NOT NULL,
 	perms TEXT
@@ -115,20 +116,20 @@ INSERT INTO units (unit_name, unique_id, parent_unique_id) VALUES
 	('Doctrine Delta', 44, 6);
 
 -- users
-INSERT INTO users (unit_id, username, passphrase, first_name, last_name) VALUES
-	(1, 'bigCheese', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Jay', 'Raymond'),
-	(2, 'acqMan', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'John', 'Thompson'),
-	(3, 'staffman', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Jane', 'Staffer'),
-	(4, 'spook', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Government', 'Spook'),
-	(5, 'swhiting', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Stephen', 'Whiting'),
-	(6, 'pflores', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Peter', 'Flores'),
-	(7, 'snuffy', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Guardian', 'Snuffy'),
-	(7, 'mcantore', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Matthew', 'Cantore'),
-	(8, 'jthien', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'John', 'Thien'),
-	(9, 'rbourquin', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Richard', 'Bourquin'),
-	(37, 'mdelauter', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Monique', 'DeLauter'),
-	(21, 'rrockwell', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Roy', 'Rockwell'),
-	(12, 'catwood', '$2b$10$xV3XoyKFZ6FmaNO3Q9Obe.Mxum2NxtSQVz3/RQY0gb7NitWgNA7ee', 'Chandler', 'Atwood');
+INSERT INTO users (unit_id, username, passphrase, salt, first_name, last_name) VALUES
+	(1, 'bigCheese', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Jay', 'Raymond'),
+	(2, 'acqMan', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'John', 'Thompson'),
+	(3, 'staffman', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Jane', 'Staffer'),
+	(4, 'spook', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Government', 'Spook'),
+	(5, 'swhiting', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Stephen', 'Whiting'),
+	(6, 'pflores', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Peter', 'Flores'),
+	(7, 'snuffy', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Guardian', 'Snuffy'),
+	(7, 'mcantore', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Matthew', 'Cantore'),
+	(8, 'jthien', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'John', 'Thien'),
+	(9, 'rbourquin', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Richard', 'Bourquin'),
+	(37, 'mdelauter', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Monique', 'DeLauter'),
+	(21, 'rrockwell', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Roy', 'Rockwell'),
+	(12, 'catwood', '21939ea259da07b2252f1a902c4c74ab25346e6c629d1361756cb007ccf1897cb410a740142da7c9cd2efdbe2fb0f68f505c67f083f19a745a859854899a0e17', 'b960d4a49414372d2e832f09100301b8', 'Chandler', 'Atwood');
 
 -- taskers
 INSERT INTO taskers (originator_unit_id) VALUES
