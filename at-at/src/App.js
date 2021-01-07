@@ -9,6 +9,7 @@ import {
 
 import Navbar from "./navbar/Navbar"
 import LoginMain from "./login/LoginMain"
+import RegisterMain from "./login/RegisterMain"
 import HomeMain from "./home/HomeMain"
 import TaskerCreationMain from "./tasker_creation/TaskerCreationMain"
 import TaskerInboxMain from "./tasker_in/TaskerInboxMain"
@@ -27,6 +28,7 @@ class App extends React.Component {
         <Router>
           <Route exact path="/" ><Redirect to="/login"></Redirect> </Route>
           <Route path="/login" component={LoginMain} />
+          <Route path="/register" component={RegisterMain} />
           <Route path="/authenticated_user" component={Navbar} />
           <Route path="/authenticated_user/home" component={HomeMain} />
           <Route path="/authenticated_user/create_tasker" component={TaskerCreationMain} />

@@ -1,5 +1,5 @@
 import React from "react";
-
+import Cookies from 'universal-cookie';
 
 // Create a new table in the database with notifications
 // in app home page, componenet did mount
@@ -16,6 +16,17 @@ import React from "react";
 
 
 class Navbar extends React.Component {
+
+  removeCookies = () => {
+    let cookies = new Cookies();
+    if(cookies.get("unit_id")){
+      cookies.remove("unit_id")
+      cookies.remove("user_id")
+    } else {
+      alert("Sign in first!")
+    }
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -58,7 +69,7 @@ class Navbar extends React.Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login" onClick={this.removeCookies}>
                   Logout
                 </a>
               </li>
