@@ -1,3 +1,4 @@
+import { RuxButton } from "@astrouxds/rux-button";
 import React, { useState, Fragment } from "react";
 import ReactDOM from "react-dom";
 
@@ -85,13 +86,13 @@ const FormExample = () => {
           ))}
         </div>
         <div className="submit-button">
-          <button
+          <rux-button 
             className="btn btn-primary mr-2"
             type="submit"
             onSubmit={handleSubmit}
           >
             Save
-          </button>
+          </rux-button >
         </div>
         <br/>
         <pre>
