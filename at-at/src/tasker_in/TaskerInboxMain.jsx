@@ -1,12 +1,14 @@
 import React from "react";
 import TaskerList from './TaskerList';
+import Cookies from 'universal-cookie';
 
 class TaskerInboxMain extends React.Component {
   constructor(props) {
     super(props);
     this.apiURL = 'http://localhost:3001';
     this.state = {
-        unitId: 17,
+        unitId: 0,
+        userId: 0,
         taskers: [],
         originators: [],
         selectedTasker: {},
@@ -14,19 +16,27 @@ class TaskerInboxMain extends React.Component {
   }
 
   componentDidMount = async() => {
-    const taskers = await this.fetchTaskers();
-    const originators = await this.fetchOriginators();
-    this.setState({taskers: taskers, originators: originators});
+    // get user authentication info
+    let cookies = new Cookies();
+    let user_id = cookies.get("user_id");  //cookie name is user_id
+    let unit_id = cookies.get("unit_id");  //cookie name is unit_id
+
+    if (unit_id !== undefined) {
+      // get other data based on user unit
+      const taskers = await this.fetchTaskers(unit_id);
+      const originators = await this.fetchOriginators(unit_id);
+      this.setState({unitId: unit_id, userId: user_id, taskers: taskers, originators: originators});
+    }
   }
 
-  fetchTaskers = async() => {
-    const response = await fetch(`${this.apiURL}/inbox/taskers/${this.state.unitId}`, {method: 'GET'})
+  fetchTaskers = async(unitId) => {
+    const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})
     const taskers = await response.json();
     return taskers;
   }
 
-  fetchOriginators = async() => {
-    const response = await fetch(`${this.apiURL}/inbox/taskers/originators/${this.state.unitId}`, {method: 'GET'})
+  fetchOriginators = async(unitId) => {
+    const response = await fetch(`${this.apiURL}/inbox/taskers/originators/${unitId}`, {method: 'GET'})
     const originators = await response.json();
     return originators;
   }
@@ -47,8 +57,7 @@ class TaskerInboxMain extends React.Component {
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;
     const requestContent = {
-      method: 'PUT',
-      mode: 'cors',
+      method: 'PATCH',
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: JSON.stringify(taskerResponse)
     };
@@ -58,7 +67,7 @@ class TaskerInboxMain extends React.Component {
     const updatedTaskerData = await response.json();
 
     // update locally-stored tasker so that changes appear correctly
-    const newTaskers = await this.fetchTaskers();
+    const newTaskers = await this.fetchTaskers(this.state.unitId);
     const updatedTasker = {...this.state.selectedTasker, ...updatedTaskerData};
 
     // get destination for tasker notification

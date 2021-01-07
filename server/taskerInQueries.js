@@ -52,7 +52,6 @@ const updateTaskerResponse = (request, response) => {
 
 const notifyOriginatorOfResponse = (request, response) => {
   const tasker = request.body;
-  console.log(tasker);
   pool.query(
     `INSERT INTO notifications (unit_to, details, isRead) VALUES ($1, $2, $3)`,
     [tasker.unit_to, tasker.details, tasker.isread],
