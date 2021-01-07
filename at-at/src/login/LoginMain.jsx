@@ -14,7 +14,7 @@ class LoginMain extends React.Component {
         let cookies = new Cookies();
         if(cookies.get("user_id")){
             alert("You are already signed in. Please log out first.")
-            this.props.history.push('/home')
+            this.props.history.push('/authenticated_user/home')
         }
     }
 
@@ -40,7 +40,7 @@ class LoginMain extends React.Component {
         } else if(response.status === 200){
             const resDetails = await response.json();
             alert(`Welcome ${resDetails.first_name} ${resDetails.last_name}!`)
-            this.props.history.push('/home')
+            this.props.history.push('/authenticated_user/home')
         } else {
             alert('Error')
         }
