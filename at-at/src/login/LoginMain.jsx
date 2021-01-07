@@ -10,14 +10,6 @@ class LoginMain extends React.Component {
         }
     }
 
-    componentDidMount = () => {
-        let cookies = new Cookies();
-        if(cookies.get("user_id")){
-            alert("You are already signed in. Please log out first.")
-            this.props.history.push('/authenticated_user/home')
-        }
-    }
-
     handleInput = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }    
@@ -57,10 +49,9 @@ class LoginMain extends React.Component {
                 <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleLogin}>Login</button>
-                <br/>
-
-                <label>Register here:</label>
-                <a className="nav-link" href="/register"> <button>Register</button> </a>
+                <br/><br/>
+                <label>Register </label> 
+                <a className="nav-link" href="/register">here </a>
             </div>
         )
     }
