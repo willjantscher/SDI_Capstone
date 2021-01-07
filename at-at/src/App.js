@@ -24,16 +24,15 @@ class App extends React.Component {
     return (
       <div >
 
-        <Navbar/>
-
         <Router>
           <Route exact path="/" ><Redirect to="/login"></Redirect> </Route>
           <Route path="/login" component={LoginMain} />
-          <Route path="/home" component={HomeMain} />
-          <Route path="/create_tasker" component={TaskerCreationMain} />
-          <Route path="/tasker_inbox" component={TaskerInboxMain} />
-          <Route path="/tasker_outbox" component={TaskerOutboxMain} />
-          <Route path="/notifications" component={NotificationsMain} />
+          <Route path="/authenticated_user" component={Navbar} />
+          <Route path="/authenticated_user/home" component={HomeMain} />
+          <Route path="/authenticated_user/create_tasker" component={TaskerCreationMain} />
+          <Route path="/authenticated_user/tasker_inbox" component={TaskerInboxMain} />
+          <Route path="/authenticated_user/tasker_outbox" component={TaskerOutboxMain} />
+          <Route path="/authenticated_user/notifications" component={NotificationsMain} />
         </Router>
       </div>
 
