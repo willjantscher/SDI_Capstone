@@ -38,7 +38,7 @@ class LoginMain extends React.Component {
             let cookies = new Cookies();
             alert("user_id " + cookies.get("user_id"))
             alert("unit_id " + cookies.get("unit_id"))
-            this.props.history.push('/create_tasker')
+            this.props.history.push('/authenticated_user/home')
         }
     }
 
@@ -60,7 +60,7 @@ class LoginMain extends React.Component {
         let cookies = new Cookies();
         alert("user_id " + cookies.get("user_id"))
         alert("unit_id " + cookies.get("unit_id"))
-        this.props.history.push('/create_tasker')
+        this.props.history.push('/authenticated_user/home')
     }
 
     render() {
