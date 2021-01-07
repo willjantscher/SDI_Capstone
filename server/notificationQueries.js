@@ -5,7 +5,7 @@ const getAllNotifications = (request, response) => {
     pool.query('SELECT details FROM notifications', (error, results) => {
 
         if (error) {
-            //response.sendStatus(500)
+            response.sendStatus(500)
             throw error
         }
         response.status(200).json(results.rows.map(notification => notification.details))
@@ -17,7 +17,7 @@ const myNotifications = (request, response) => {
    // pool.query('SELECT details FROM notifications WHERE unit_to = $1; UPDATE notifications SET isRead = true WHERE unit_to = $1', [myUnit], (error, results) => {
     pool.query('SELECT details FROM notifications WHERE unit_to = $1', [myUnit], (error, results) => {
         if (error) {
-            //response.sendStatus(500)
+            response.sendStatus(500)
             throw error
         }
         response.status(200).json(results.rows.map(notification => notification.details))
