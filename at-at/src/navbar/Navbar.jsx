@@ -1,27 +1,29 @@
 import React from "react";
+
 import { RuxClock } from '@astrouxds/rux-clock/rux-clock.js';
 import { RuxGlobalStatusBar } from '@astrouxds/rux-global-status-bar/rux-global-status-bar.js';
 import { DateTime } from 'luxon';
 import { RuxButton } from '@astrouxds/rux-button/rux-button.js';
 import { RuxTabs } from '@astrouxds/rux-tabs/rux-tabs.js';
-
-// Create a new table in the database with notifications
-// in app home page, componenet did mount
-// create a button with an image in the navbar that conditionally renders
-// on-click will update notifications table with a read status
-// create a page that has unread and read notifications
-
-
-
-
-// delete notifications when tasker done or closed (originator vs tasked unit)
-
+import Cookies from 'universal-cookie';
 
 
 
 class Navbar extends React.Component {
+
+  removeCookies = () => {
+    let cookies = new Cookies();
+    if(cookies.get("unit_id")){
+      cookies.remove("unit_id")
+      cookies.remove("user_id")
+    } else {
+      alert("Sign in first!")
+    }
+  }
+
   render() {
     return (
+
       <rux-global-status-bar appname="AT-AT" version="1.0" theme="dark">
         <rux-tabs id="tab-set-id-1">
           <rux-tab id="tab-id-1" selected="true"
@@ -46,6 +48,7 @@ class Navbar extends React.Component {
         >Logout</rux-button>
 
       </rux-global-status-bar>
+
     );
   }
 }
