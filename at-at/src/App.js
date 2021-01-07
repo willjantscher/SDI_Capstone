@@ -24,22 +24,6 @@ class App extends React.Component {
   render() {
     return (
       <div >
-        {/* <button class="rux-button" color="blue">
-          Button with Icon using Astro UXDS Icon Web Component
-        </button>
-        <button class="rux-button rux-button--icon">
-          <rux-icon class="rux-icon rux-button__icon" icon="caution" color="white"></rux-icon>
-          Button with Icon using Astro UXDS Icon Web Component
-        </button>
-
-        <button class="rux-button rux-button--icon">
-          <div class="rux-icon rux-button__icon">
-            <svg></svg>
-          </div>
-          Button with Local Icon
-        </button> */}
-
-
 
         <Router>
           <Route exact path="/" ><Redirect to="/login"></Redirect> </Route>
