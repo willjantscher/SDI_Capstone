@@ -16,7 +16,7 @@ class LoginMain extends React.Component {
     componentDidMount = () => {
         let cookies = new Cookies();
         if(cookies.get("user_id")){
-            alert("You are already signed in")
+            alert("You are already signed in. Please log out first.")
             this.props.history.push('/home')
         }
     }
@@ -43,7 +43,6 @@ class LoginMain extends React.Component {
         } else {
             const resDetails = await response.json();
             alert(`Welcome ${resDetails.first_name} ${resDetails.last_name}!`)
-            let cookies = new Cookies();
             this.props.history.push('/home')
         }
     }
