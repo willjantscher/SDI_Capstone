@@ -265,6 +265,10 @@ class TaskerCreationMain extends React.Component {
         return(
             
             <div>
+                <div class="rux-classification-marking" classification="controlled">
+                </div>
+                <rux-classification-marking classification="controlled"></rux-classification-marking>
+
 
                 {(() => {
                     switch (this.state.tasker.originator_unit_id) {
@@ -285,7 +289,9 @@ class TaskerCreationMain extends React.Component {
                         default:
                             return (
                                 <div>
-                                    welcome!
+                                    <div>
+                                        Welcome!
+                                    </div>
                                     <this.taskerRenderer />
                                 </div>
                             )
