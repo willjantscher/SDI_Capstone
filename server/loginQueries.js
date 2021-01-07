@@ -6,19 +6,31 @@ const registerUser = async (request, response) => {
   let salt = crypto.randomBytes(16).toString('hex');
   let hash = crypto.pbkdf2Sync(passphrase, salt,  
     1000, 64, `sha512`).toString(`hex`);
-  console.log(typeof(salt))
+  
   pool.query(
-    'INSERT INTO users (unit_id, username, passphrase, salt, first_name, last_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, unit_id, first_name, last_name',
-    [unit_id, username, hash, salt, first_name, last_name],
-    (err,results) => {
-      if(err){
+    'SELECT id FROM users WHERE username = $1',
+    [username],
+    (err, results) => {
+      if(err) {
         throw err;
       }
-      const user = results.rows[0];
-      response.cookie('user_id', user.id)
-      response.cookie('unit_id', user.unit_id)
-      response.status(200).json(user)
-  })
+      if(results.rows.length > 0){
+        response.status(401).send("username taken")
+      } else {
+        pool.query(
+          'INSERT INTO users (unit_id, username, passphrase, salt, first_name, last_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, unit_id, first_name, last_name',
+          [unit_id, username, hash, salt, first_name, last_name],
+          (err,results) => {
+            if(err){
+              throw err;
+            }
+            const user = results.rows[0];
+            response.cookie('user_id', user.id)
+            response.cookie('unit_id', user.unit_id)
+            response.status(200).json(user)
+        })
+      }
+    })
 }
 
 const authenticateUser = async (request, response) => {
