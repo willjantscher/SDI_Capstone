@@ -51,7 +51,9 @@ app.post('/authenticate', loginQueries.authenticateUser)
 app.post('/register', loginQueries.registerUser)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
-app.put('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
+app.get('/inbox/taskers/originators/:unitId', taskerInQueries.getTaskerOriginators);
+app.patch('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
+app.post('/inbox/notify', taskerInQueries.notifyOriginatorOfResponse);
 
 app.get('/notifications', notificationQueries.getAllNotifications)
 app.get('/notifications/:id', notificationQueries.myNotifications)
