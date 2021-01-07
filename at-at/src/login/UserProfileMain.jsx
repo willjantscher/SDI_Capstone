@@ -44,11 +44,7 @@ class UserProfileMain extends React.Component {
                 passphrase: this.state.new_password,
               }),
            })
-        .then(response => {
-            if(response.status === 200){
-                alert("worked?");
-            }}
-        )
+        .then(() => this.setState({new_password: ''}))
     }
 
     render() {
