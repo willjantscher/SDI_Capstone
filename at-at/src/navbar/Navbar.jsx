@@ -21,6 +21,11 @@ class Navbar extends React.Component {
     }
   }
 
+  logout = () => {
+    this.removeCookies();
+    this.props.history.push('/login');
+  }
+
   render() {
     return (
 
@@ -44,7 +49,7 @@ class Navbar extends React.Component {
         <rux-clock timezone={DateTime.local().zoneName} hideDate small></rux-clock>
 
         <rux-button
-                    onClick={() => {this.props.history.push('/login')}}
+                    onClick={() => {this.logout()}}
         >Logout</rux-button>
 
       </rux-global-status-bar>

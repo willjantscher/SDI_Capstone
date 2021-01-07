@@ -160,7 +160,6 @@ const TaskerForm = (props) => {
 
                 <input className="rux-button" type="submit" value="Send Tasker with Extreme Prejudice"/>
             </form>
-            <span> ------------------------------------------------------------------------ </span>
         </>
     )
 }
