@@ -1,4 +1,5 @@
-import './App.css';
+// import './App.css';
+import './astro.css';
 import React from "react"
 import {
   BrowserRouter as Router,
