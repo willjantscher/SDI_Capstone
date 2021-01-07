@@ -20,8 +20,8 @@ class Navbar extends React.Component {
   removeCookies = () => {
     let cookies = new Cookies();
     if(cookies.get("unit_id")){
-      cookies.remove("unit_id")
-      cookies.remove("user_id")
+      cookies.remove("unit_id", {path: '/'})
+      cookies.remove("user_id", {path: '/'})
     } else {
       alert("Sign in first!")
     }
