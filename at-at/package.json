@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@astrouxds/rux-button": "^4.1.2",
+    "@astrouxds/rux-clock": "^4.1.1",
+    "@astrouxds/rux-global-status-bar": "^4.0.3",
+    "@astrouxds/rux-tabs": "^4.0.5",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",

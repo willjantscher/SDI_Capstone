@@ -265,8 +265,6 @@ class TaskerCreationMain extends React.Component {
         return(
             
             <div>
-                <div class="rux-classification-marking" classification="controlled">
-                </div>
                 <rux-classification-marking classification="controlled"></rux-classification-marking>
 
 
