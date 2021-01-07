@@ -14,10 +14,11 @@ const app = express()
 const port = 3001
 
 const corsOptions = {
-  credentials: true
+  credentials: true,
+  origin: 'http://localhost:3000'
 }
 app.use(cors(corsOptions))
-
+ 
 app.options('*', cors())
 
 app.use(bodyParser.json())

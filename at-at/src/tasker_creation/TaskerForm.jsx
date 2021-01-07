@@ -6,9 +6,7 @@ import React, { useState, Fragment } from "react";
 
 
 const TaskerForm = (props) => {
-    let i = 0;
     let unitNames = props.units.map((unit) => {
-        i += 1;
         return(
             <option
                 value={unit}
