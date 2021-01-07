@@ -91,6 +91,8 @@ class TaskerInboxMain extends React.Component {
       body: JSON.stringify(notification)
     });
 
+    alert("Tasker response submitted!");
+
     this.setState({taskers: newTaskers, selectedTasker: updatedTasker});
   }
 
