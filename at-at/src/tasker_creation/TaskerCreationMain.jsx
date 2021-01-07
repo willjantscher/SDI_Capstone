@@ -92,7 +92,7 @@ class TaskerCreationMain extends React.Component {
         let tempTasker = this.state.tasker;
 
         tempTasker.originator_unit_id = unit_id;
-        tempTasker.unit_id = unit_id;
+        tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
         this.setState({ tasker : tempTasker});
 
