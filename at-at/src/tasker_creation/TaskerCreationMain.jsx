@@ -52,7 +52,7 @@ class TaskerCreationMain extends React.Component {
                 current_status : 'in progress',  //in progress, completed
                 routing_at_unit_id: null,
                 user_id : null,
-                originator_unit_id : 1,
+                originator_unit_id : null,
                 sendToUnits: [],
                 sendToUnits_ids: [],
                 version_num : 0,
@@ -190,6 +190,10 @@ class TaskerCreationMain extends React.Component {
         return(
             
             <div>
+
+
+
+
                 <h1>Create a Tasker</h1>
 
                 <TaskerForm 
