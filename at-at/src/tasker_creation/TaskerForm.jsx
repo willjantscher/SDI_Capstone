@@ -56,7 +56,6 @@ const TaskerForm = (props) => {
             return(
                 <button
                 class="rux-button"
-                className="btn btn-link"
                 type="button"
                 onClick={() => handleAddFields()}
                 >
@@ -67,21 +66,13 @@ const TaskerForm = (props) => {
             <div>
                 <button
                 class="rux-button"
-                className="btn btn-link"
                 type="button"
-                onClick={() => handleRemoveFields(index)}   //will need to update the list of units when one is removed!!!!
-                >
-                -
-                </button>
+                onClick={() => handleRemoveFields(index)}>-</button>
 
                 <button
                 class="rux-button"
-                className="btn btn-link"
                 type="button"
-                onClick={() => handleAddFields()}
-                >
-                +
-                </button>
+                onClick={() => handleAddFields()}>+</button>
             </div>
         )
     }
@@ -115,6 +106,7 @@ const TaskerForm = (props) => {
                 <div>
                     <label for="tasker_name">Tasker Name:</label>
                     <input 
+                        class="rux-input"
                         id="tasker_name"
                         name="Tasker Name"
                         placeholder="Tasker Name"
@@ -125,6 +117,7 @@ const TaskerForm = (props) => {
                 <div>
                     <label for="suspense_date" >Suspense Date</label>
                     <input
+                        class="rux-input"
                         id="suspense_date"
                         type="date"
                         onChange={props.onInputChange}

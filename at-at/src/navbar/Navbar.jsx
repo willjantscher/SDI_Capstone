@@ -18,6 +18,13 @@ import React from "react";
 class Navbar extends React.Component {
   render() {
     return (
+      // <div class="rux-modal__titlebar" >
+      //   <div class="rux-clock"></div>
+      //   <div class="rux-button">Home</div>
+
+
+      // </div>
+
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="/authenticated_user/home">
