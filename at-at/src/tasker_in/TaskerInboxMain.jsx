@@ -57,7 +57,7 @@ class TaskerInboxMain extends React.Component {
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;
     const requestContent = {
-      method: 'PATCH',
+      method: 'POST',
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: JSON.stringify(taskerResponse)
     };
