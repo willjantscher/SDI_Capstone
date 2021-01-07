@@ -69,6 +69,11 @@ class Navbar extends React.Component {
                 </a>
               </li>
               <li className="nav-item">
+                <a className="nav-link" href="/authenticated_user/user_profile">
+                  User Profile
+                </a>
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="/login" onClick={this.removeCookies}>
                   Logout
                 </a>
