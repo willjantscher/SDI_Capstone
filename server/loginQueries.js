@@ -88,23 +88,47 @@ const getUser = async (request, response) => {
 }
 
 const changePassword = async (request, response) => {
-  let { username, passphrase } = request.body;
+  let { username, old_password, passphrase } = request.body;
   let salt = crypto.randomBytes(16).toString('hex');
   let hash = crypto.pbkdf2Sync(passphrase, salt,  
     1000, 64, `sha512`).toString(`hex`);
   
   pool.query(
-    'UPDATE users SET passphrase = $1, salt = $2 WHERE username = $3',
-    [hash, salt, username],
-    (err, results) => {
-      if(err) {
+    'SELECT * FROM users WHERE username = $1', [username], (err, results) => {
+      if(err){
         throw err;
       }
-      response.status(200).send()
+      if(results.rows.length > 0){
+        const user = results.rows[0];
+        let user_salt = user.salt;
+        let user_hash = user.passphrase;
+        
+        let input_hash = crypto.pbkdf2Sync(old_password,  
+          user_salt, 1000, 64, `sha512`).toString(`hex`);
+        
+        if(user_hash === input_hash){
+          console.log("authenticated")
+          pool.query(
+            'UPDATE users SET passphrase = $1, salt = $2 WHERE username = $3',
+            [hash, salt, username],
+            (err, results) => {
+              if(err) {
+                throw err;
+              }
+              response.status(200).send()
+            })
+        } else{
+          console.log("incorrect password")
+          response.status(401).send("incorrect password")
+        }
+      } else {
+        console.log("username not found")
+        response.status(404).send("username not found")
+      }
     })
 }
 
-const updateUserUnit = async (request, response) => {
+const changeUserUnit = async (request, response) => {
   let { unit_id, username } = request.body;
   pool.query(
     'UPDATE users SET unit_id = $1 WHERE username = $2',
@@ -137,5 +161,5 @@ module.exports = {
     registerUser,
     getUser,
     changePassword,
-    updateUserUnit
+    changeUserUnit
 }

@@ -34,7 +34,7 @@ class RegisterMain extends React.Component {
             alert('Please fill all fields.')
             return
         }
-        const response = await fetch(`http://localhost:3001/register`, {
+        const response = await fetch(`http://localhost:3001/login/register`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({

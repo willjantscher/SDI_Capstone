@@ -49,11 +49,11 @@ app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
 //app.get('/editmytasker/:tid', sentQueries.edit)
 
-app.post('/authenticate', loginQueries.authenticateUser)
-app.post('/register', loginQueries.registerUser)
-app.get('/user/:id', loginQueries.getUser)
-app.post('/change_password', loginQueries.changePassword)
-app.post('/change_user_unit', loginQueries.updateUserUnit)
+app.post('/login/authenticate', loginQueries.authenticateUser)
+app.post('/login/register', loginQueries.registerUser)
+app.get('/login/user/:id', loginQueries.getUser)
+app.post('/login/change_password', loginQueries.changePassword)
+app.post('/login/change_user_unit', loginQueries.changeUserUnit)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.get('/inbox/taskers/originators/:unitId', taskerInQueries.getTaskerOriginators);

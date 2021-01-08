@@ -16,7 +16,7 @@ class LoginMain extends React.Component {
     }    
 
     handleLogin = async () => {
-        const response = await fetch(`http://localhost:3001/authenticate`, {
+        const response = await fetch(`http://localhost:3001/login/authenticate`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
