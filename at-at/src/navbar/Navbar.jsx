@@ -6,7 +6,8 @@ import { DateTime } from 'luxon';
 import { RuxButton } from '@astrouxds/rux-button/rux-button.js';
 import { RuxTabs } from '@astrouxds/rux-tabs/rux-tabs.js';
 import Cookies from 'universal-cookie';
-
+import { RuxNotification } from '@astrouxds/rux-notification/rux-notification.js';
+import { RuxIcon } from '@astrouxds/rux-icon/rux-icon.js';
 
 
 class Navbar extends React.Component {
@@ -25,9 +26,11 @@ class Navbar extends React.Component {
     this.removeCookies();
     this.props.history.push('/login');
   }
-
+  
   render() {
     return (
+      <div>
+        <rux-icon icon="notifications" size="medium"></rux-icon>
 
       <rux-global-status-bar appname="AT-AT" version="1.0" theme="dark">
         <rux-tabs id="tab-set-id-1">
@@ -46,6 +49,11 @@ class Navbar extends React.Component {
           <rux-tab id="tab-id-4"
             onClick={() => {this.props.history.push('/authenticated_user/user_profile' )}}
           >User Profile</rux-tab>
+          <rux-tab id="tab-id-5"
+            onClick={() => {this.props.history.push('/authenticated_user/notifications' )}}
+          >Notifications<rux-icon icon="notifications" size="medium" label="notifications" color="#fff">?</rux-icon></rux-tab>
+                  
+
         </rux-tabs>
 
         <rux-clock timezone={DateTime.local().zoneName} hideDate small></rux-clock>
@@ -55,6 +63,9 @@ class Navbar extends React.Component {
         >Logout</rux-button>
 
       </rux-global-status-bar>
+      {/* <rux-notification open message="This is a notification message"></rux-notification> */}
+      </div>
+      
     );
   }
 }
