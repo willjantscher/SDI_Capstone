@@ -104,9 +104,38 @@ const changePassword = async (request, response) => {
     })
 }
 
+const updateUserUnit = async (request, response) => {
+  let { unit_id, username } = request.body;
+  pool.query(
+    'UPDATE users SET unit_id = $1 WHERE username = $2',
+    [unit_id, username],
+    (err, results) => {
+      if(err) {
+        throw err;
+      }
+      pool.query(
+        'SELECT unit_name FROM units INNER JOIN users on users.unit_id = units.unique_id WHERE users.username = $1', 
+        [username],
+        (err, results) => {
+          if(err){
+            throw err;
+          }
+          if(results.rows.length > 0) {
+            const unit_name = results.rows[0];
+            response.status(200).json(unit_name)
+          } else {
+            console.log("user not found")
+            response.status(404).send("user not found")
+          }
+        }
+      )
+    })
+}
+
 module.exports = {
     authenticateUser,
     registerUser,
     getUser,
-    changePassword
+    changePassword,
+    updateUserUnit
 }

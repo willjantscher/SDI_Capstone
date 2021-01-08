@@ -6,7 +6,6 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
-import Cookies from 'universal-cookie';
 
 import Navbar from "./navbar/Navbar";
 import LoginMain from "./login/LoginMain";
