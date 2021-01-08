@@ -3,35 +3,18 @@ to do:
     better select for units
         https://react-select.com/home
 
-
-    beautification with https://www.astrouxds.com/
     additional features:
         add attachments'
         change unit selectoer
             have sub selects under their parents
             https://github.com/insin/react-filtered-multiselect
 
-import Cookies from 'universal-cookie';
-let cookies = new Cookies();
-let user_id = cookies.get("user_id");  //cookie name is user_id
-let unit_id = cookies.get("unit_id");  //cookie name is unit_id
-
-also for testing:
 username: bigCheese
 password: password
 
 docker-compose up --build
 
-input fields check if "" rather than null
-
-
-redirect if no valid cookie!!
-
-1. format tasker form with bootstrap
-    center fields
-1.1 set fields to empty on submit
-2. add some sort of alert thing for sending taskers (valid and invalid)
-3. 
+redirect if no valid cookie!! implement for all pages
 */
 
 
@@ -53,22 +36,6 @@ class TaskerCreationMain extends React.Component {
         this.state = {
             units: [],  //api querry should only return array of names
             tasker: {
-                tasker_id : null,
-                current_status : 'in progress',  //in progress, completed
-                routing_at_unit_id: null,
-                user_id : null,
-                originator_unit_id : null,
-                sendToUnits: [],
-                sendToUnits_ids: [],
-                version_num : 0,
-                updated_on : null,
-                tasker_name : null,
-                suspense_date : null,
-                priority_lvl : 'low',
-                predicted_workload : 1,
-                desc_text : null,
-            },
-            empty_tasker: {
                 tasker_id : null,
                 current_status : 'in progress',  //in progress, completed
                 routing_at_unit_id: null,
@@ -205,7 +172,7 @@ class TaskerCreationMain extends React.Component {
                             },
                             body: JSON.stringify(newTasker),
                         }).then(() => {
-                            this.setState({ tasker : this.state.empty_tasker })
+                            document.getElementById("tasker_form").reset();
                         })
                     })
         } 

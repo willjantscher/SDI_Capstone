@@ -86,7 +86,7 @@ const TaskerForm = (props) => {
         <>
             <div className="rux-form-field__label"></div>
 {/* rux-form-field rux-form-field--large */}
-            <form onSubmit={props.onSubmitTasker} className="container-fluid ">
+            <form id="tasker_form" onSubmit={props.onSubmitTasker} className="container-fluid ">
                 
                 <div className="">
                     {inputFields.map((inputField, index) => (
