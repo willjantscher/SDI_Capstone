@@ -5,8 +5,8 @@ to do:
 
     additional features:
         add attachments'
-        change unit selectoer
-            have sub selects under their parents
+        change unit select
+            have sub selects under their parents    refactor fetch to return id, parent id, and name
             https://github.com/insin/react-filtered-multiselect
 
 username: bigCheese

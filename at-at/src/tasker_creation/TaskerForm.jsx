@@ -165,7 +165,9 @@ const TaskerForm = (props) => {
                 </div>
 
                 <div className="row pb-3 pl-5">
-                    <input className="rux-button " type="submit" value="Send Tasker with Extreme Prejudice"/>
+                    <input className="rux-button " type="submit" value="Send Tasker with Extreme Prejudice"
+                    onClick={() => { setInputFields([{ unit : '' , unit_id : ''}]) }}
+                    />
                 </div>
 
             </form>
