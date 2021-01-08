@@ -50,7 +50,7 @@ class TaskerCreationMain extends React.Component {
                 priority_lvl : 'low',
                 predicted_workload : 1,
                 desc_text : null,
-            },
+            }, 
             submit_flag: null,
             loged_in_unit: null,
         }
@@ -80,6 +80,8 @@ class TaskerCreationMain extends React.Component {
         tempTasker.originator_unit_id = unit_id;
         tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
+        // console.log(tempTaskerEmpty)
+
         if(this._isMounted === true) {
             this.setState({ tasker : tempTasker});
         }
@@ -173,6 +175,27 @@ class TaskerCreationMain extends React.Component {
                             body: JSON.stringify(newTasker),
                         }).then(() => {
                             document.getElementById("tasker_form").reset();
+                            let empty_tasker = {
+                                tasker_id : null,
+                                current_status : 'in progress',  //in progress, completed
+                                routing_at_unit_id: null,
+                                user_id : null,
+                                originator_unit_id : null,
+                                sendToUnits: [],
+                                sendToUnits_ids: [],
+                                version_num : 0,
+                                updated_on : null,
+                                tasker_name : null,
+                                suspense_date : null,
+                                priority_lvl : 'low',
+                                predicted_workload : 1,
+                                desc_text : null,
+                            }
+                            empty_tasker.originator_unit_id = this.state.tasker.unit_id;
+                            empty_tasker.user_id = this.state.tasker.user_id;
+                            empty_tasker.updated_on = this.state.tasker.updated_on;
+                            empty_tasker.originator_unit_id = this.state.tasker.originator_unit_id
+                            this.setState({ tasker : empty_tasker })
                         })
                     })
         } 
@@ -188,6 +211,7 @@ class TaskerCreationMain extends React.Component {
                     onUnitChange = {this.handleUnitChange}
                     onSubmitTasker = {this.handleSubmitTasker}                    
                     units = {this.state.units}
+                    flag = {this.state.submit_flag}
                 />
 
             </div>

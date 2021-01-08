@@ -56,7 +56,7 @@ const TaskerForm = (props) => {
             return(
                 <div className="row pb-3 pl-5">
                     <button
-                    className="rux-button col-sm-1"
+                    className="rux-button col-sm-1 will-colors"
                     type="button"
                     onClick={() => handleAddFields()}
                     >
@@ -68,18 +68,24 @@ const TaskerForm = (props) => {
         } else return(
             <div className="row pb-3 pl-5">
                 <button
-                className="rux-button col-sm-1"
+                className="rux-button col-sm-1 will-colors"
                 type="button" 
                 onClick={() => handleRemoveFields(index)}>-</button>
                 &nbsp; &nbsp;
                 <button
-                className="rux-button col-sm-1"
+                className="rux-button col-sm-1 will-colors"
                 type="button"
                 onClick={() => handleAddFields()}>+</button>
 
                 <div className="col-md-8"></div>
             </div>
         )
+    }
+
+    if(props.flag === "good") {
+        setTimeout(() => {
+            setInputFields([{ unit : '' , unit_id : ''}])
+          }, 200);
     }
 
     return(
@@ -94,7 +100,7 @@ const TaskerForm = (props) => {
                         <div className="row pl-5">
                             <label htmlFor="unit" className="col-sm-2" >Unit: </label>
                             <select 
-                                className="rux-select col-md-3"
+                                className="rux-select col-md-3 will-colors"
                                 id="unit"
                                 name="unit"
                                 value={inputField.unit}
@@ -114,7 +120,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5"> 
                     <label htmlFor="tasker_name" className="col-sm-2">Tasker Name:</label>
                     <input 
-                        className="rux-input col-md-2"
+                        className="rux-input col-md-2 will-colors"
                         id="tasker_name"
                         name="Tasker Name"
                         placeholder="Tasker Name"
@@ -125,7 +131,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5">
                     <label htmlFor="suspense_date" className="col-sm-2" >Suspense Date</label>
                     <input
-                        className="rux-input col-md-2"
+                        className="rux-input col-md-2 will-colors"
                         id="suspense_date"
                         type="date"
                         onChange={props.onInputChange}
@@ -134,7 +140,7 @@ const TaskerForm = (props) => {
 
                 <div className="row pb-3 pl-5">
                     <label htmlFor="priority_lvl" className="col-sm-2">Priority</label>
-                    <select className="rux-select col-md-2" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
+                    <select className="rux-select col-md-2 will-colors" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
                         <option key="Low" value="Low">Low</option>
                         <option key="Medium" value="Medium">Medium</option>
                         <option key="High" value="High">High</option>
@@ -144,7 +150,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5">
                     <label htmlFor="predicted_workload" className="col-sm-2">Predicted Workload</label>
                     <select
-                        className="rux-select col-md-1"
+                        className="rux-select col-md-1 will-colors"
                         id="predicted_workload"
                         placeholder="hrs"
                         onChange={props.onInputChange} >
@@ -156,7 +162,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5">
                     <label htmlFor="desc_text" ></label>
                     <textarea 
-                        className="rux-form-field--large col-md-6"
+                        className="rux-form-field--large col-md-6 will-colors"
                         rows="10"
                         id="desc_text"
                         placeholder="Tasker Description"
@@ -165,9 +171,7 @@ const TaskerForm = (props) => {
                 </div>
 
                 <div className="row pb-3 pl-5">
-                    <input className="rux-button " type="submit" value="Send Tasker with Extreme Prejudice"
-                    onClick={() => { setInputFields([{ unit : '' , unit_id : ''}]) }}
-                    />
+                    <input className="will-colors rux-button" type="submit" value="Send Tasker with Extreme Prejudice"/>
                 </div>
 
             </form>
