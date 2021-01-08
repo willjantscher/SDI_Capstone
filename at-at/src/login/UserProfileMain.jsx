@@ -11,7 +11,9 @@ class UserProfileMain extends React.Component {
             first_name: '',
             last_name: '',
             perms: '',
-            new_password: ''
+            new_password: '',
+            unit_names: [],
+            selected_unit: ''
         }
     }
 
@@ -29,6 +31,9 @@ class UserProfileMain extends React.Component {
                 perms: user.perms
             })
         )
+        fetch('http://localhost:3001/unit_names')
+        .then(response => response.json())
+        .then(resDetails => this.setState({unit_names: resDetails}))
     }
 
     handleInput = (event) => {
@@ -47,6 +52,33 @@ class UserProfileMain extends React.Component {
         .then(() => this.setState({new_password: ''}))
     }
 
+    handleSubmit = (event) => {
+        alert('reached')
+        event.preventDefault()
+        const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
+        fetch(`http://localhost:3001/change_user_unit`, {
+            method: 'POST',
+            headers: { 'Content-Type':  'application/json' },
+            body: JSON.stringify({
+                unit_id: new_unit_id,
+                username: this.state.username
+              }),
+           })
+        .then(response => response.json())
+        .then(resDetails => 
+           {
+           //set new unit_name
+           //clear unit select
+           //set new cookie
+            this.setState({
+                unit_name: resDetails.unit_name, 
+                selected_unit: ''
+            })
+           }
+
+        )
+    }
+
     render() {
         return(
             <div> 
@@ -61,6 +93,16 @@ class UserProfileMain extends React.Component {
                 <br/>
                 <label>Unit: {this.state.unit_name} </label>
                 <br/>
+                <form onSubmit = {this.handleSubmit}>
+                    <label>Unit:
+                        <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
+                            <option key="empty" value=""></option>
+                            {this.state.unit_names.map(unit => <option value={unit}> {unit}</option>)}
+                        </select>
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+
                 <label>Permissions:{this.state.perms ? this.state.perms : "None"} </label> 
                 <br/>
 

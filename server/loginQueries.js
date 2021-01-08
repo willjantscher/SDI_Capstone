@@ -113,7 +113,22 @@ const updateUserUnit = async (request, response) => {
       if(err) {
         throw err;
       }
-      response.status(200).send()
+      pool.query(
+        'SELECT unit_name FROM units INNER JOIN users on users.unit_id = units.unique_id WHERE users.username = $1', 
+        [username],
+        (err, results) => {
+          if(err){
+            throw err;
+          }
+          if(results.rows.length > 0) {
+            const unit_name = results.rows[0];
+            response.status(200).json(unit_name)
+          } else {
+            console.log("user not found")
+            response.status(404).send("user not found")
+          }
+        }
+      )
     })
 }
 
