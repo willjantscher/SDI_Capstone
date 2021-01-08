@@ -82,6 +82,12 @@ const TaskerForm = (props) => {
         )
     }
 
+    if(props.flag === "good") {
+        setTimeout(() => {
+            setInputFields([{ unit : '' , unit_id : ''}])
+          }, 200);
+    }
+
     return(
         <>
             <div className="rux-form-field__label"></div>

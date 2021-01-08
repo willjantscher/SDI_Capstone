@@ -211,6 +211,7 @@ class TaskerCreationMain extends React.Component {
                     onUnitChange = {this.handleUnitChange}
                     onSubmitTasker = {this.handleSubmitTasker}                    
                     units = {this.state.units}
+                    flag = {this.state.submit_flag}
                 />
 
             </div>
