@@ -67,7 +67,46 @@ const authenticateUser = async (request, response) => {
     })
 }
 
+const getUser = async (request, response) => {
+  const id = request.params.id
+  pool.query(
+    'SELECT username, first_name, last_name, perms, unit_name FROM users INNER JOIN units on users.unit_id = units.unique_id WHERE users.id = $1', 
+    [id],
+    (err, results) => {
+      if(err){
+        throw err;
+      }
+      if(results.rows.length > 0) {
+        const user = results.rows[0];
+        response.status(200).json(user)
+      } else {
+        console.log("user not found")
+        response.status(404).send("user not found")
+      }
+    }
+  )
+}
+
+const changePassword = async (request, response) => {
+  let { username, passphrase } = request.body;
+  let salt = crypto.randomBytes(16).toString('hex');
+  let hash = crypto.pbkdf2Sync(passphrase, salt,  
+    1000, 64, `sha512`).toString(`hex`);
+  
+  pool.query(
+    'UPDATE users SET passphrase = $1, salt = $2 WHERE username = $3',
+    [hash, salt, username],
+    (err, results) => {
+      if(err) {
+        throw err;
+      }
+      response.status(200).send()
+    })
+}
+
 module.exports = {
     authenticateUser,
-    registerUser
+    registerUser,
+    getUser,
+    changePassword
 }

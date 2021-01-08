@@ -1,5 +1,4 @@
-import React from "react"
-import Cookies from 'universal-cookie';
+import React from "react";
 
 class RegisterMain extends React.Component {
     constructor(props) {
@@ -27,12 +26,13 @@ class RegisterMain extends React.Component {
 
     handleRegistration = async (event) => {
         event.preventDefault()
-        if(this.state.passphrase != this.state.confirmPassphrase){
-            alert('Passwords must match')
+        if(this.state.passphrase !== this.state.confirmPassphrase){
+            alert('Passwords must match.')
             return
         }
         if(!this.state.selected_unit || !this.state.username || !this.state.passphrase || !this.state.first_name || !this.state.last_name){
-            alert('Please input a unit')
+            alert('Please fill all fields.')
+            return
         }
         const response = await fetch(`http://localhost:3001/register`, {
             method: 'POST',
