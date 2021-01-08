@@ -68,6 +68,22 @@ class TaskerCreationMain extends React.Component {
                 predicted_workload : 1,
                 desc_text : null,
             },
+            empty_tasker: {
+                tasker_id : null,
+                current_status : 'in progress',  //in progress, completed
+                routing_at_unit_id: null,
+                user_id : null,
+                originator_unit_id : null,
+                sendToUnits: [],
+                sendToUnits_ids: [],
+                version_num : 0,
+                updated_on : null,
+                tasker_name : null,
+                suspense_date : null,
+                priority_lvl : 'low',
+                predicted_workload : 1,
+                desc_text : null,
+            },
             submit_flag: null,
             loged_in_unit: null,
         }
@@ -188,12 +204,11 @@ class TaskerCreationMain extends React.Component {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify(newTasker),
+                        }).then(() => {
+                            this.setState({ tasker : this.state.empty_tasker })
                         })
                     })
-        } else (
-            //send a post to the taskers table with originator unit
-            console.log(flag)
-        )
+        } 
     }
 
     taskerRenderer = () => {
@@ -208,56 +223,36 @@ class TaskerCreationMain extends React.Component {
                     units = {this.state.units}
                 />
 
-                {(() => {
-                    switch (this.state.submit_flag) {
-                        case "bad_sendToUnits":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must select a unit!
-                                </div>
-                            );
-                        case "bad_tasker_name":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a tasker name!
-                                </div>
-                            );
-                        case "bad_suspense_date":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must select a valid suspense date!
-                                </div>
-                            );
-                        case "bad_predicted_workload":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a predicted workload!
-                                </div>
-                            );
-                        case "bad_desc_text":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a tasker description!
-                                </div>
-                            );
-                        case "good":
-                            return (
-                                <div className="alert-danger text-center">
-                                    Tasker sent successfuly!
-                                </div>
-                            );
-                        default:
-                            return <div></div>;
-                    }
-                })()}
             </div>
         )
     }
  
+    componentDidUpdate() {
+        if(this.state.submit_flag === "bad_sendToUnits") {
+            alert("You must select a Unit!")
+            this.setState({ submit_flag : null })
+        } else if(this.state.submit_flag === "bad_tasker_name") {
+            alert("You must specify a tasker name!")
+            this.setState({ submit_flag : null })
+        } else if(this.state.submit_flag === "bad_suspense_date") {
+            alert("You must select a valid suspense date!")
+            this.setState({ submit_flag : null })
+        } else if (this.state.submit_flag === "bad_desc_text") {
+            alert("You must input a tasker description!")
+            this.setState({ submit_flag : null })
+        } else if (this.state.submit_flag === "good") {
+            alert("Tasker sent successfully!")
+            this.setState({ submit_flag : null })
+        }
+       
+    }
 
     render() {
+        
+
         //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
         return(
+            
             
             <div>
 
