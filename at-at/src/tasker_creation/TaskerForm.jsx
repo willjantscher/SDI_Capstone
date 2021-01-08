@@ -120,6 +120,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5"> 
                     <label htmlFor="tasker_name" className="col-sm-2">Tasker Name:</label>
                     <input 
+                        style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                         className="rux-input col-md-2 will-colors"
                         id="tasker_name"
                         name="Tasker Name"
@@ -131,6 +132,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5">
                     <label htmlFor="suspense_date" className="col-sm-2" >Suspense Date</label>
                     <input
+                        style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                         className="rux-input col-md-2 will-colors"
                         id="suspense_date"
                         type="date"
@@ -146,9 +148,9 @@ const TaskerForm = (props) => {
                         <option key="High" value="High">High</option>
                     </select>
                 </div>
-
+                            
                 <div className="row pb-3 pl-5">
-                    <label htmlFor="predicted_workload" className="col-sm-2">Predicted Workload</label>
+                    <label htmlFor="predicted_workload" className="col-sm-2" >Predicted Workload</label>
                     <select
                         className="rux-select col-md-1 will-colors"
                         id="predicted_workload"
@@ -162,6 +164,7 @@ const TaskerForm = (props) => {
                 <div className="row pb-3 pl-5">
                     <label htmlFor="desc_text" ></label>
                     <textarea 
+                        style={{borderRadius:'3px'}}
                         className="rux-form-field--large col-md-6 will-colors"
                         rows="10"
                         id="desc_text"
