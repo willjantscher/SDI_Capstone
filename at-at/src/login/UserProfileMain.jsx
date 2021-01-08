@@ -1,6 +1,8 @@
 import React from "react"
 import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+
 class UserProfileMain extends React.Component {
     constructor(props) {
         super(props) 
@@ -18,7 +20,6 @@ class UserProfileMain extends React.Component {
     }
 
     componentDidMount = () => {
-        let cookies = new Cookies();
         let user_id = cookies.get("user_id");
         fetch(`http://localhost:3001/user/${user_id}`)
         .then(response => response.json())
@@ -53,7 +54,6 @@ class UserProfileMain extends React.Component {
     }
 
     handleSubmit = (event) => {
-        alert('reached')
         event.preventDefault()
         const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
         fetch(`http://localhost:3001/change_user_unit`, {
@@ -67,15 +67,12 @@ class UserProfileMain extends React.Component {
         .then(response => response.json())
         .then(resDetails => 
            {
-           //set new unit_name
-           //clear unit select
-           //set new cookie
+           cookies.set('unit_id', new_unit_id, { path: '/' })
             this.setState({
                 unit_name: resDetails.unit_name, 
                 selected_unit: ''
             })
            }
-
         )
     }
 
