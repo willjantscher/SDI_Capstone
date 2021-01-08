@@ -1,6 +1,5 @@
 import React from "react"
 import { Redirect } from "react-router-dom";
-import Cookies from 'universal-cookie';
 import isAuthed from './utils';
 
 class LoginMain extends React.Component {

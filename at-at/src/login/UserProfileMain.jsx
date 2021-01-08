@@ -94,7 +94,7 @@ class UserProfileMain extends React.Component {
                     <label>Unit:
                         <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
                             <option key="empty" value=""></option>
-                            {this.state.unit_names.map(unit => <option value={unit}> {unit}</option>)}
+                            {this.state.unit_names.map(unit => <option value={unit} key={unit}> {unit}</option>)}
                         </select>
                     </label>
                     <input type="submit" value="Submit" />
