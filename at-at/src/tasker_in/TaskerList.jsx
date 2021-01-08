@@ -7,7 +7,7 @@ class TaskerList extends React.Component {
   }
 
   isSelectedClassName = (tasker) => {
-    const rowId = `TaskerItem${tasker.tasker_id}`;
+    const rowId = tasker.tasker_id;
     const isSelected = (rowId === this.props.selectedRow.id);
     return isSelected ? "selected" : "";
   }
@@ -30,7 +30,7 @@ class TaskerList extends React.Component {
               return (
                 <TaskerItem
                   key={`TaskerItem${tasker.tasker_id}`}
-                  id={`TaskerItem${tasker.tasker_id}`}
+                  id={tasker.tasker_id}
                   tasker={tasker}
                   showDetails={this.props.showDetails}
                   onClick={this.props.onRowClick}

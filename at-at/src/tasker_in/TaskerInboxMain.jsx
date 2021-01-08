@@ -42,14 +42,11 @@ class TaskerInboxMain extends React.Component {
     return originators;
   }
 
-  handleTaskerShowDetails = (e) => {
-    const selectedId = parseInt(e.target.id);
-    const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
-    this.setState({selectedTasker: selectedTasker});
-  }
-
   handleTaskerClick = (e) => {
-    this.setState({selectedRow: e.currentTarget});
+    const selectedRow = e.currentTarget;
+    const selectedId = parseInt(selectedRow.id);
+    const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
+    this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
   }
 
   handleResponseSubmit = async(e) => {
