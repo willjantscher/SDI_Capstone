@@ -17,7 +17,6 @@ class TaskerList extends React.Component {
         <table className="rux-table">
           <thead>
             <tr>
-              <th></th>
               <th>ID</th>
               <th>Priority</th>
               <th>Suspense</th>
