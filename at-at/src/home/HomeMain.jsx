@@ -13,8 +13,9 @@ class HomeMain extends React.Component {
     render() {
         return(
             <div> We would be honored if you would join us...
-                {/* <rux-notification open message="You have received new taskers!" status='critical' closeAfter></rux-notification> */}
-                <rux-icon icon="notifications" label="Notifications"></rux-icon>
+                <rux-notification open message="You have received new taskers!" status='critical' closeAfter></rux-notification>
+                <rux-icon icon="not
+                ifications" label="Notifications"></rux-icon>
             </div>
         )
     }
