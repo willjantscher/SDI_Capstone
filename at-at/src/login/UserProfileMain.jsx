@@ -12,12 +12,10 @@ class UserProfileMain extends React.Component {
             username: '',
             first_name: '',
             last_name: '',
-            perms: '',
             new_password: '',
             confirm_new_password: '',
             unit_names: [],
             selected_unit: '',
-            editView: false,
             editPasswordView: false,
             editUnitView: false,
         }
@@ -32,8 +30,7 @@ class UserProfileMain extends React.Component {
                 unit_name: user.unit_name,
                 username: user.username,
                 first_name: user.first_name,
-                last_name: user.last_name,
-                perms: user.perms
+                last_name: user.last_name
             })
         )
         fetch('http://localhost:3001/unit_names')
@@ -88,10 +85,6 @@ class UserProfileMain extends React.Component {
         )
     }
 
-    changeView = () => {
-        this.setState({editView: !this.state.editView}, this.render)
-    }
-
     editPasswordView = () => {
         this.setState({editPasswordView: !this.state.editPasswordView}, this.render)
     }
@@ -111,24 +104,29 @@ class UserProfileMain extends React.Component {
                 <label>Password: ***** </label>
                 {
                 this.state.editPasswordView ? 
-                    <div>
-                        <button onClick={this.editPasswordView}>Close</button>
-                        <label>
-                            New Password:
-                            <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
-                            <br/>
-                            Confirm New Password:
-                            <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
-                            <button onClick={this.changePassword}>Save Changes</button>
-                        </label>
-                    </div>
+                    <button onClick={this.editPasswordView}>Close</button>
                 : <button onClick={this.editPasswordView}>Edit</button>
+                }
+
+                {
+                this.state.editPasswordView ? 
+                    <label>
+                        <br/>
+                        New Password:
+                        <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
+                        <br/>
+                        Confirm New Password:
+                        <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
+                        <br/>
+                        <button onClick={this.changePassword}>Save Changes</button>
+                    </label>
+                : null
                 }
                 <br/>
                 <label>Unit: {this.state.unit_name} </label>
 
                 {
-                this.state.editView ? 
+                this.state.editUnitView ? 
                     <button onClick={this.editUnitView}>Close</button>
                 : <button onClick={this.editUnitView}>Edit</button>
                 }
@@ -142,16 +140,11 @@ class UserProfileMain extends React.Component {
                                 {this.state.unit_names.map(unit => <option value={unit} key={unit}> {unit}</option>)}
                             </select>
                         </label>
-                        <input type="submit" value="Submit" />
+                        <br/>
+                        <input type="submit" value="Save Changes" />
                     </form>
                 : null
                 }
-
-
-                <label>Permissions:{this.state.perms ? this.state.perms : "None"} </label> 
-                <br/>
-
-
 
             </div>
         )
