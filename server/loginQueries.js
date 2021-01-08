@@ -104,9 +104,23 @@ const changePassword = async (request, response) => {
     })
 }
 
+const updateUserUnit = async (request, response) => {
+  let { unit_id, username } = request.body;
+  pool.query(
+    'UPDATE users SET unit_id = $1 WHERE username = $2',
+    [unit_id, username],
+    (err, results) => {
+      if(err) {
+        throw err;
+      }
+      response.status(200).send()
+    })
+}
+
 module.exports = {
     authenticateUser,
     registerUser,
     getUser,
-    changePassword
+    changePassword,
+    updateUserUnit
 }
