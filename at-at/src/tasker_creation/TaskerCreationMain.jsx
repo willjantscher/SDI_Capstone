@@ -28,6 +28,8 @@ input fields check if "" rather than null
 redirect if no valid cookie!!
 
 1. format tasker form with bootstrap
+    center fields
+1.1 set fields to empty on submit
 2. add some sort of alert thing for sending taskers (valid and invalid)
 3. 
 */
@@ -63,7 +65,7 @@ class TaskerCreationMain extends React.Component {
                 tasker_name : null,
                 suspense_date : null,
                 priority_lvl : 'low',
-                predicted_workload : null,
+                predicted_workload : 1,
                 desc_text : null,
             },
             submit_flag: null,

@@ -30,11 +30,12 @@ class Navbar extends React.Component {
 
   logout = () => {
     this.removeCookies();
-    this.props.history.push('/login');
+    this.props.history.push('/login');      
   }
   componentDidMount() {
     let dateTime = DateTime.local().zoneName
     this.setState({ date_time : dateTime })
+    
   }
 
   render() {
