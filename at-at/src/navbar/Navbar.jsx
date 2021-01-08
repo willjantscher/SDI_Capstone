@@ -55,19 +55,23 @@ class Navbar extends React.Component {
                 <rux-tab id="tab-id-4"
                   onClick={() => {this.props.history.push('/authenticated_user/tasker_outbox')}}
                 >Tasker Out Box</rux-tab>
+                <rux-tab id="tab-id-5"
+                  onClick={() => {this.props.history.push('/authenticated_user/user_profile' )}}
+                >User Profile</rux-tab>
               </rux-tabs>
 
               <rux-clock timezone="UTC" hideDate small></rux-clock>
-
+              
               <rux-button
                           onClick={() => {this.logout()}}
               >Logout</rux-button>
 
-            </rux-global-status-bar>
+          </rux-global-status-bar>
     
         <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
 
     </div>
+
     );
   }
 }
