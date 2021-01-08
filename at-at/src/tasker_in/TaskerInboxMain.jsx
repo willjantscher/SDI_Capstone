@@ -12,6 +12,7 @@ class TaskerInboxMain extends React.Component {
         taskers: [],
         originators: [],
         selectedTasker: {},
+        selectedRow: [],
     }
   }
 
@@ -41,10 +42,11 @@ class TaskerInboxMain extends React.Component {
     return originators;
   }
 
-  handleTaskerShowDetails = (e) => {
-    const selectedId = parseInt(e.target.id);
+  handleTaskerClick = (e) => {
+    const selectedRow = e.currentTarget;
+    const selectedId = parseInt(selectedRow.id);
     const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
-    this.setState({selectedTasker: selectedTasker});
+    this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
   }
 
   handleResponseSubmit = async(e) => {
@@ -57,7 +59,7 @@ class TaskerInboxMain extends React.Component {
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;
     const requestContent = {
-      method: 'PATCH',
+      method: 'POST',
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: JSON.stringify(taskerResponse)
     };
@@ -99,7 +101,12 @@ class TaskerInboxMain extends React.Component {
   render() {
     return(
       <div>
-        <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
+        <TaskerList
+          taskers={this.state.taskers}
+          selectedRow={this.state.selectedRow}
+          showDetails={this.handleTaskerShowDetails}
+          onRowClick={this.handleTaskerClick}
+        />
         <p>{this.state.selectedTasker.desc_text}</p>
         {Object.keys(this.state.selectedTasker).length > 0
         ? <form onSubmit={this.handleResponseSubmit}>
