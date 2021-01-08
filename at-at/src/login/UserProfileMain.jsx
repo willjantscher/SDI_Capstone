@@ -12,6 +12,7 @@ class UserProfileMain extends React.Component {
             username: '',
             first_name: '',
             last_name: '',
+            old_password: '',
             new_password: '',
             confirm_new_password: '',
             unit_names: [],
@@ -42,27 +43,39 @@ class UserProfileMain extends React.Component {
         this.setState({[event.target.name]: event.target.value})
     }    
 
-    changePassword = (event) => {
+    changePassword = async () => {
         if (this.state.new_password != this.state.confirm_new_password){
-            alert("Passwords must match.")
+            alert("New passwords must match.")
             return
         }
         if (this.state.new_password == ''){
-            alert("Password must not be empty.")
+            alert("New password must not be empty.")
             return
         }
-        fetch(`http://localhost:3001/change_password`, {
+        const response = await fetch(`http://localhost:3001/change_password`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
                 username: this.state.username,
+                old_password: this.state.old_password,
                 passphrase: this.state.new_password,
               }),
            })
-        .then(() => this.setState({new_password: '', confirm_new_password: ''}))
+        if(response.status === 200){
+            alert("Password change successful!")
+            this.setState({
+                new_password: '', 
+                confirm_new_password: '', 
+                old_password: '',
+                editPasswordView: false,
+            }, this.render)
+        } else if (response.status === 401){
+            alert("Current password is incorrect.")
+            return
+        } 
     }
 
-    handleSubmit = (event) => {
+    changeUnit = (event) => {
         event.preventDefault()
         const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
         fetch(`http://localhost:3001/change_user_unit`, {
@@ -76,11 +89,13 @@ class UserProfileMain extends React.Component {
         .then(response => response.json())
         .then(resDetails => 
            {
-           cookies.set('unit_id', new_unit_id, { path: '/' })
+            alert("Unit change successful!")
+            cookies.set('unit_id', new_unit_id, { path: '/' })
             this.setState({
                 unit_name: resDetails.unit_name, 
-                selected_unit: ''
-            })
+                selected_unit: '',
+                editUnitView: false
+            }, this.render)
            }
         )
     }
@@ -112,6 +127,9 @@ class UserProfileMain extends React.Component {
                 this.state.editPasswordView ? 
                     <label>
                         <br/>
+                        Current Password:
+                        <input type='password' name='old_password' value={this.state.old_password} onChange={this.handleInput}></input>
+                        <br/>
                         New Password:
                         <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
                         <br/>
@@ -133,7 +151,7 @@ class UserProfileMain extends React.Component {
 
                 {
                 this.state.editUnitView ? 
-                    <form onSubmit = {this.handleSubmit}>
+                    <form onSubmit = {this.changeUnit}>
                         <label>New Unit:
                             <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
                                 <option key="empty" value=""></option>
