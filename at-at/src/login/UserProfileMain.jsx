@@ -14,8 +14,10 @@ class UserProfileMain extends React.Component {
             last_name: '',
             perms: '',
             new_password: '',
+            confirm_new_password: '',
             unit_names: [],
-            selected_unit: ''
+            selected_unit: '',
+            editView: false
         }
     }
 
@@ -42,6 +44,14 @@ class UserProfileMain extends React.Component {
     }    
 
     changePassword = (event) => {
+        if (this.state.new_password != this.state.confirm_new_password){
+            alert("Passwords must match.")
+            return
+        }
+        if (this.state.new_password == ''){
+            alert("Password must not be empty.")
+            return
+        }
         fetch(`http://localhost:3001/change_password`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
@@ -50,7 +60,7 @@ class UserProfileMain extends React.Component {
                 passphrase: this.state.new_password,
               }),
            })
-        .then(() => this.setState({new_password: ''}))
+        .then(() => this.setState({new_password: '', confirm_new_password: ''}))
     }
 
     handleSubmit = (event) => {
@@ -76,6 +86,10 @@ class UserProfileMain extends React.Component {
         )
     }
 
+    changeView = () => {
+        this.setState({editView: !this.state.editView}, this.render)
+    }
+
     render() {
         return(
             <div> 
@@ -84,24 +98,43 @@ class UserProfileMain extends React.Component {
                 <br/>
                 <label>Username: {this.state.username} </label>
                 <br/>
-                <label>Password: ***** </label>
-                <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
-                <button onClick={this.changePassword}>Change Password</button>
+                {
+                this.state.editView ? 
+                    <label>
+                        New Password:
+                        <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
+                        <br/>
+                        Confirm New Password:
+                        <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
+                        <button onClick={this.changePassword}>Change Password</button>
+                    </label>
+                : <label>Password: ***** </label>
+                }
                 <br/>
                 <label>Unit: {this.state.unit_name} </label>
                 <br/>
-                <form onSubmit = {this.handleSubmit}>
-                    <label>Unit:
-                        <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
-                            <option key="empty" value=""></option>
-                            {this.state.unit_names.map(unit => <option value={unit} key={unit}> {unit}</option>)}
-                        </select>
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                {
+                this.state.editView ? 
+                    <form onSubmit = {this.handleSubmit}>
+                        <label>New Unit:
+                            <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
+                                <option key="empty" value=""></option>
+                                {this.state.unit_names.map(unit => <option value={unit} key={unit}> {unit}</option>)}
+                            </select>
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
+                : null
+                }
 
                 <label>Permissions:{this.state.perms ? this.state.perms : "None"} </label> 
                 <br/>
+
+                {
+                this.state.editView ? 
+                    <button onClick={this.changeView}>Save Changes</button>
+                : <button onClick={this.changeView}>Edit</button>
+                }
 
             </div>
         )
