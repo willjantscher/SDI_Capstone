@@ -1,43 +1,21 @@
 /*
 to do:
-    update the originator_unit_id based on the unit logged in (cookie)
-
-    2. add conditional rendering for the form/success message
-
     better select for units
         https://react-select.com/home
 
-    1. add alerts for input fields blank when they can't be null
-        create a switch based on the submit_flag!
-        set to null when clicking a button to submit another 
-
-
-    beautification with https://www.astrouxds.com/
     additional features:
         add attachments'
         change unit selectoer
             have sub selects under their parents
             https://github.com/insin/react-filtered-multiselect
 
-import Cookies from 'universal-cookie';
-let cookies = new Cookies();
-let user_id = cookies.get("user_id");  //cookie name is user_id
-let unit_id = cookies.get("unit_id");  //cookie name is unit_id
-
-also for testing:
 username: bigCheese
 password: password
 
 docker-compose up --build
 
-
-redirect if no valid cookie!!
-
+redirect if no valid cookie!! implement for all pages
 */
-
-
-
-
 
 
 import React from "react"
@@ -70,7 +48,7 @@ class TaskerCreationMain extends React.Component {
                 tasker_name : null,
                 suspense_date : null,
                 priority_lvl : 'low',
-                predicted_workload : null,
+                predicted_workload : 1,
                 desc_text : null,
             },
             submit_flag: null,
@@ -102,7 +80,7 @@ class TaskerCreationMain extends React.Component {
         tempTasker.originator_unit_id = unit_id;
         tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
-        if(this._isMounted = true) {
+        if(this._isMounted === true) {
             this.setState({ tasker : tempTasker});
         }
 
@@ -193,18 +171,17 @@ class TaskerCreationMain extends React.Component {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify(newTasker),
+                        }).then(() => {
+                            document.getElementById("tasker_form").reset();
                         })
                     })
-        } else (
-            //send a post to the taskers table with originator unit
-            console.log(flag)
-        )
+        } 
     }
 
     taskerRenderer = () => {
         return(
             <div>
-                <h1>Create a Tasker</h1>
+                <h1 className="pl-4 pb-4 pt-2">Create a Tasker</h1>
 
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
@@ -213,60 +190,38 @@ class TaskerCreationMain extends React.Component {
                     units = {this.state.units}
                 />
 
-                {(() => {
-                    switch (this.state.submit_flag) {
-                        case "bad_sendToUnits":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must select a unit!
-                                </div>
-                            );
-                        case "bad_tasker_name":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a tasker name!
-                                </div>
-                            );
-                        case "bad_suspense_date":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must select a valid suspense date!
-                                </div>
-                            );
-                        case "bad_predicted_workload":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a predicted workload!
-                                </div>
-                            );
-                        case "bad_desc_text":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a tasker description!
-                                </div>
-                            );
-                        case "good":
-                            return (
-                                <div className="alert-danger text-center">
-                                    Tasker sent successfuly!
-                                </div>
-                            );
-                        default:
-                            return <div></div>;
-                    }
-                })()}
             </div>
         )
     }
  
+    componentDidUpdate() {
+        if(this.state.submit_flag === "bad_sendToUnits") {
+            alert("You must select a Unit!")
+            this.setState({ submit_flag : null })
+        } else if(this.state.submit_flag === "bad_tasker_name") {
+            alert("You must specify a tasker name!")
+            this.setState({ submit_flag : null })
+        } else if(this.state.submit_flag === "bad_suspense_date") {
+            alert("You must select a valid suspense date!")
+            this.setState({ submit_flag : null })
+        } else if (this.state.submit_flag === "bad_desc_text") {
+            alert("You must input a tasker description!")
+            this.setState({ submit_flag : null })
+        } else if (this.state.submit_flag === "good") {
+            alert("Tasker sent successfully!")
+            this.setState({ submit_flag : null })
+        }
+       
+    }
 
     render() {
+        
+
         //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
         return(
             
+            
             <div>
-                <rux-classification-marking classification="controlled"></rux-classification-marking>
-
 
                 {(() => {
                     switch (this.state.tasker.originator_unit_id) {
@@ -287,17 +242,11 @@ class TaskerCreationMain extends React.Component {
                         default:
                             return (
                                 <div>
-                                    <div>
-                                        Welcome!
-                                    </div>
                                     <this.taskerRenderer />
                                 </div>
                             )
                     }
-                })()}
-
-
-                
+                })()}    
 
             </div>
         )
