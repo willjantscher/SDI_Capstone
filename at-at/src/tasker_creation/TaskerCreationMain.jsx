@@ -22,9 +22,14 @@ password: password
 
 docker-compose up --build
 
+input fields check if "" rather than null
+
 
 redirect if no valid cookie!!
 
+1. format tasker form with bootstrap
+2. add some sort of alert thing for sending taskers (valid and invalid)
+3. 
 */
 
 
@@ -192,7 +197,7 @@ class TaskerCreationMain extends React.Component {
     taskerRenderer = () => {
         return(
             <div>
-                <h1>Create a Tasker</h1>
+                <h1 className="pl-4 pb-4 pt-2">Create a Tasker</h1>
 
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
@@ -273,47 +278,11 @@ class TaskerCreationMain extends React.Component {
                         default:
                             return (
                                 <div>
-                                    <div>
-                                        Welcome!
-                                    </div>
                                     <this.taskerRenderer />
                                 </div>
                             )
                     }
-                })()}
-<div class="row">
-    <div class="container">
-    <div class="row">
-        <div class="col-sm">
-        One of three columns
-        </div>
-        <div class="col-sm">
-        One of three columns
-        </div>
-        <div class="col-sm">
-        One of three columns
-        </div>
-    </div>
-    </div>
-</div>
-<div class="row">
-    <div class="container">
-    <div class="row">
-        <div class="col-sm">
-        One of three columns
-        </div>
-        <div class="col-sm">
-        One of three columns
-        </div>
-        <div class="col-sm">
-        One of three columns
-        </div>
-    </div>
-    </div>
-</div>
-
-
-                
+                })()}    
 
             </div>
         )
