@@ -24,7 +24,7 @@ class UserProfileMain extends React.Component {
 
     componentDidMount = () => {
         let user_id = cookies.get("user_id");
-        fetch(`http://localhost:3001/user/${user_id}`)
+        fetch(`http://localhost:3001/login/user/${user_id}`)
         .then(response => response.json())
         .then(user => 
             this.setState({
@@ -52,7 +52,7 @@ class UserProfileMain extends React.Component {
             alert("New password must not be empty.")
             return
         }
-        const response = await fetch(`http://localhost:3001/change_password`, {
+        const response = await fetch(`http://localhost:3001/login/change_password`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
@@ -78,7 +78,7 @@ class UserProfileMain extends React.Component {
     changeUnit = (event) => {
         event.preventDefault()
         const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
-        fetch(`http://localhost:3001/change_user_unit`, {
+        fetch(`http://localhost:3001/login/change_user_unit`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({

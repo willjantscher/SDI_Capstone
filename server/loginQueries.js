@@ -128,7 +128,7 @@ const changePassword = async (request, response) => {
     })
 }
 
-const updateUserUnit = async (request, response) => {
+const changeUserUnit = async (request, response) => {
   let { unit_id, username } = request.body;
   pool.query(
     'UPDATE users SET unit_id = $1 WHERE username = $2',
@@ -161,5 +161,5 @@ module.exports = {
     registerUser,
     getUser,
     changePassword,
-    updateUserUnit
+    changeUserUnit
 }
