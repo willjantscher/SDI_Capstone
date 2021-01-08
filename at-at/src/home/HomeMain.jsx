@@ -1,4 +1,5 @@
 import React from "react"
+// import { RuxIcon } from '@astrouxds/rux-icon/rux-icon.js';
 
 
 class HomeMain extends React.Component {
@@ -11,7 +12,10 @@ class HomeMain extends React.Component {
 
     render() {
         return(
-            <div> I am inside of the Home Main page</div>
+            <div> We would be honored if you would join us...
+                {/* <rux-notification open message="You have received new taskers!" status='critical' closeAfter></rux-notification> */}
+                <rux-icon icon="notifications" label="Notifications"></rux-icon>
+            </div>
         )
     }
 

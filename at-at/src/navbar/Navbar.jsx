@@ -6,6 +6,8 @@ import { DateTime } from 'luxon';
 import { RuxButton } from '@astrouxds/rux-button/rux-button.js';
 import { RuxTabs } from '@astrouxds/rux-tabs/rux-tabs.js';
 import Cookies from 'universal-cookie';
+import { RuxNotification } from '@astrouxds/rux-notification/rux-notification.js';
+import { RuxIcon } from '@astrouxds/rux-icon/rux-icon.js';
 import { RuxClassification } from '@astrouxds/rux-classification-marking/rux-classification-marking.js';
 
 
@@ -37,10 +39,11 @@ class Navbar extends React.Component {
     this.setState({ date_time : dateTime })
     
   }
-
+  
   render() {
     return (
-      <div>
+            <div>
+        <rux-icon icon="notifications" size="medium"></rux-icon>
             <rux-global-status-bar appname="AT-AT" version="1.0" theme="dark" style={{ marginTop : '20px' }}>
               <rux-tabs id="tab-set-id-1">
                 <rux-tab id="tab-id-1" selected="true" small="true"
@@ -58,6 +61,9 @@ class Navbar extends React.Component {
                 <rux-tab id="tab-id-5"
                   onClick={() => {this.props.history.push('/authenticated_user/user_profile' )}}
                 >User Profile</rux-tab>
+                          <rux-tab id="tab-id-6"
+              onClick={() => {this.props.history.push('/authenticated_user/notifications' )}}
+              >Notifications<rux-icon icon="notifications" size="medium" label="notifications" color="#fff">?</rux-icon></rux-tab>
               </rux-tabs>
 
               <rux-clock timezone="UTC" hideDate small></rux-clock>
@@ -71,7 +77,6 @@ class Navbar extends React.Component {
         <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
 
     </div>
-
     );
   }
 }
