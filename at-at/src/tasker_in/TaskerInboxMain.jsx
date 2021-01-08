@@ -12,6 +12,7 @@ class TaskerInboxMain extends React.Component {
         taskers: [],
         originators: [],
         selectedTasker: {},
+        selectedRow: [],
     }
   }
 
@@ -45,6 +46,10 @@ class TaskerInboxMain extends React.Component {
     const selectedId = parseInt(e.target.id);
     const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
     this.setState({selectedTasker: selectedTasker});
+  }
+
+  handleTaskerClick = (e) => {
+    this.setState({selectedRow: e.currentTarget});
   }
 
   handleResponseSubmit = async(e) => {
@@ -99,7 +104,12 @@ class TaskerInboxMain extends React.Component {
   render() {
     return(
       <div>
-        <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
+        <TaskerList
+          taskers={this.state.taskers}
+          selectedRow={this.state.selectedRow}
+          showDetails={this.handleTaskerShowDetails}
+          onRowClick={this.handleTaskerClick}
+        />
         <p>{this.state.selectedTasker.desc_text}</p>
         {Object.keys(this.state.selectedTasker).length > 0
         ? <form onSubmit={this.handleResponseSubmit}>
