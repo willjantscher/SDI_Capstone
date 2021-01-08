@@ -18,6 +18,8 @@ import TaskerCreationMain from "./tasker_creation/TaskerCreationMain";
 import TaskerInboxMain from "./tasker_in/TaskerInboxMain";
 import TaskerOutboxMain from "./tasker_out/TaskerOutboxMain";
 import NotificationsMain from "./notifications/NotificationsMain";
+import 'bootstrap/dist/css/bootstrap-grid.css';
+
 
 class App extends React.Component {
   constructor(props) {

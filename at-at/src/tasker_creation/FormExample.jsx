@@ -41,7 +41,7 @@ const FormExample = () => {
     <>
       <h1>Dynamic Form Fields in React</h1>
       <form onSubmit={handleSubmit}>
-        <div className="form-row">
+        <div class="rux-form-field">
           {inputFields.map((inputField, index) => (
             <Fragment key={`${inputField}~${index}`}>
               <div className="form-group col-sm-6">
@@ -94,10 +94,6 @@ const FormExample = () => {
             Save
           </rux-button >
         </div>
-        <br/>
-        <pre>
-          {JSON.stringify(inputFields, null, 2)}
-        </pre>
       </form>
     </>
   );
