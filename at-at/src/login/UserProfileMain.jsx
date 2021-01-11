@@ -125,24 +125,47 @@ class UserProfileMain extends React.Component {
 
                 {
                 this.state.editPasswordView ? 
-                    <form onSubmit = {this.changePassword}>
-                        <label>
-                            Current Password:
-                            <input type='password' name='old_password' value={this.state.old_password} onChange={this.handleInput}></input>
-                        </label>
-                        <br/>
-                        <label>
-                            New Password:
-                            <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
-                        </label>
-                        <br/>
-                        <label>
-                            Confirm New Password:
-                            <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
-                        </label>
-                        <br/>
-                        <input type="submit" value="Save Changes" />
+                    <>
+                    <div className="rux-form-field__label"></div>
+                    <form className="container-fluid" onSubmit = {this.changePassword}>
+                        <div className="row pb-3"> 
+                            <label htmlFor="old_password" className="col-sm-2" >Current Password:</label>
+                            <input
+                                className="rux-input col-md-2 will-colors"
+                                id="old_password"
+                                type="password"
+                                name="old_password"
+                                value={this.state.old_password}
+                                onChange={this.handleInput}
+                            ></input>
+                        </div>
+                        <div className="row pb-3"> 
+                            <label htmlFor="new_password" className="col-sm-2" >New Password:</label>
+                            <input
+                                className="rux-input col-md-2 will-colors"
+                                id="new_password"
+                                type="password"
+                                name="new_password"
+                                value={this.state.new_password}
+                                onChange={this.handleInput}
+                            ></input>
+                        </div>
+                        <div className="row pb-3"> 
+                            <label htmlFor="confirm_new_password" className="col-sm-2" >Confirm New Password:</label>
+                            <input
+                                className="rux-input col-md-2 will-colors"
+                                id="confirm_new_password"
+                                type="password"
+                                name="confirm_new_password"
+                                value={this.state.confirm_new_password}
+                                onChange={this.handleInput}
+                            ></input>
+                        </div>
+                        <div className="row pb-3 pl-5">
+                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
+                        </div>
                     </form>
+                    </>
                 : null
                 }
                 <br/>
@@ -156,16 +179,21 @@ class UserProfileMain extends React.Component {
 
                 {
                 this.state.editUnitView ? 
-                    <form onSubmit = {this.changeUnit}>
-                        <label>New Unit:
-                            <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
+                    <>
+                    <div className="rux-form-field__label"></div>
+                     <form className="container-fluid" onSubmit = {this.changeUnit}>
+                        <div className="row pb-3">
+                            <label htmlFor="unit" className="col-sm-1" >Unit: </label>
+                            <select className="rux-select col-md-3 will-colors" name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
                                 <option key="empty" value=""></option>
-                                {this.state.unit_names.map(unit => <option value={unit} key={unit}> {unit}</option>)}
+                                {this.state.unit_names.map(unit => <option key={unit} value={unit}> {unit}</option>)}
                             </select>
-                        </label>
-                        <br/>
-                        <input type="submit" value="Save Changes" />
+                        </div>
+                        <div className="row pb-3 pl-5">
+                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
+                        </div>
                     </form>
+                    </>
                 : null
                 }
 

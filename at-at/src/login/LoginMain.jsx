@@ -46,22 +46,39 @@ class LoginMain extends React.Component {
       } else {
         return(
             <div>
-                <h1>Login</h1>
-                <form id="recipe-form" onSubmit = {this.handleLogin}>
-                    <label>
-                        Username: 
-                        <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
-                    </label>
-                    <br/>
-                    <label>
-                        Password: 
-                        <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
-                    </label>
-                    <br/>
-                    <input type="submit" value="Login" />
+                <h1>AT-AT</h1>
+                <h2>Login</h2>
+                <div className="rux-form-field__label"></div>
+                <form className="container-fluid" onSubmit = {this.handleLogin}>
+                    <div className="row pb-3 pl-5"> 
+                        <label htmlFor="username" className="col-sm-1" >Username:</label>
+                        <input
+                            className="rux-input col-md-2 will-colors"
+                            id="username"
+                            type="text"
+                            name="username"
+                            value={this.state.username}
+                            onChange={this.handleInput}
+                        ></input>
+                    </div>
+                    <div className="row pb-3 pl-5"> 
+                        <label htmlFor="passphrase" className="col-sm-1" >Password:</label>
+                        <input
+                            className="rux-input col-md-2 will-colors"
+                            id="passphrase"
+                            type="password"
+                            name="passphrase"
+                            value={this.state.passphrase}
+                            onChange={this.handleInput}
+                        ></input>
+                    </div>
+                    <div className="row pb-3 pl-5">
+                        <input className="will-colors rux-button" type="submit" value="Login"/>
+                    </div>
                 </form>
-                <label>Register 
-                    <a className="nav-link" href="/register"> here </a>
+                
+                <label> 
+                    <a className="nav-link" href="/register">Not on AT-AT yet? Register here</a>
                 </label> 
             </div>
         )
