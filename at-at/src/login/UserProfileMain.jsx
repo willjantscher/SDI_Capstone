@@ -44,11 +44,11 @@ class UserProfileMain extends React.Component {
     }    
 
     changePassword = async () => {
-        if (this.state.new_password != this.state.confirm_new_password){
+        if (this.state.new_password !== this.state.confirm_new_password){
             alert("New passwords must match.")
             return
         }
-        if (this.state.new_password == ''){
+        if (this.state.new_password === ''){
             alert("New password must not be empty.")
             return
         }
