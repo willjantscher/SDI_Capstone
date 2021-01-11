@@ -6,16 +6,56 @@ import React, { useState, Fragment } from "react";
 
 
 const TaskerForm = (props) => {
-    let unitNames = props.units.map((unit) => {
-        return(
-            <option
-                value={unit}
-                key={props.units.indexOf(unit)}
-            >
-                {unit}
-            </option>
+    // console.log(props.units)
+    let topChain = props.units.filter(element => element.parent_unique_id === null);
+    let midChain = props.units.filter(element => element.parent_unique_id === 1);
+    let botChain = props.units.filter(element => element.parent_unique_id > 1  && element.parent_unique_id <= midChain.length+1)
+    let lowestChain = props.units.filter(element => element.parent_unique_id > midChain.length+1)
+    //first will push cso
+    //next will push first cso child (loop)
+    //inside loop, push all cmd children
+    //then next cso child etc...
+
+    // console.log(topChain)
+    // console.log(midChain)
+    // console.log(botChain)
+    // console.log(lowestChain)
+    let selectValues = [];
+    for(const unit in topChain) {
+        console.log(topChain[unit])
+        selectValues.push(
+            topChain[unit].unit_name
         )
-    })
+    }
+    console.log(selectValues)
+    // let selectValues = props.units.map((unit) => {
+
+
+    //     //reorganize the array so it goes (cso - command - all units - command - all units, etc)
+    //     // console.log(unit)
+    //     return(
+    //         <option
+            
+    //         >
+                
+    //         </option>
+    //     )
+    // })
+
+
+
+
+
+    // let unitNames = props.units.map((unit) => {
+    //     return(
+    //         <option
+    //             value={unit}
+    //             key={props.units.indexOf(unit)}
+    //         >
+    //             {unit}
+    //         </option>
+    //     )
+    // })
 
 
     let workloadOptions = [];
@@ -106,9 +146,9 @@ const TaskerForm = (props) => {
                                 value={inputField.unit}
                                 onChange={event => { handleInputChange(index, event)}}
                                 >
-                                    <optgroup label="All Options"></optgroup>
+                                    <optgroup label="USSF"></optgroup>
                                     <option key="empty" value=""></option>
-                                {unitNames}
+                                {selectValues}
                             </select>
                             
                             {buttonHandler(index)}
