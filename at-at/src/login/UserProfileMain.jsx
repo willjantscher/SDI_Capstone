@@ -125,19 +125,24 @@ class UserProfileMain extends React.Component {
 
                 {
                 this.state.editPasswordView ? 
-                    <label>
+                    <form onSubmit = {this.changePassword}>
+                        <label>
+                            Current Password:
+                            <input type='password' name='old_password' value={this.state.old_password} onChange={this.handleInput}></input>
+                        </label>
                         <br/>
-                        Current Password:
-                        <input type='password' name='old_password' value={this.state.old_password} onChange={this.handleInput}></input>
+                        <label>
+                            New Password:
+                            <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
+                        </label>
                         <br/>
-                        New Password:
-                        <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
+                        <label>
+                            Confirm New Password:
+                            <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
+                        </label>
                         <br/>
-                        Confirm New Password:
-                        <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
-                        <br/>
-                        <button onClick={this.changePassword}>Save Changes</button>
-                    </label>
+                        <input type="submit" value="Save Changes" />
+                    </form>
                 : null
                 }
                 <br/>

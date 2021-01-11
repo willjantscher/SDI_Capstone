@@ -47,7 +47,7 @@ class LoginMain extends React.Component {
         return(
             <div>
                 <h1>Login</h1>
-                <form onSubmit = {this.handleLogin}>
+                <form id="recipe-form" onSubmit = {this.handleLogin}>
                     <label>
                         Username: 
                         <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
