@@ -102,9 +102,10 @@ class TaskerInboxMain extends React.Component {
 
   render() {
     return(
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col">
+          <div className="col-sm-1"/>
+          <div className="col-sm">
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
@@ -112,15 +113,17 @@ class TaskerInboxMain extends React.Component {
               onRowClick={this.handleTaskerClick}
             />
           </div>
+          <div className="col-sm-1"/>
         </div>
         <div className="row">
           <div className="col-sm-1"/>
           <div className="col">
-            <p>{this.state.selectedTasker.desc_text}</p>
+            <p className="mx-3">{this.state.selectedTasker.desc_text}</p>
           </div>
           <div className="col-sm-1"/>
         </div>
         <div className="row">
+          <div className="col-sm-1"/>
           <div className="col">
             {Object.keys(this.state.selectedTasker).length > 0
             ? <TaskerResponseForm
@@ -129,6 +132,7 @@ class TaskerInboxMain extends React.Component {
               />
             : <div/>}
           </div>
+          <div className="col-sm-1"/>
         </div>
       </div>
     );
