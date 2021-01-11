@@ -15,7 +15,8 @@ class LoginMain extends React.Component {
         this.setState({[event.target.name]: event.target.value})
     }    
 
-    handleLogin = async () => {
+    handleLogin = async (event) => {
+        event.preventDefault()
         const response = await fetch(`http://localhost:3001/login/authenticate`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
@@ -46,16 +47,22 @@ class LoginMain extends React.Component {
         return(
             <div>
                 <h1>Login</h1>
-                <label>Username: </label>
-                <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
-                <br/>
-                <label>Password: </label>
-                <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
-                <br/>
-                <button onClick={this.handleLogin}>Login</button>
-                <br/><br/>
-                <label>Register </label> 
-                <a className="nav-link" href="/register">here </a>
+                <form onSubmit = {this.handleLogin}>
+                    <label>
+                        Username: 
+                        <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
+                    </label>
+                    <br/>
+                    <label>
+                        Password: 
+                        <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
+                    </label>
+                    <br/>
+                    <input type="submit" value="Login" />
+                </form>
+                <label>Register 
+                    <a className="nav-link" href="/register"> here </a>
+                </label> 
             </div>
         )
       }
