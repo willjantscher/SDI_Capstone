@@ -47,7 +47,7 @@ app.post('/units_assigned_taskers', (request, response) => taskerCreationQueries
 
 app.get('/mytaskers/:id', sentQueries.taskers)
 app.get('/myresponses/:id', sentQueries.responses)
-//app.get('/editmytasker/:tid', sentQueries.edit)
+app.post('/editmytasker', sentQueries.edit)
 
 app.post('/authenticate', loginQueries.authenticateUser)
 app.post('/register', loginQueries.registerUser)
