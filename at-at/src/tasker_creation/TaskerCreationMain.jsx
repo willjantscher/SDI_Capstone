@@ -15,6 +15,13 @@ password: password
 docker-compose up --build
 
 redirect if no valid cookie!! implement for all pages
+
+
+
+
+1. Update select for units
+    a. update db backend and query 
+    b. update handling of data
 */
 
 
@@ -34,7 +41,7 @@ class TaskerCreationMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            units: [],  //api querry should only return array of names
+            units: [{}],  //api querry should only return array of names
             tasker: {
                 tasker_id : null,
                 current_status : 'in progress',  //in progress, completed
@@ -87,7 +94,7 @@ class TaskerCreationMain extends React.Component {
         }
 
         // console.log(current_date)
-        fetch(`http://localhost:3001/unit_names`, {
+        fetch(`http://localhost:3001/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -98,6 +105,7 @@ class TaskerCreationMain extends React.Component {
                     // console.log(res);
                     if(this._isMounted === true) {
                         this.setState({ units : res })
+                        // console.log(res)
                     }
                 })
     }
