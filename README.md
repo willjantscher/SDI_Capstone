@@ -100,7 +100,14 @@ Styling: CSS - https://www.astrouxds.com/
 ### 1/7/2021
 - MVPs due!
 
-
+### 1/12/2021
+ToDo:
+- Update logout button with Will's Colors
+- Cascade FKeys in database
+- Standardize table styling
+- Unfurl table data inside tables
+- "Suspense" is spelled wrong in the notification from tasker creation
+- Update the navbar when redirected
 
 
 ## Notes
