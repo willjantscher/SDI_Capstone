@@ -54,7 +54,6 @@ class LoginMain extends React.Component {
                 <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleLogin}>Login</button>
-<<<<<<< HEAD
                 <br/>
                 <h1>Register</h1>
                 <label>Unit Id: </label>
@@ -73,11 +72,6 @@ class LoginMain extends React.Component {
                 <input type='text' name='last_name' value={this.state.last_name} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleRegistration}>Register</button>
-=======
-                <br/><br/>
-                <label>Register </label> 
-                <a className="nav-link" href="/register">here </a>
->>>>>>> master
             </div>
         )
       }
