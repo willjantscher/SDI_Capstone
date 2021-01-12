@@ -33,7 +33,7 @@ class NotificationsMain extends React.Component {
 
         fetch(`${this.apiURL}/notifications/${unitId}`, {
             method: 'POST',
-            }).then((res) => res.json()).then((res) => console.log(res))
+            }).then((res) => console.log(res.json()));
 
         const notifications = await response.json();
         return notifications;
@@ -58,17 +58,17 @@ class NotificationsMain extends React.Component {
         // this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
       }
 
-      handleDelete = (e) => {
-          //e.preventDefault();
-        const notificationId = e.id //= e.currentTarget;
-        console.log(e)
-        //   fetch(`${this.apiURL}/notifications/${notificationId}`, {
-        //     method: 'DELETE',
-        //     }).then((res) => res.json()).then((res) => console.log(res))
+    handleDelete = (e) => {
+        e.preventDefault();
+        const notificationId = parseInt(e.target.id);
+        console.log(notificationId)
+        fetch(`${this.apiURL}/notifications/${notificationId}`, {
+            method: 'DELETE',
+        }).then((res) => console.log(res.json()));
 
-        // const newList = this.state.notifications.filter(i => i.id !== notificationId)
-        // this.setState({notifications: newList})
-      }
+        const newList = this.state.notifications.filter(i => i.tasker_id !== notificationId)
+        this.setState({notifications: newList})
+    }
 
     render() {
         return(
