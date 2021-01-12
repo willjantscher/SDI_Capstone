@@ -38,7 +38,7 @@ const markAsRead = (request, response) => {
     }
 
 const notificationDelete = (request, response) => {
-    var notificationId = request.body.id;
+    var notificationId = request.params.id;
     pool.query('DELETE FROM notifications WHERE id = $1', [notificationId], (error, results) => {
         if (error) {
             response.sendStatus(500)

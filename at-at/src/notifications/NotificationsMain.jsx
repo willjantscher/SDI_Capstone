@@ -30,27 +30,38 @@ class NotificationsMain extends React.Component {
 
     fetchNotifications = async(unitId) => {
         const response = await fetch(`${this.apiURL}/notifications/${unitId}`, {method: 'GET'})
-        //await fetch(`${this.apiURL}/notifications/${unitId}`, {method: 'PATCH'})
+
         fetch(`${this.apiURL}/notifications/${unitId}`, {
-            method: 'PATCH',
+            method: 'POST',
             }).then((res) => res.json()).then((res) => console.log(res))
 
         const notifications = await response.json();
         return notifications;
     }
-    handleNotificationClick = (e) => {
-        const selectedRow = e.currentTarget;
-        const selectedId = parseInt(selectedRow.id);
-        const selectedNotification = this.state.notifications.find(notification => notification.notification_id === selectedId);
-        this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
+    handleNotificationClick = async(unitId) => {
+        this.props.history.push('/authenticated_user/tasker_inbox');
+//        app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
+
+        // const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})
+        // const taskers = await response.json();
+        // return taskers;
+
+        // const selectedRow = e.currentTarget;
+        // const selectedId = parseInt(selectedRow.id);
+        // const selectedNotification = this.state.notifications.find(notification => notification.notification_id === selectedId);
+        // this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
       }
 
       handleDelete = (e) => {
-          e.preventDefault();
-          const notificationId = e.currentTarget;
-          fetch(`${this.apiURL}/notifications`, {
-            method: 'DELETE',
-            }).then((res) => res.json()).then((res) => console.log(res))
+          //e.preventDefault();
+        const notificationId = e.id //= e.currentTarget;
+        console.log(e)
+        //   fetch(`${this.apiURL}/notifications/${notificationId}`, {
+        //     method: 'DELETE',
+        //     }).then((res) => res.json()).then((res) => console.log(res))
+
+        // const newList = this.state.notifications.filter(i => i.id !== notificationId)
+        // this.setState({notifications: newList})
       }
 
     render() {
@@ -58,8 +69,7 @@ class NotificationsMain extends React.Component {
             <div>
             <NotificationViewer
                 notifications = {this.state.notifications}
-                selectedRow={this.state.selectedRow}
-                onRowClick={this.handleNotificationClick}
+                onViewClick={this.handleNotificationClick}
                 onDelete={this.handleDelete}
             />
             </div>
