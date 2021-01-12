@@ -159,21 +159,26 @@ class TaskerCreationMain extends React.Component {
     handleClickUploadFiles = (e) => {
         e.preventDefault();
         // console.log(this.state.selected_file)
-        const data = new FormData() 
-        data.append('file', this.state.selectedFile)
-        for (var value of data.values()) {
-            console.log(value);
-         }
+        const formData = new FormData() 
+        formData.append('file', this.state.selected_file)
+        // for (var key of formData.entries()) {
+        //     console.log(key[0] + ', ' + key[1]);
+        // }
+        
          fetch(`${this.state.route}/upload`, {
             headers : {
-                method: 'POST',
-                body: data,
-            }
+                'Access-Control-Allow-Origin' : '*',
+            },
+            method: 'POST',
+            body: formData,
         })
             .then(response => response.json())
                 .then(data => {
                 console.log(data)
                 })
+                .catch(error => {
+                    console.log(error);
+                });
     }
 
     handleUnitChange = (values) => {
