@@ -38,8 +38,14 @@ class NotificationsMain extends React.Component {
         const notifications = await response.json();
         return notifications;
     }
-    handleNotificationClick = async(unitId) => {
-        this.props.history.push('/authenticated_user/tasker_inbox');
+    handleNotificationClick = async(e) => {
+        const tasker_id = e.target.id;
+        this.props.history.push({
+            pathname: '/authenticated_user/tasker_inbox',
+            state: {
+                tasker_id: tasker_id
+            }
+        });
 //        app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 
         // const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})

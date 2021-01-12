@@ -13,6 +13,7 @@ class TaskerInboxMain extends React.Component {
         userId: 0,
         taskers: [],
         originators: [],
+        selectedTaskerId: 0,
         selectedTasker: {},
         selectedRow: [],
     }
@@ -28,7 +29,19 @@ class TaskerInboxMain extends React.Component {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
-      this.setState({unitId: unit_id, userId: user_id, taskers: taskers, originators: originators});
+      let selectedTasker = {};
+      if(this.props.location.state) {
+        const selectedTaskerId = parseInt(this.props.location.state.tasker_id);
+        selectedTasker = taskers.find(tasker => tasker.tasker_id === selectedTaskerId)
+      }
+
+      this.setState({
+        unitId: unit_id,
+        userId: user_id,
+        taskers: taskers,
+        originators: originators,
+        selectedTasker: selectedTasker,
+      });
     }
   }
 

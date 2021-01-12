@@ -3,17 +3,20 @@ import React from "react";
 const NotificationViewer = (props) => {
 
     //let unreadNotificationList = props.notifications.map((notification => {if(notification.isRead === false); return <li>{notification.details}</li>}))
-    let unreadNotificationList = props.notifications.filter(notification => !notification.isread).map(notification => 
+    let unreadNotificationList = props.notifications.filter(notification => !notification.isread).map(notification => {
         <tr key={notification.id}>
-        <td>{notification.details}</td>
-        {/* <td><button type="submit" key={notification.id}>view</button></td> */}
-        <td><input 
-            className="will-colors rux-button" 
-            type="submit" 
-            key={notification.id} 
-            onClick={props.onViewClick} 
-            value="View"/></td>
-        </tr>)
+            <td>{notification.details}</td>
+            {/* <td><button type="submit" key={notification.id}>view</button></td> */}
+            <td><input 
+                className="will-colors rux-button" 
+                type="submit" 
+                key={notification.id} 
+                onClick={props.onViewClick}
+                id={notification.tasker_id}
+                value="View"/>
+            </td>
+        </tr>
+    })
     let readNotificationList = props.notifications.filter(notification => notification.isread).map(notification => 
         <tr key={notification.id}>
         <td>{notification.details}</td>
@@ -21,7 +24,8 @@ const NotificationViewer = (props) => {
             className="will-colors rux-button" 
             type="submit" 
             key={notification.id}
-            onClick={props.onViewClick} 
+            onClick={props.onViewClick}
+            id={notification.tasker_id}
             value="View"/></td>
         <td><input 
             className="will-colors rux-button" 
