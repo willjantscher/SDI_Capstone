@@ -2,11 +2,6 @@
 
 update paths for fetches
 
-
-
-
-
-
 Personal access token for gitlab
 user: will_jantscher
 password: ppHvifzzxzYWCGgVcqAR
@@ -75,6 +70,8 @@ class TaskerCreationMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            route : "http://localhost:3001",
+            // route for P1: https://sdi06.staging.dso.mil/sdi06-api
             units: [{}],  //api querry should only return array of names
             tasker: {
                 tasker_id : null,
@@ -94,6 +91,7 @@ class TaskerCreationMain extends React.Component {
             }, 
             submit_flag: null,
             loged_in_unit: null,
+            selected_file: null,
         }
     }
 
@@ -128,7 +126,7 @@ class TaskerCreationMain extends React.Component {
         }
 
         // console.log(current_date)
-        fetch(`http://localhost:3001/units_info`, {
+        fetch(`${this.state.route}/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -151,6 +149,36 @@ class TaskerCreationMain extends React.Component {
         let tempTasker = this.state.tasker;
         tempTasker[e.target.id] = e.target.value;
         this.setState({ tasker : tempTasker })
+    }
+
+    handleFileInputChange = (e) => {
+        console.log(e.target.files[0])
+        this.setState({ selected_file : e.target.files[0], loaded: 0, })
+    }
+
+    handleClickUploadFiles = (e) => {
+        e.preventDefault();
+        // console.log(this.state.selected_file)
+        const formData = new FormData() 
+        formData.append('file', this.state.selected_file)
+        // for (var key of formData.entries()) {
+        //     console.log(key[0] + ', ' + key[1]);
+        // }
+        
+         fetch(`${this.state.route}/upload`, {
+            headers : {
+                'Access-Control-Allow-Origin' : '*',
+            },
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+                .then(data => {
+                console.log(data)
+                })
+                .catch(error => {
+                    console.log(error);
+                });
     }
 
     handleUnitChange = (values) => {
@@ -187,7 +215,7 @@ class TaskerCreationMain extends React.Component {
         this.setState({ submit_flag : flag })
         //checks to see if data is good for a submit
         if(flag === 'good'){
-            fetch(`http://localhost:3001/taskers`, {
+            fetch(`${this.state.route}/taskers`, {
                 method: 'POST',
                 headers : {
                     'Content-Type': 'application/json',
@@ -202,7 +230,7 @@ class TaskerCreationMain extends React.Component {
                         // console.log(newTasker)
                         this.setState({ tasker : newTasker });
 
-                        fetch(`http://localhost:3001/tasker_version`, {
+                        fetch(`${this.state.route}/tasker_version`, {
                             method: 'POST',
                             headers : {
                                 'Content-Type': 'application/json',
@@ -210,7 +238,7 @@ class TaskerCreationMain extends React.Component {
                             body: JSON.stringify(newTasker),
                         });
 
-                        fetch(`http://localhost:3001/units_assigned_taskers`, {
+                        fetch(`${this.state.route}/units_assigned_taskers`, {
                             method: 'POST',
                             headers : {
                                 'Content-Type': 'application/json',
@@ -219,7 +247,7 @@ class TaskerCreationMain extends React.Component {
                         }).then((res) => res.json()).then((res) => console.log(res))
                             // .then((res) => {console.log(res)})
 
-                        fetch(`http://localhost:3001/notifications`, {
+                        fetch(`${this.state.route}/notifications`, {
                             method: 'POST',
                             headers : {
                                 'Content-Type': 'application/json',
@@ -261,7 +289,9 @@ class TaskerCreationMain extends React.Component {
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
                     onUnitChange = {this.handleUnitChange}
-                    onSubmitTasker = {this.handleSubmitTasker}                    
+                    onSubmitTasker = {this.handleSubmitTasker}
+                    onFileInputChange = {this.handleFileInputChange}      
+                    onClickUploadFiles = {this.handleClickUploadFiles}              
                     units = {this.state.units}
                     flag = {this.state.submit_flag}
                 />

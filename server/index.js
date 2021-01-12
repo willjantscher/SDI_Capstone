@@ -1,5 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+var multer = require('multer');
+
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
@@ -8,9 +10,20 @@ const taskerInQueries = require('./taskerInQueries')
 const taskerCreationQueries = require('./taskerCreationQueries')
 const sentQueries = require('./taskerOutQueries')
 const loginQueries = require('./loginQueries')
-const notificationQueries = require('./notificationQueries')
+const notificationQueries = require('./notificationQueries');
 
-const app = express()
+const pool = require('./pool.js').getPool()
+
+
+var app = express()
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })); 
+// app.use(upload.array()); 
+app.use(express.static('public'));
+
 const port = 3001
 
 const corsOptions = {
@@ -22,9 +35,11 @@ app.use(cors(corsOptions))
  
 app.options('*', cors())
 
-app.use(bodyParser.json())
+
 
 app.use(express.json())
+
+
 
 app.use(
   express.urlencoded({
@@ -68,11 +83,58 @@ app.post('/notifications', (request, response) => taskerCreationQueries.postToNo
 app.post('/notifications/:id', (request, response) => notificationQueries.markAsRead(request,response))
 app.delete('/notifications/:id', (request, response) => notificationQueries.notificationDelete(request, response))
 
+// for adding files
+app.get('/', function(req, res){
+  res.render('form');
+});
+
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
   })
   
-//test connection
-function ping(req, res) {
-    return res.send('pong');
+
+
+// adding files stuff -------------------------------------------------------------------------------------------------------------------------------------
+
+var upload = multer({ storage: storage }).single('file')
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+  cb(null, 'public')
+},
+filename: function (req, file, cb) {
+  cb(null, Date.now() + '-' +file.originalname )
 }
+})
+
+app.post('/upload',function(req, res) {
+     
+  upload(req, res, function (err) {
+         if (err instanceof multer.MulterError) {
+             return res.status(500).json(err)
+         } else if (err) {
+             return res.status(500).json(err)
+         }
+         var columnDataToInsert = '\\x' + req.file.buffer.toString('hex');
+         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fileData) VALUES ($1, $2)', [ '1', columnDataToInsert ],  function(error, results) {
+          if (error) {
+            throw error
+        }
+        return res.status(200).json(`${req.file.originalname} uploaded`)
+         })
+        //  console.log(req.file)
+  })
+
+});
+
+
+app.get('/upload', function(req, res) {
+  pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
+    // console.log(results.rows)
+    if (error) {
+        throw error
+    }
+    res.status(200).json(results.rows)
+    // 
+})
+})

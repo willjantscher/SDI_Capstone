@@ -172,96 +172,120 @@ const TaskerForm = (props) => {
           }, 200);
     }
 
+
     return(
         <>
             <div className="rux-form-field__label"></div>
 {/* rux-form-field rux-form-field--large */}
-            <form id="tasker_form" onSubmit={props.onSubmitTasker} className="container-fluid ">
-                
-                <div className="">
-                    {inputFields.map((inputField, index) => (
-                        <Fragment key={`${inputField}~${index}`}>
-                        <div className="row pl-5">
-                            <label htmlFor="unit" className="col-sm-2" >Unit: </label>
-                            <select 
-                                className="rux-select col-md-3 will-colors"
-                                id={inputField.unit_id}
-                                name={inputField.unit_id}
-                                value={inputField.unit}
-                                onChange={event => { handleInputChange(index, event)}}
-                                >
-                                <optgroup label="USSF"></optgroup>
-                                <option key="empty" value=""></option>
-                                {selectValues}
-                            </select>
-                            
-                            {buttonHandler(index)}
+            <div className="container-fluid row">
+                <form id="tasker_form" onSubmit={props.onSubmitTasker} className="col-md-8">
+                    
+                    <div className="">
+                        {inputFields.map((inputField, index) => (
+                            <Fragment key={`${inputField}~${index}`}>
+                            <div className="row pl-5">
+                                <label htmlFor="unit" className="col-sm-3" >Unit</label>
+                                <select 
+                                    className="rux-select col-md-6 will-colors"
+                                    id={inputField.unit_id}
+                                    name={inputField.unit_id}
+                                    value={inputField.unit}
+                                    onChange={event => { handleInputChange(index, event)}}
+                                    >
+                                    <optgroup label="USSF"></optgroup>
+                                    <option key="empty" value=""></option>
+                                    {selectValues}
+                                </select>
+                                
+                                {buttonHandler(index)}
+                            </div>
+                            </Fragment>
+                        ))}
+                    </div>
+
+                    <div className="row pb-3 pl-5"> 
+                        <label htmlFor="tasker_name" className="col-sm-3">Tasker Name</label>
+                        <input 
+                            style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                            className="rux-input col-md-4 will-colors"
+                            id="tasker_name"
+                            name="Tasker Name"
+                            placeholder="Tasker Name"
+                            onChange={props.onInputChange} 
+                        ></input>
+                    </div>
+
+                    <div className="row pb-3 pl-5">
+                        <label htmlFor="suspense_date" className="col-sm-3" >Suspense Date</label>
+                        <input
+                            style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                            className="rux-input col-md-4 will-colors"
+                            id="suspense_date"
+                            type="date"
+                            onChange={props.onInputChange}
+                        ></input>
+                    </div>
+
+                    <div className="row pb-3 pl-5">
+                        <label htmlFor="priority_lvl" className="col-sm-3">Priority</label>
+                        <select className="rux-select col-md-4 will-colors" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
+                            <option key="Low" value="Low">Low</option>
+                            <option key="Medium" value="Medium">Medium</option>
+                            <option key="High" value="High">High</option>
+                        </select>
+                    </div>
+                                
+                    <div className="row pb-3 pl-5">
+                        <label htmlFor="predicted_workload" className="col-sm-3" >Predicted Workload</label>
+                        <select
+                            className="rux-select col-md-2 will-colors"
+                            id="predicted_workload"
+                            placeholder="hrs"
+                            onChange={props.onInputChange} >
+                                <optgroup label="Hours"></optgroup>
+                            {workloadOptions}
+                        </select>
+                    </div>
+
+                    <div className="row pb-3 pl-5">
+                        <label htmlFor="desc_text" ></label>
+                        <textarea 
+                            style={{borderRadius:'3px'}}
+                            className="rux-form-field--large col-md-11 will-colors"
+                            rows="10"
+                            id="desc_text"
+                            placeholder="Tasker Description"
+                            onChange={props.onInputChange} 
+                        ></textarea>
+                    </div>
+
+                    <div className="row pb-3 pl-5">
+                        <div className="col-md-6"></div>
+                        <input className="will-colors rux-button col-md-5" type="submit" value="Send Tasker with Extreme Prejudice"/>
+                    </div>
+
+                </form>
+
+                <div className="col-md-4 container-fluid">
+                    <form onSubmit={props.onClickUploadFiles}> 
+                        <div className="row">
+                            <label >Add Attachments: </label>
                         </div>
-                        </Fragment>
-                    ))}
+                        <div className="form-group files">
+                            <div style={{paddingBottom:'20px'}}></div>
+                            <label className="row" htmlFor="file" id="fileInput">
+                                <div></div>
+                                <input style={{height:"337px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
+                            </label>
+                        </div>
+                        <div className="row" style={{paddingTop:'15px'}}>
+                                <div className="col-md-2"></div>
+                                <button type="submit" className="rux-button col-md-8">Upload</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
 
-                <div className="row pb-3 pl-5"> 
-                    <label htmlFor="tasker_name" className="col-sm-2">Tasker Name:</label>
-                    <input 
-                        style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
-                        className="rux-input col-md-2 will-colors"
-                        id="tasker_name"
-                        name="Tasker Name"
-                        placeholder="Tasker Name"
-                        onChange={props.onInputChange} 
-                    ></input>
-                </div>
-
-                <div className="row pb-3 pl-5">
-                    <label htmlFor="suspense_date" className="col-sm-2" >Suspense Date</label>
-                    <input
-                        style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
-                        className="rux-input col-md-2 will-colors"
-                        id="suspense_date"
-                        type="date"
-                        onChange={props.onInputChange}
-                    ></input>
-                </div>
-
-                <div className="row pb-3 pl-5">
-                    <label htmlFor="priority_lvl" className="col-sm-2">Priority</label>
-                    <select className="rux-select col-md-2 will-colors" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
-                        <option key="Low" value="Low">Low</option>
-                        <option key="Medium" value="Medium">Medium</option>
-                        <option key="High" value="High">High</option>
-                    </select>
-                </div>
-                            
-                <div className="row pb-3 pl-5">
-                    <label htmlFor="predicted_workload" className="col-sm-2" >Predicted Workload</label>
-                    <select
-                        className="rux-select col-md-1 will-colors"
-                        id="predicted_workload"
-                        placeholder="hrs"
-                        onChange={props.onInputChange} >
-                            <optgroup label="Hours"></optgroup>
-                        {workloadOptions}
-                    </select>
-                </div>
-
-                <div className="row pb-3 pl-5">
-                    <label htmlFor="desc_text" ></label>
-                    <textarea 
-                        style={{borderRadius:'3px'}}
-                        className="rux-form-field--large col-md-6 will-colors"
-                        rows="10"
-                        id="desc_text"
-                        placeholder="Tasker Description"
-                        onChange={props.onInputChange} 
-                    ></textarea>
-                </div>
-
-                <div className="row pb-3 pl-5">
-                    <input className="will-colors rux-button" type="submit" value="Send Tasker with Extreme Prejudice"/>
-                </div>
-
-            </form>
         </>
     )
 }
