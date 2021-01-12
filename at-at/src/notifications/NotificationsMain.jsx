@@ -30,6 +30,11 @@ class NotificationsMain extends React.Component {
 
     fetchNotifications = async(unitId) => {
         const response = await fetch(`${this.apiURL}/notifications/${unitId}`, {method: 'GET'})
+        //await fetch(`${this.apiURL}/notifications/${unitId}`, {method: 'PATCH'})
+        fetch(`${this.apiURL}/notifications/${unitId}`, {
+            method: 'PATCH',
+            }).then((res) => res.json()).then((res) => console.log(res))
+
         const notifications = await response.json();
         return notifications;
     }
@@ -40,14 +45,22 @@ class NotificationsMain extends React.Component {
         this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
       }
 
+      handleDelete = (e) => {
+          e.preventDefault();
+          const notificationId = e.currentTarget;
+          fetch(`${this.apiURL}/notifications`, {
+            method: 'DELETE',
+            }).then((res) => res.json()).then((res) => console.log(res))
+      }
+
     render() {
         return(
-            <div> NotificationsMain
-
+            <div>
             <NotificationViewer
                 notifications = {this.state.notifications}
                 selectedRow={this.state.selectedRow}
                 onRowClick={this.handleNotificationClick}
+                onDelete={this.handleDelete}
             />
             </div>
         )

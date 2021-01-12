@@ -85,7 +85,7 @@ const postToNotifications = (request, response) => {
     // console.log(tasker)
     let posts = [];
     for(let i = 0; i < tasker.sendToUnits.length; i ++) {
-        posts.push([tasker.sendToUnits_ids[i], `You have been assigned a tasker: ${tasker.tasker_name}`, false])
+        posts.push([tasker.sendToUnits_ids[i], `You have been assigned a ${tasker.priority_lvl} priority tasker with a suspence of ${tasker.suspense_date} and a predicted workload of ${tasker.predicted_workload} hours: ${tasker.tasker_name}`, false])
     }
     // console.log(posts)
     let query = '';
