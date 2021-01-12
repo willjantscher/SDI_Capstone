@@ -1,9 +1,10 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 
 const UnitsDropdown = (props) => {
-    let topChain = props.units.filter(element => element.parent_unique_id === null);
-    let midChain = props.units.filter(element => element.parent_unique_id === 1);
-    let botChain = props.units.filter(element => element.parent_unique_id > 1  )
+
+    let topChain = props.units.filter(element => element.parent_unique_id === null)
+    let midChain = props.units.filter(element => element.parent_unique_id === 1)
+    let botChain = props.units.filter(element => element.parent_unique_id > 1 )
 
     let selectValues = [];
     for(const unit in topChain) {
@@ -48,40 +49,34 @@ const UnitsDropdown = (props) => {
         }
     }
 
+    console.log(selectValues)
+
     const [inputFields, setInputFields] = useState([
         { unit : '' , unit_id : ''}
     ]);
 
-    const handleInputChange = (index, event) => {
-        const values = [...inputFields];
-            values[index].unit = event.target.value;
-            values[index].unit_id = event.target.id;
-        setInputFields(values);
+    const handleInputChange = (event) => {
+        setInputFields({ unit: event.target.value, unit_id: event.target.id })
+        console.log(event.target.value)
         props.onUnitSelection(event);
     };
 
     return(
         <>
         <div className="rux-form-field__label container-fluid"></div>
-        <div className="">
-            {inputFields.map((inputField, index) => (
-                <Fragment key={`${inputField}~${index}`}>
-                <div className="row pb-3 pl-5">
-                    <label htmlFor="unit" className="col-sm-2" >Unit: </label>
-                    <select 
-                        className="rux-select col-md-3 will-colors"
-                        id={inputField.unit_id}
-                        name={props.select_name}
-                        value={inputField.unit}
-                        onChange={event => { handleInputChange(index, event)}}
-                        >
-                        <optgroup label="USSF"></optgroup>
-                        <option key="empty" value=""></option>
-                        {selectValues}
-                    </select>
-                </div>
-                </Fragment>
-            ))}
+        <div className="row pb-3 pl-5">
+            <label htmlFor="unit" className="col-sm-2" >Unit: </label>
+            <select 
+                className="rux-select col-md-3 will-colors"
+                id={inputFields.unit_id}
+                name={props.select_name}
+                value={inputFields.unit}
+                onChange={event => { handleInputChange(event) }}
+                >
+                <optgroup label="USSF"></optgroup>
+                <option key="empty" value=""></option>
+                {selectValues}
+            </select>
         </div>
         </>
     )

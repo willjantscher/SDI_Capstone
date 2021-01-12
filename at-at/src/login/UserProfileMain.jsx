@@ -16,7 +16,6 @@ class UserProfileMain extends React.Component {
             old_password: '',
             new_password: '',
             confirm_new_password: '',
-            unit_names: [],
             selected_unit: '',
             editPasswordView: false,
             editUnitView: false,
@@ -36,19 +35,17 @@ class UserProfileMain extends React.Component {
                 last_name: user.last_name
             })
         )
-        fetch('http://localhost:3001/unit_names')
-        .then(response => response.json())
-        .then(resDetails => this.setState({unit_names: resDetails}))
+
         fetch(`http://localhost:3001/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         })
-            .then((res) => res.json())
-                .then((res) => {
-                        this.setState({ units : res })
-                })
+        .then((res) => res.json())
+        .then((res) => {
+            this.setState({ units : res })
+        })
     }
 
     handleInput = (event) => {
@@ -93,7 +90,10 @@ class UserProfileMain extends React.Component {
             alert("Please select a unit.")
             return
         }
-        const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
+
+        const new_unit_id = this.state.units.filter(unit => 
+            unit.unit_name === this.state.selected_unit)[0].unique_id
+
         fetch(`http://localhost:3001/login/change_user_unit`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
