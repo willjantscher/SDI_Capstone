@@ -118,7 +118,7 @@ class TaskerInboxMain extends React.Component {
         <div className="row">
           <div className="col-sm-1"/>
           <div className="col">
-            <p className="mx-3">{this.state.selectedTasker.desc_text}</p>
+            <p className="mx-3 my-3">{this.state.selectedTasker.desc_text}</p>
           </div>
           <div className="col-sm-1"/>
         </div>

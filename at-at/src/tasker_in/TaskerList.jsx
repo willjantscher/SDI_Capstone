@@ -8,11 +8,13 @@ class TaskerList extends React.Component {
       sortingMode: "predicted_workload",
       sortDescending: false
     };
+    // to change headers, likely have to update taskerInQueries to get more data
     this.headers = {
       'ID': 'tasker_id',
-      'Priority': 'priority_lvl',
-      'Suspense': 'suspense_date',
       'Name': 'tasker_name',
+      'Assigned': 'updated_on',//FIXME:this must be updated if tasker versioning is implemented!
+      'Suspense': 'suspense_date',
+      'Priority': 'priority_lvl',
       'Est. Workload': 'predicted_workload',
     };
     this.priorities = ['high', 'medium', 'low'];
