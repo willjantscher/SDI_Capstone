@@ -2,6 +2,8 @@ import React from "react"
 import { Redirect } from "react-router-dom";
 import isAuthed from './utils';
 
+const apiURL = 'http://localhost:3001';
+
 class LoginMain extends React.Component {
     constructor(props) {
         super(props) 
@@ -17,7 +19,7 @@ class LoginMain extends React.Component {
 
     handleLogin = async (event) => {
         event.preventDefault()
-        const response = await fetch(`http://localhost:3001/login/authenticate`, {
+        const response = await fetch(`${apiURL}/login/authenticate`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({

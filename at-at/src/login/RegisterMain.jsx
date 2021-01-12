@@ -1,26 +1,24 @@
 import React from "react";
 import UnitsDropdown from "./UnitsDropdown"
 
+const apiURL = 'http://localhost:3001';
+
 class RegisterMain extends React.Component {
     constructor(props) {
         super(props) 
         this.state = {
-            units: [{}],  //api querry should only return array of names
             username: '',
             passphrase: '',
             confirmPassphrase: '',
             first_name: '',
             last_name: '',
-            unit_names: [],
-            selected_unit: ''
+            selected_unit: '',
+            units: [{}]
         }
     }
 
     componentDidMount = () => {
-        fetch('http://localhost:3001/unit_names')
-        .then(response => response.json())
-        .then(resDetails => this.setState({unit_names: resDetails}))
-        fetch(`http://localhost:3001/units_info`, {
+        fetch(`${apiURL}/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -50,7 +48,7 @@ class RegisterMain extends React.Component {
         const unit_id = this.state.units.filter(unit => 
             unit.unit_name === this.state.selected_unit)[0].unique_id
 
-        const response = await fetch(`http://localhost:3001/login/register`, {
+        const response = await fetch(`${apiURL}/login/register`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({

@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import UnitsDropdown from "./UnitsDropdown"
 
 const cookies = new Cookies();
+const apiURL = 'http://localhost:3001';
 
 class UserProfileMain extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class UserProfileMain extends React.Component {
 
     componentDidMount = () => {
         let user_id = cookies.get("user_id");
-        fetch(`http://localhost:3001/login/user/${user_id}`)
+        fetch(`${apiURL}/login/user/${user_id}`)
         .then(response => response.json())
         .then(user => 
             this.setState({
@@ -36,7 +37,7 @@ class UserProfileMain extends React.Component {
             })
         )
 
-        fetch(`http://localhost:3001/units_info`, {
+        fetch(`${apiURL}/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -52,7 +53,8 @@ class UserProfileMain extends React.Component {
         this.setState({[event.target.name]: event.target.value})
     }    
 
-    changePassword = async () => {
+    changePassword = async (event) => {
+        event.preventDefault()
         if (this.state.new_password !== this.state.confirm_new_password){
             alert("New passwords must match.")
             return
@@ -61,7 +63,7 @@ class UserProfileMain extends React.Component {
             alert("New password must not be empty.")
             return
         }
-        const response = await fetch(`http://localhost:3001/login/change_password`, {
+        const response = await fetch(`${apiURL}/login/change_password`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
@@ -81,7 +83,9 @@ class UserProfileMain extends React.Component {
         } else if (response.status === 401){
             alert("Current password is incorrect.")
             return
-        } 
+        } else {
+            alert("Error")
+        }
     }
 
     changeUnit = (event) => {
@@ -94,7 +98,7 @@ class UserProfileMain extends React.Component {
         const new_unit_id = this.state.units.filter(unit => 
             unit.unit_name === this.state.selected_unit)[0].unique_id
 
-        fetch(`http://localhost:3001/login/change_user_unit`, {
+        fetch(`${apiURL}/login/change_user_unit`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
