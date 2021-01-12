@@ -9,8 +9,9 @@ const TaskerForm = (props) => {
     // console.log(props.units)
     let topChain = props.units.filter(element => element.parent_unique_id === null);
     let midChain = props.units.filter(element => element.parent_unique_id === 1);
-    let botChain = props.units.filter(element => element.parent_unique_id > 1  && element.parent_unique_id <= midChain.length+1)
-    let lowestChain = props.units.filter(element => element.parent_unique_id > midChain.length+1)
+    let botChain = props.units.filter(element => element.parent_unique_id > 1  )
+    // && element.parent_unique_id <= midChain.length+1
+    // let lowestChain = props.units.filter(element => element.parent_unique_id > midChain.length+1)
     //first will push cso
     //next will push first cso child (loop)
     //inside loop, push all cmd children
@@ -22,12 +23,51 @@ const TaskerForm = (props) => {
     // console.log(lowestChain)
     let selectValues = [];
     for(const unit in topChain) {
-        console.log(topChain[unit])
+        // console.log(topChain[unit])
         selectValues.push(
-            topChain[unit].unit_name
+            <optgroup label={topChain[unit].unit_name} key="topOptionGroup"></optgroup>
         )
+        selectValues.push(
+            <option
+                value={topChain[unit].unit_name}
+                id={topChain[unit].id}
+                key={topChain[unit].id}
+            >&nbsp;&nbsp;&nbsp;{topChain[unit].unit_name} - direct</option>
+        )
+        // {console.log(topChain[unit].id)}
+
+        
+        let parentId1 = topChain[unit].id;
+        for(const unit in midChain) {
+            if(midChain[unit].parent_unique_id === parentId1){
+                selectValues.push(
+                    <optgroup label={"-        " + midChain[unit].unit_name} key={"Mid Option Group" + midChain[unit].id}></optgroup>
+                )
+                selectValues.push(
+                    <option
+                        value={midChain[unit].unit_name}
+                        id={midChain[unit].id}
+                        key={midChain[unit].id}
+                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{midChain[unit].unit_name} - direct</option>
+                )
+            }
+
+            let parentId2 = midChain[unit].id;
+            for(const unit in botChain) {
+                if(botChain[unit].parent_unique_id === parentId2) {
+                    selectValues.push(
+                        <option
+                            value={botChain[unit].unit_name}
+                            id={botChain[unit].id}
+                            key={botChain[unit].id}
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{botChain[unit].unit_name}</option>
+                    )
+                    
+                }
+            }
+        }
     }
-    console.log(selectValues)
+    // console.log(selectValues)
     // let selectValues = props.units.map((unit) => {
 
 
@@ -59,7 +99,7 @@ const TaskerForm = (props) => {
 
 
     let workloadOptions = [];
-    for(let i = 1; i < 24; i ++) {
+    for(let i = 1; i < 25; i ++) {
         workloadOptions.push(
             <option id={i} key = {i} value={i}>{i}</option>
         )
@@ -86,6 +126,10 @@ const TaskerForm = (props) => {
     const handleInputChange = (index, event) => {
         const values = [...inputFields];
             values[index].unit = event.target.value;
+            values[index].unit_id = event.target.id;
+            // console.log(event.target)
+            // console.log("this is the target value" + event.target.value)
+            // console.log("this is the target id" + event.target.id)
             //create a handler for this that sets the values when called from in here
         setInputFields(values);
         props.onUnitChange(values);
@@ -141,13 +185,13 @@ const TaskerForm = (props) => {
                             <label htmlFor="unit" className="col-sm-2" >Unit: </label>
                             <select 
                                 className="rux-select col-md-3 will-colors"
-                                id="unit"
-                                name="unit"
+                                id={inputField.unit_id}
+                                name={inputField.unit_id}
                                 value={inputField.unit}
                                 onChange={event => { handleInputChange(index, event)}}
                                 >
-                                    <optgroup label="USSF"></optgroup>
-                                    <option key="empty" value=""></option>
+                                <optgroup label="USSF"></optgroup>
+                                <option key="empty" value=""></option>
                                 {selectValues}
                             </select>
                             
