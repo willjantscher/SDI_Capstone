@@ -1,9 +1,11 @@
 import React from "react";
+import UnitsDropdown from "./UnitsDropdown"
 
 class RegisterMain extends React.Component {
     constructor(props) {
         super(props) 
         this.state = {
+            units: [{}],  //api querry should only return array of names
             username: '',
             passphrase: '',
             confirmPassphrase: '',
@@ -18,6 +20,16 @@ class RegisterMain extends React.Component {
         fetch('http://localhost:3001/unit_names')
         .then(response => response.json())
         .then(resDetails => this.setState({unit_names: resDetails}))
+        fetch(`http://localhost:3001/units_info`, {
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then((res) => res.json())
+                .then((res) => {
+                        this.setState({ units : res })
+                })
     }
 
     handleInput = (event) => {
@@ -63,13 +75,11 @@ class RegisterMain extends React.Component {
                 <h1>Register</h1>
                 <div className="rux-form-field__label"></div>
                 <form className="container-fluid" onSubmit = {this.handleRegistration}>
-                    <div className="row pb-3 pl-5">
-                    <label htmlFor="unit" className="col-sm-2" >Unit: </label>
-                        <select className="rux-select col-md-3 will-colors" name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
-                            <option key="empty" value=""></option>
-                            {this.state.unit_names.map(unit => <option key={unit} value={unit}> {unit}</option>)}
-                        </select>
-                    </div>
+                    <UnitsDropdown                    
+                        units = {this.state.units}
+                        onUnitSelection = {this.handleInput}     
+                        select_name = 'selected_unit'                                  
+                    />
                     <div className="row pb-3 pl-5"> 
                         <label htmlFor="username" className="col-sm-2" >Username:</label>
                         <input
@@ -133,8 +143,9 @@ class RegisterMain extends React.Component {
                         <input className="will-colors rux-button" type="submit" value="Register"/>
                     </div>
                 </form>
-                <label>Already have an account? </label>
-                <a className="nav-link" href="/login">Login </a>
+                <label>Already have an account? 
+                    <a className="nav-link" href="/login"> Login here</a>
+                </label>
             </div>
         )
     }

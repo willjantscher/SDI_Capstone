@@ -1,5 +1,6 @@
 import React from "react"
 import Cookies from 'universal-cookie';
+import UnitsDropdown from "./UnitsDropdown"
 
 const cookies = new Cookies();
 
@@ -19,6 +20,7 @@ class UserProfileMain extends React.Component {
             selected_unit: '',
             editPasswordView: false,
             editUnitView: false,
+            units: [{}],
         }
     }
 
@@ -37,6 +39,16 @@ class UserProfileMain extends React.Component {
         fetch('http://localhost:3001/unit_names')
         .then(response => response.json())
         .then(resDetails => this.setState({unit_names: resDetails}))
+        fetch(`http://localhost:3001/units_info`, {
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then((res) => res.json())
+                .then((res) => {
+                        this.setState({ units : res })
+                })
     }
 
     handleInput = (event) => {
@@ -77,6 +89,10 @@ class UserProfileMain extends React.Component {
 
     changeUnit = (event) => {
         event.preventDefault()
+        if(!this.state.selected_unit){
+            alert("Please select a unit.")
+            return
+        }
         const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
         fetch(`http://localhost:3001/login/change_user_unit`, {
             method: 'POST',
@@ -182,13 +198,11 @@ class UserProfileMain extends React.Component {
                     <>
                     <div className="rux-form-field__label"></div>
                      <form className="container-fluid" onSubmit = {this.changeUnit}>
-                        <div className="row pb-3">
-                            <label htmlFor="unit" className="col-sm-1" >Unit: </label>
-                            <select className="rux-select col-md-3 will-colors" name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
-                                <option key="empty" value=""></option>
-                                {this.state.unit_names.map(unit => <option key={unit} value={unit}> {unit}</option>)}
-                            </select>
-                        </div>
+                        <UnitsDropdown                    
+                            units = {this.state.units}
+                            onUnitSelection = {this.handleInput} 
+                            select_name = 'selected_unit'                   
+                        />
                         <div className="row pb-3 pl-5">
                             <input className="will-colors rux-button" type="submit" value="Save Changes"/>
                         </div>
