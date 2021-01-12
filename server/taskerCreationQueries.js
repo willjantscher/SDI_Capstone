@@ -101,7 +101,7 @@ const postToNotifications = (request, response) => {
     // console.log(posts)
     let query = '';
     for(let item of posts) {
-        query += 'INSERT INTO notifications (unit_to, details, isRead, tasker_id) VALUES (' + item[0] + `, '` + item[1] + `', ` + item[2] + ', ' + item[3]`); `
+        query += 'INSERT INTO notifications (unit_to, details, isRead, tasker_id) VALUES (' + item[0] + `, '` + item[1] + `', ` + item[2] + ', ' + item[3] + `); `
     }
     // console.log(query)
     pool.query(query, (error, results) => {
