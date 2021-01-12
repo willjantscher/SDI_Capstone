@@ -9,6 +9,19 @@ const taskers = (request, response) => {
             throw error
         }
         response.status(200).json(results.rows)
+
+    })
+}
+
+const deleteTasker = (request, response) => {
+    var tid = request.params.tid
+    pool.query('DELETE FROM taskers WHERE id=$1;'
+    ,[tid], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200)
+
     })
 }
 const responses = (request, response) => {
@@ -36,10 +49,10 @@ const edit = (request, response) => {
          priority_lvl = $6, predicted_workload = $7, desc_text = $8 WHERE tasker_id=$1;',
         [tasker_id, version_num, updated_on, tasker_name, suspense_date, priority_lvl, predicted_workload, desc_text], (error, results) => {
         if (error) {
-            throw error
+            response.status(401)
         }
-        response.status(200).json(results.rows)
-        console.log(results.rows)
+        response.status(200)
+
     })
 }
 
@@ -47,3 +60,4 @@ const edit = (request, response) => {
 exports.taskers = taskers;
 exports.responses = responses;
 exports.edit = edit;
+exports.deleteTasker = deleteTasker;
