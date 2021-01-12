@@ -8,14 +8,38 @@ class TaskerList extends React.Component {
       sortingMode: "predicted_workload",
       sortDescending: false
     };
+    // to change headers, likely have to update taskerInQueries to get more data
     this.headers = {
       'ID': 'tasker_id',
-      'Priority': 'priority_lvl',
-      'Suspense': 'suspense_date',
       'Name': 'tasker_name',
+      'Assigned': 'updated_on',//FIXME:this must be updated if tasker versioning is implemented!
+      'Suspense': 'suspense_date',
+      'Priority': 'priority_lvl',
       'Est. Workload': 'predicted_workload',
     };
     this.priorities = ['high', 'medium', 'low'];
+  }
+
+  sortPriority = (a, b) => {
+    const aVal = this.priorities.indexOf(a);
+    const bVal = this.priorities.indexOf(b);
+    return aVal - bVal;
+  }
+
+  isSelectedClassName = (tasker) => {
+    const rowId = tasker.tasker_id;
+    const isSelected = (rowId === this.props.selectedRow.id);
+    return isSelected ? "selected" : "";
+  }
+
+  handleClickColumnHeader = (e) => {
+    const selectedHeader = e.target.textContent;
+    const sortKey = this.headers[selectedHeader];
+    let sortDescending = false;
+    if (sortKey === this.state.sortingMode) {
+      sortDescending = !this.state.sortDescending;
+    }
+    this.setState({sortingMode: sortKey, sortDescending: sortDescending});
   }
 
   generateColumnHeaders = () => {
@@ -67,28 +91,6 @@ class TaskerList extends React.Component {
     })
 
     return taskerItems;
-  }
-
-  sortPriority = (a, b) => {
-    const aVal = this.priorities.indexOf(a);
-    const bVal = this.priorities.indexOf(b);
-    return aVal - bVal;
-  }
-
-  isSelectedClassName = (tasker) => {
-    const rowId = tasker.tasker_id;
-    const isSelected = (rowId === this.props.selectedRow.id);
-    return isSelected ? "selected" : "";
-  }
-
-  handleClickColumnHeader = (e) => {
-    const selectedHeader = e.target.textContent;
-    const sortKey = this.headers[selectedHeader];
-    let sortDescending = false;
-    if (sortKey === this.state.sortingMode) {
-      sortDescending = !this.state.sortDescending;
-    }
-    this.setState({sortingMode: sortKey, sortDescending: sortDescending});
   }
 
   render() {
