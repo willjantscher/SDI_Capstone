@@ -4,7 +4,6 @@ import Cookies from "universal-cookie";
 import EditTasker from './EditTasker';
 import ViewResponses from './ViewResponses';
 
-
 class TaskerOutboxMain extends React.Component {
     constructor(props) {
         super(props) 
@@ -60,7 +59,6 @@ class TaskerOutboxMain extends React.Component {
 
         this.state.values[e.target.name] = e.target.value;
         this.setState({ values : this.state.values })
-
     }
 
 async handleUpdate(e){
@@ -114,12 +112,9 @@ async handleUpdate(e){
         });
     }
 
-
-
     deleteTask(e){
         this.setState({delVis : true, index : e.target.value})
         alert("Delete actions are final!")
-
     }
 
 async handleDelete(){
@@ -141,7 +136,6 @@ async handleDelete(){
         this.handleViewTaskers()
     }
 
-    
     render() {
         const {currentTaskers} = this.state
         return(
@@ -155,36 +149,39 @@ async handleDelete(){
                         <button  style={{float: 'left'}} className ="rux-button" type="submit" onClick={this.handleViewTaskers.bind (this)}>View</button> 
                          {currentTaskers.length > 0 ? 
                         <button className ="rux-button" type="submit" onClick={this.handleTaskersHideButton.bind(this)}> Hide</button> : ""}
-               </div>
+               </div><br></br><br></br>
 
-                <table className="container-fluid">
+                <div className="container-fluid">        
+                <table className= "rux-table">
                 {currentTaskers.length > 0 ?
                     <tbody>
                         <tr>
-                            <td>Tasker ID</td>
-                            <td>Version #</td>
-                            <td>Updated On (YYYY/MM/DD)</td>
-                            <td>Tasker Name</td>
-                            <td>Suspense Date (YYYY/MM/DD)</td>
-                            <td>Priority Level</td>
-                            <td>Est. Workload (Hours)</td>
-                            <td>Description</td>
+                            <td><h3>Tasker ID</h3></td>
+                            <td><h3>Version #</h3></td>
+                            <td><h3>Updated On (YYYY/MM/DD)</h3></td>
+                            <td><h3>Tasker Name</h3></td>
+                            <td><h3>Suspense Date (YYYY/MM/DD)</h3></td>
+                            <td><h3>Priority Level</h3></td>
+                            <td><h3>Est. Workload (Hours)</h3></td>
+                            <td><h3>Description</h3></td>
                         </tr>
                     </tbody>
                     :""} 
 
                     <tbody>
                         {currentTaskers.map((res, i) => 
-                        <tr>
+                        <tr className="will-colors">
                             {Object.values(res).map(r => 
-                            <td>
-                                {r}
+                            <td><h3>
+                                {r}</h3>
                             </td>)}
                             <td>{currentTaskers.length > 0 ?<button className="rux-button" type="submit" value={i} onClick={this.handleVisibility.bind(this)}>Edit</button>:""}</td>
                             <td>{currentTaskers.length > 0 ?<button className="rux-button"type="submit" value={i} onClick={this.deleteTask.bind(this)}>Delete</button>:""}</td>
                         </tr>)}
                     </tbody>
-                </table><br></br>
+                </table>
+                </div> <br></br>
+
                 <EditTasker v ={this.state.v} 
                             taskers= {this.state.currentTaskers}
                             handleEdit ={this.handleEditTasker.bind(this)}

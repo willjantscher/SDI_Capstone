@@ -1,13 +1,11 @@
 import React from "react";
 
-
 class ViewResponses extends React.Component {
 
     componentDidMount(){
         this.props.viewResponses()
     }
 
-    
   render() {
     const {responses, viewResponses, hide} = this.props
     return(
@@ -18,14 +16,14 @@ class ViewResponses extends React.Component {
             {responses.length > 0 ? <button className ="rux-button" type="submit" onClick={hide}> Hide</button> 
             : " "}<br></br><br></br>
 
-            <table>
+            <table className="rux-table">
                 {responses.length > 0 ?
                     <tbody>
                         <tr>
-                            <td>Tasker ID</td>
-                            <td>Assigned Unit ID</td>
-                            <td>Status</td>
-                            <td>Response </td>
+                            <td><h3>Tasker ID</h3></td>
+                            <td><h3>Assigned Unit ID</h3></td>
+                            <td><h3>Status</h3></td>
+                            <td><h3>Response</h3></td>
                         </tr>
                     </tbody>
                     :""} 
@@ -34,8 +32,8 @@ class ViewResponses extends React.Component {
                         {responses.map((res, i) => 
                         <tr>
                             {Object.values(res).map(r => 
-                            <td>
-                                {r}
+                            <td className="will-colors"><h3>{r}</h3>
+                                
                             </td>)}
                         </tr>)}
                     </tbody>
