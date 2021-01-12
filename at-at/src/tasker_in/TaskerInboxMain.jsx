@@ -13,7 +13,6 @@ class TaskerInboxMain extends React.Component {
         userId: 0,
         taskers: [],
         originators: [],
-        selectedTaskerId: 0,
         selectedTasker: {},
         selectedRow: [],
     }
@@ -32,7 +31,11 @@ class TaskerInboxMain extends React.Component {
       let selectedTasker = {};
       if(this.props.location.state) {
         const selectedTaskerId = parseInt(this.props.location.state.tasker_id);
-        selectedTasker = taskers.find(tasker => tasker.tasker_id === selectedTaskerId)
+        selectedTasker = taskers.find(tasker => tasker.tasker_id === selectedTaskerId);
+        // don't let the people view tasker responses they have received from the inbox
+        if (selectedTasker === undefined) {
+          selectedTasker = {};
+        }
       }
 
       this.setState({
