@@ -78,7 +78,8 @@ class LoginMain extends React.Component {
                 </form>
                 
                 <label> 
-                    <a className="nav-link" href="/register">Not on AT-AT yet? Register here</a>
+                    Not on AT-AT yet? 
+                    <a className="nav-link" href="/register"> Register here</a>
                 </label> 
             </div>
         )
