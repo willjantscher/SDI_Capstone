@@ -1,14 +1,5 @@
 import React from "react";
 
-const prioritySel = [
-  { label: "Albania", value: 355 },
-  { label: "Argentina", value: 54 },
-  { label: "Austria", value: 43 },
-  { label: "Cocos Islands", value: 61 },
-  { label: "Kuwait", value: 965 },
-  { label: "Sweden", value: 46 },
-  { label: "Venezuela", value: 58 }
-];
 
 class EditTasker extends React.Component {
 
@@ -56,7 +47,7 @@ class EditTasker extends React.Component {
 
                   <div className="row pb-3">
                       <label className="col-md-2" id='priority'> Priority </label>{' '}
-                      <select id="SEL" className="rux-input col-md-2 will-colors" id='priority' type='' name='priority' onChange={this.props.handleEdit}>
+                      <select id="SEL" className="rux-input col-md-2 will-colors" id='priority' type='' name='priority' onFocus={this.props.handleEdit}>
                          <option id="SEL" value="Low">Low</option>
                          <option id="SEL" value="Low">Medium</option>
                          <option id="SEL" value="High">High</option>
@@ -72,8 +63,17 @@ class EditTasker extends React.Component {
 
                   <div className="row pb-3">  
                       <label className="col-md-2" id='desc'> Description </label>{' '}
-                      <textarea className="rux-input col-md-2 will-colors" id='desc' type='text' name='desc' 
-                      onChange={this.props.handleEdit}/><br></br>
+                      <textarea 
+                        style={{borderRadius:'3px'}}
+                        className="rux-form-field--large col-md-4 will-colors"
+                        rows="10"
+                        type='text'
+                        name='desc'
+                        id="desc_text"
+                        placeholder="Tasker Description"
+                        onChange={this.props.handleEdit} 
+                    ></textarea>
+                      <br></br>
                   </div>
 
                   <div className="row pb-3">  
