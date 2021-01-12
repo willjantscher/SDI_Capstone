@@ -18,6 +18,28 @@ class TaskerList extends React.Component {
     this.priorities = ['high', 'medium', 'low'];
   }
 
+  sortPriority = (a, b) => {
+    const aVal = this.priorities.indexOf(a);
+    const bVal = this.priorities.indexOf(b);
+    return aVal - bVal;
+  }
+
+  isSelectedClassName = (tasker) => {
+    const rowId = tasker.tasker_id;
+    const isSelected = (rowId === this.props.selectedRow.id);
+    return isSelected ? "selected" : "";
+  }
+
+  handleClickColumnHeader = (e) => {
+    const selectedHeader = e.target.textContent;
+    const sortKey = this.headers[selectedHeader];
+    let sortDescending = false;
+    if (sortKey === this.state.sortingMode) {
+      sortDescending = !this.state.sortDescending;
+    }
+    this.setState({sortingMode: sortKey, sortDescending: sortDescending});
+  }
+
   generateColumnHeaders = () => {
     return (
       Object.keys(this.headers).map(headerName => {
@@ -67,28 +89,6 @@ class TaskerList extends React.Component {
     })
 
     return taskerItems;
-  }
-
-  sortPriority = (a, b) => {
-    const aVal = this.priorities.indexOf(a);
-    const bVal = this.priorities.indexOf(b);
-    return aVal - bVal;
-  }
-
-  isSelectedClassName = (tasker) => {
-    const rowId = tasker.tasker_id;
-    const isSelected = (rowId === this.props.selectedRow.id);
-    return isSelected ? "selected" : "";
-  }
-
-  handleClickColumnHeader = (e) => {
-    const selectedHeader = e.target.textContent;
-    const sortKey = this.headers[selectedHeader];
-    let sortDescending = false;
-    if (sortKey === this.state.sortingMode) {
-      sortDescending = !this.state.sortDescending;
-    }
-    this.setState({sortingMode: sortKey, sortDescending: sortDescending});
   }
 
   render() {
