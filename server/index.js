@@ -38,6 +38,7 @@ app.get('/users', userQueries.getAllUsers)
 
 
 app.get('/unit_names', taskerCreationQueries.getAllUnitNames)
+app.get('/units_info', taskerCreationQueries.getAllUnitsInfo)
 app.get('/taskers', taskerCreationQueries.getAllTaskers)
 app.get('/tasker_version', taskerCreationQueries.getAllTaskerVersion)
 app.get('/units_assigned_taskers', taskerCreationQueries.getAllUnitsAssignedTaskers)
@@ -50,12 +51,15 @@ app.get('/myresponses/:id', sentQueries.responses)
 app.post('/editmytasker', sentQueries.edit)
 app.delete('/deleteTasker/:tid', sentQueries.deleteTasker)
 
-app.post('/authenticate', loginQueries.authenticateUser)
-app.post('/register', loginQueries.registerUser)
+app.post('/login/authenticate', loginQueries.authenticateUser)
+app.post('/login/register', loginQueries.registerUser)
+app.get('/login/user/:id', loginQueries.getUser)
+app.post('/login/change_password', loginQueries.changePassword)
+app.post('/login/change_user_unit', loginQueries.changeUserUnit)
 
 app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 app.get('/inbox/taskers/originators/:unitId', taskerInQueries.getTaskerOriginators);
-app.patch('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
+app.post('/inbox/taskers/:unitId/:taskerId', taskerInQueries.updateTaskerResponse);
 app.post('/inbox/notify', taskerInQueries.notifyOriginatorOfResponse);
 
 app.get('/notifications', notificationQueries.getAllNotifications)

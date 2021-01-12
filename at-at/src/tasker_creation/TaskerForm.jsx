@@ -6,20 +6,100 @@ import React, { useState, Fragment } from "react";
 
 
 const TaskerForm = (props) => {
-    let unitNames = props.units.map((unit) => {
-        return(
-            <option
-                value={unit}
-                key={props.units.indexOf(unit)}
-            >
-                {unit}
-            </option>
+    // console.log(props.units)
+    let topChain = props.units.filter(element => element.parent_unique_id === null);
+    let midChain = props.units.filter(element => element.parent_unique_id === 1);
+    let botChain = props.units.filter(element => element.parent_unique_id > 1  )
+    // && element.parent_unique_id <= midChain.length+1
+    // let lowestChain = props.units.filter(element => element.parent_unique_id > midChain.length+1)
+    //first will push cso
+    //next will push first cso child (loop)
+    //inside loop, push all cmd children
+    //then next cso child etc...
+
+    // console.log(topChain)
+    // console.log(midChain)
+    // console.log(botChain)
+    // console.log(lowestChain)
+    let selectValues = [];
+    for(const unit in topChain) {
+        // console.log(topChain[unit])
+        selectValues.push(
+            <optgroup label={topChain[unit].unit_name} key="topOptionGroup"></optgroup>
         )
-    })
+        selectValues.push(
+            <option
+                value={topChain[unit].unit_name}
+                id={topChain[unit].id}
+                key={topChain[unit].id}
+            >&nbsp;&nbsp;&nbsp;{topChain[unit].unit_name} - direct</option>
+        )
+        // {console.log(topChain[unit].id)}
+
+        
+        let parentId1 = topChain[unit].id;
+        for(const unit in midChain) {
+            if(midChain[unit].parent_unique_id === parentId1){
+                selectValues.push(
+                    <optgroup label={"-        " + midChain[unit].unit_name} key={"Mid Option Group" + midChain[unit].id}></optgroup>
+                )
+                selectValues.push(
+                    <option
+                        value={midChain[unit].unit_name}
+                        id={midChain[unit].id}
+                        key={midChain[unit].id}
+                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{midChain[unit].unit_name} - direct</option>
+                )
+            }
+
+            let parentId2 = midChain[unit].id;
+            for(const unit in botChain) {
+                if(botChain[unit].parent_unique_id === parentId2) {
+                    selectValues.push(
+                        <option
+                            value={botChain[unit].unit_name}
+                            id={botChain[unit].id}
+                            key={botChain[unit].id}
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{botChain[unit].unit_name}</option>
+                    )
+                    
+                }
+            }
+        }
+    }
+    // console.log(selectValues)
+    // let selectValues = props.units.map((unit) => {
+
+
+    //     //reorganize the array so it goes (cso - command - all units - command - all units, etc)
+    //     // console.log(unit)
+    //     return(
+    //         <option
+            
+    //         >
+                
+    //         </option>
+    //     )
+    // })
+
+
+
+
+
+    // let unitNames = props.units.map((unit) => {
+    //     return(
+    //         <option
+    //             value={unit}
+    //             key={props.units.indexOf(unit)}
+    //         >
+    //             {unit}
+    //         </option>
+    //     )
+    // })
 
 
     let workloadOptions = [];
-    for(let i = 0; i < 24; i ++) {
+    for(let i = 1; i < 25; i ++) {
         workloadOptions.push(
             <option id={i} key = {i} value={i}>{i}</option>
         )
@@ -46,6 +126,10 @@ const TaskerForm = (props) => {
     const handleInputChange = (index, event) => {
         const values = [...inputFields];
             values[index].unit = event.target.value;
+            values[index].unit_id = event.target.id;
+            // console.log(event.target)
+            // console.log("this is the target value" + event.target.value)
+            // console.log("this is the target id" + event.target.id)
             //create a handler for this that sets the values when called from in here
         setInputFields(values);
         props.onUnitChange(values);
@@ -54,59 +138,74 @@ const TaskerForm = (props) => {
     const buttonHandler = (index) => {
         if(inputFields.length<2) {
             return(
-                <button
-                className="rux-button"
-                type="button"
-                onClick={() => handleAddFields()}
-                >
-                +
-                </button>
+                <div className="row pb-3 pl-5">
+                    <button
+                    className="rux-button col-sm-1 will-colors"
+                    type="button"
+                    onClick={() => handleAddFields()}
+                    >
+                    +
+                    </button>
+                    <div className=""></div>
+                </div>
             )
         } else return(
-            <div>
+            <div className="row pb-3 pl-5">
                 <button
-                className="rux-button"
+                className="rux-button col-sm-1 will-colors"
                 type="button" 
                 onClick={() => handleRemoveFields(index)}>-</button>
-
+                &nbsp; &nbsp;
                 <button
-                className="rux-button"
+                className="rux-button col-sm-1 will-colors"
                 type="button"
                 onClick={() => handleAddFields()}>+</button>
+
+                <div className="col-md-8"></div>
             </div>
         )
     }
 
+    if(props.flag === "good") {
+        setTimeout(() => {
+            setInputFields([{ unit : '' , unit_id : ''}])
+          }, 200);
+    }
+
     return(
         <>
-            <div>Select Units to send this Tasker to</div>
-            <form onSubmit={props.onSubmitTasker} className="rux-form-field rux-form-field--large">
-                <div className="form-row">
+            <div className="rux-form-field__label"></div>
+{/* rux-form-field rux-form-field--large */}
+            <form id="tasker_form" onSubmit={props.onSubmitTasker} className="container-fluid ">
+                
+                <div className="">
                     {inputFields.map((inputField, index) => (
                         <Fragment key={`${inputField}~${index}`}>
-                        <div className="form-group col-sm-6">
-                            <label htmlFor="unit">Unit: </label>
+                        <div className="row pl-5">
+                            <label htmlFor="unit" className="col-sm-2" >Unit: </label>
                             <select 
-                                className="rux-select"
-                                id="unit"
-                                name="unit"
+                                className="rux-select col-md-3 will-colors"
+                                id={inputField.unit_id}
+                                name={inputField.unit_id}
                                 value={inputField.unit}
                                 onChange={event => { handleInputChange(index, event)}}
                                 >
-                                    <optgroup label="All Options"></optgroup>
-                                    <option key="empty" value=""></option>
-                                {unitNames}
+                                <optgroup label="USSF"></optgroup>
+                                <option key="empty" value=""></option>
+                                {selectValues}
                             </select>
+                            
                             {buttonHandler(index)}
                         </div>
                         </Fragment>
                     ))}
                 </div>
 
-                <div>
-                    <label htmlFor="tasker_name">Tasker Name:</label>
+                <div className="row pb-3 pl-5"> 
+                    <label htmlFor="tasker_name" className="col-sm-2">Tasker Name:</label>
                     <input 
-                        className="rux-input"
+                        style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                        className="rux-input col-md-2 will-colors"
                         id="tasker_name"
                         name="Tasker Name"
                         placeholder="Tasker Name"
@@ -114,51 +213,54 @@ const TaskerForm = (props) => {
                     ></input>
                 </div>
 
-                <div>
-                    <label htmlFor="suspense_date" >Suspense Date</label>
+                <div className="row pb-3 pl-5">
+                    <label htmlFor="suspense_date" className="col-sm-2" >Suspense Date</label>
                     <input
-                        className="rux-input"
+                        style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                        className="rux-input col-md-2 will-colors"
                         id="suspense_date"
                         type="date"
                         onChange={props.onInputChange}
                     ></input>
                 </div>
 
-                <div>
-                    <span>Priority</span>
-                    <select className="rux-select" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
+                <div className="row pb-3 pl-5">
+                    <label htmlFor="priority_lvl" className="col-sm-2">Priority</label>
+                    <select className="rux-select col-md-2 will-colors" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
                         <option key="Low" value="Low">Low</option>
                         <option key="Medium" value="Medium">Medium</option>
                         <option key="High" value="High">High</option>
                     </select>
                 </div>
-
-                <div>
-                    <label htmlFor="predicted_workload">Predicted Workload</label>
+                            
+                <div className="row pb-3 pl-5">
+                    <label htmlFor="predicted_workload" className="col-sm-2" >Predicted Workload</label>
                     <select
-                        className="rux-select"
+                        className="rux-select col-md-1 will-colors"
                         id="predicted_workload"
-                        type="number"
-                        min="1"
-                        max="24"
                         placeholder="hrs"
                         onChange={props.onInputChange} >
-                        <option key="empty" value=""></option>
+                            <optgroup label="Hours"></optgroup>
                         {workloadOptions}
                     </select>
                 </div>
 
-                <div>
-                    <label htmlFor="desc_text"></label>
+                <div className="row pb-3 pl-5">
+                    <label htmlFor="desc_text" ></label>
                     <textarea 
-                        className="rux-form-field--large"
+                        style={{borderRadius:'3px'}}
+                        className="rux-form-field--large col-md-6 will-colors"
+                        rows="10"
                         id="desc_text"
                         placeholder="Tasker Description"
                         onChange={props.onInputChange} 
                     ></textarea>
                 </div>
 
-                <input className="rux-button" type="submit" value="Send Tasker with Extreme Prejudice"/>
+                <div className="row pb-3 pl-5">
+                    <input className="will-colors rux-button" type="submit" value="Send Tasker with Extreme Prejudice"/>
+                </div>
+
             </form>
         </>
     )

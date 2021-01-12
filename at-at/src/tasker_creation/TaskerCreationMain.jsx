@@ -1,43 +1,62 @@
 /*
+
+update paths for fetches
+
+
+
+
+
+
+Personal access token for gitlab
+user: will_jantscher
+password: ppHvifzzxzYWCGgVcqAR
+sdi06.staging.dso.mil/sdi06-api/        route to api
+
+pushing to P1
+
+1. copy files into gitlab
+    - merge package.jsons
+2. change environment variables for db stuff
+    detailed in manifest
+3. update dockerfiles?
+4. add docker-compose?
+5. 
+
+work off the github,
+manually update p1 repo
+    - make sure to know what changes are made...
+
+
+
+
+
 to do:
-    update the originator_unit_id based on the unit logged in (cookie)
-
-    2. add conditional rendering for the form/success message
-
     better select for units
         https://react-select.com/home
 
-    1. add alerts for input fields blank when they can't be null
-        create a switch based on the submit_flag!
-        set to null when clicking a button to submit another 
-
-
-    beautification with https://www.astrouxds.com/
     additional features:
         add attachments'
-        change unit selectoer
-            have sub selects under their parents
+        change unit select
+            have sub selects under their parents    refactor fetch to return id, parent id, and name
             https://github.com/insin/react-filtered-multiselect
 
-import Cookies from 'universal-cookie';
-let cookies = new Cookies();
-let user_id = cookies.get("user_id");  //cookie name is user_id
-let unit_id = cookies.get("unit_id");  //cookie name is unit_id
-
-also for testing:
 username: bigCheese
 password: password
 
 docker-compose up --build
 
+redirect if no valid cookie!! implement for all pages
 
-redirect if no valid cookie!!
+Update readme!
+git lab link: https://code.il2.dso.mil/tron/products/AirmenCoders/sdi06  
+
+1. Update select for units
+    a. update db backend and query 
+    b. update handling of data
+loop through lower and lowest tiers, have better selector, update handling of fetch request(use id? to get name?)
+
 
 */
-
-
-
-
 
 
 import React from "react"
@@ -56,7 +75,7 @@ class TaskerCreationMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            units: [],  //api querry should only return array of names
+            units: [{}],  //api querry should only return array of names
             tasker: {
                 tasker_id : null,
                 current_status : 'in progress',  //in progress, completed
@@ -70,9 +89,9 @@ class TaskerCreationMain extends React.Component {
                 tasker_name : null,
                 suspense_date : null,
                 priority_lvl : 'low',
-                predicted_workload : null,
+                predicted_workload : 1,
                 desc_text : null,
-            },
+            }, 
             submit_flag: null,
             loged_in_unit: null,
         }
@@ -102,12 +121,14 @@ class TaskerCreationMain extends React.Component {
         tempTasker.originator_unit_id = unit_id;
         tempTasker.user_id = user_id;
         tempTasker.updated_on = date;
-        if(this._isMounted = true) {
+        // console.log(tempTaskerEmpty)
+
+        if(this._isMounted === true) {
             this.setState({ tasker : tempTasker});
         }
 
         // console.log(current_date)
-        fetch(`http://localhost:3001/unit_names`, {
+        fetch(`http://localhost:3001/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -118,6 +139,7 @@ class TaskerCreationMain extends React.Component {
                     // console.log(res);
                     if(this._isMounted === true) {
                         this.setState({ units : res })
+                        // console.log(res)
                     }
                 })
     }
@@ -132,6 +154,7 @@ class TaskerCreationMain extends React.Component {
     }
 
     handleUnitChange = (values) => {
+        // console.log(values)
         let tempSendToUnits = [];
         let tempSendToUnits_ids = [];
         let tempTasker = this.state.tasker;
@@ -140,7 +163,16 @@ class TaskerCreationMain extends React.Component {
                 tempSendToUnits.push(values[i].unit)
             }
         }
-        tempSendToUnits_ids = tempSendToUnits.map((unit) => this.state.units.indexOf(unit) + 1)
+        // console.log(this.state.units)
+        // console.log("this is the unit: " + this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]))].id)
+        tempSendToUnits_ids = tempSendToUnits.map((unit) => {
+            return(
+                this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]))].id
+            )
+            // this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]) + 1 )].id
+            // this.state.units.indexOf(unit) + 1
+        })
+        
         tempTasker.sendToUnits_ids = tempSendToUnits_ids;
         tempTasker.sendToUnits = tempSendToUnits;
         // console.log(tempSendToUnits)
@@ -193,80 +225,79 @@ class TaskerCreationMain extends React.Component {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify(newTasker),
+                        }).then(() => {
+                            document.getElementById("tasker_form").reset();
+                            let empty_tasker = {
+                                tasker_id : null,
+                                current_status : 'in progress',  //in progress, completed
+                                routing_at_unit_id: null,
+                                user_id : null,
+                                originator_unit_id : null,
+                                sendToUnits: [],
+                                sendToUnits_ids: [],
+                                version_num : 0,
+                                updated_on : null,
+                                tasker_name : null,
+                                suspense_date : null,
+                                priority_lvl : 'low',
+                                predicted_workload : 1,
+                                desc_text : null,
+                            }
+                            empty_tasker.originator_unit_id = this.state.tasker.unit_id;
+                            empty_tasker.user_id = this.state.tasker.user_id;
+                            empty_tasker.updated_on = this.state.tasker.updated_on;
+                            empty_tasker.originator_unit_id = this.state.tasker.originator_unit_id
+                            this.setState({ tasker : empty_tasker })
                         })
                     })
-        } else (
-            //send a post to the taskers table with originator unit
-            console.log(flag)
-        )
+        } 
     }
 
     taskerRenderer = () => {
         return(
             <div>
-                <h1>Create a Tasker</h1>
-
+                <h1 className="pl-4 pb-4 pt-2">Create a Tasker</h1>
+                {/* {console.log(this.state.units)} */}
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
                     onUnitChange = {this.handleUnitChange}
                     onSubmitTasker = {this.handleSubmitTasker}                    
                     units = {this.state.units}
+                    flag = {this.state.submit_flag}
                 />
 
-                {(() => {
-                    switch (this.state.submit_flag) {
-                        case "bad_sendToUnits":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must select a unit!
-                                </div>
-                            );
-                        case "bad_tasker_name":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a tasker name!
-                                </div>
-                            );
-                        case "bad_suspense_date":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must select a valid suspense date!
-                                </div>
-                            );
-                        case "bad_predicted_workload":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a predicted workload!
-                                </div>
-                            );
-                        case "bad_desc_text":
-                            return (
-                                <div className="alert-danger text-center">
-                                    You must input a tasker description!
-                                </div>
-                            );
-                        case "good":
-                            return (
-                                <div className="alert-danger text-center">
-                                    Tasker sent successfuly!
-                                </div>
-                            );
-                        default:
-                            return <div></div>;
-                    }
-                })()}
             </div>
         )
     }
  
+    componentDidUpdate() {
+        if(this.state.submit_flag === "bad_sendToUnits") {
+            alert("You must select a Unit!")
+            this.setState({ submit_flag : null })
+        } else if(this.state.submit_flag === "bad_tasker_name") {
+            alert("You must specify a tasker name!")
+            this.setState({ submit_flag : null })
+        } else if(this.state.submit_flag === "bad_suspense_date") {
+            alert("You must select a valid suspense date!")
+            this.setState({ submit_flag : null })
+        } else if (this.state.submit_flag === "bad_desc_text") {
+            alert("You must input a tasker description!")
+            this.setState({ submit_flag : null })
+        } else if (this.state.submit_flag === "good") {
+            alert("Tasker sent successfully!")
+            this.setState({ submit_flag : null })
+        }
+       
+    }
 
     render() {
+        
+
         //if doing initial api query async, add a switch that will render a loading icon until fetch is complete?
         return(
             
+            
             <div>
-                <rux-classification-marking classification="controlled"></rux-classification-marking>
-
 
                 {(() => {
                     switch (this.state.tasker.originator_unit_id) {
@@ -287,17 +318,11 @@ class TaskerCreationMain extends React.Component {
                         default:
                             return (
                                 <div>
-                                    <div>
-                                        Welcome!
-                                    </div>
                                     <this.taskerRenderer />
                                 </div>
                             )
                     }
-                })()}
-
-
-                
+                })()}    
 
             </div>
         )

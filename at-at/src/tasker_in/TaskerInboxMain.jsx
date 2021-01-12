@@ -1,6 +1,8 @@
 import React from "react";
 import TaskerList from './TaskerList';
 import Cookies from 'universal-cookie';
+import isAuthed from '../login/utils';
+import TaskerResponseForm from "./TaskerResponseForm";
 
 class TaskerInboxMain extends React.Component {
   constructor(props) {
@@ -12,16 +14,17 @@ class TaskerInboxMain extends React.Component {
         taskers: [],
         originators: [],
         selectedTasker: {},
+        selectedRow: [],
     }
   }
 
   componentDidMount = async() => {
     // get user authentication info
-    let cookies = new Cookies();
-    let user_id = cookies.get("user_id");  //cookie name is user_id
-    let unit_id = cookies.get("unit_id");  //cookie name is unit_id
+    const cookies = new Cookies();
+    const user_id = cookies.get("user_id");  //cookie name is user_id
+    const unit_id = cookies.get("unit_id");  //cookie name is unit_id
 
-    if (unit_id !== undefined) {
+    if (isAuthed()) {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
@@ -41,10 +44,11 @@ class TaskerInboxMain extends React.Component {
     return originators;
   }
 
-  handleTaskerShowDetails = (e) => {
-    const selectedId = parseInt(e.target.id);
+  handleTaskerClick = (e) => {
+    const selectedRow = e.currentTarget;
+    const selectedId = parseInt(selectedRow.id);
     const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
-    this.setState({selectedTasker: selectedTasker});
+    this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
   }
 
   handleResponseSubmit = async(e) => {
@@ -57,7 +61,7 @@ class TaskerInboxMain extends React.Component {
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;
     const requestContent = {
-      method: 'PATCH',
+      method: 'POST',
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: JSON.stringify(taskerResponse)
     };
@@ -98,15 +102,38 @@ class TaskerInboxMain extends React.Component {
 
   render() {
     return(
-      <div>
-        <TaskerList taskers={this.state.taskers} showDetails={this.handleTaskerShowDetails}/>
-        <p>{this.state.selectedTasker.desc_text}</p>
-        {Object.keys(this.state.selectedTasker).length > 0
-        ? <form onSubmit={this.handleResponseSubmit}>
-            <textarea name="taskerResponseData" autoFocus={true} defaultValue={this.state.selectedTasker.response}/>
-            <input type="submit" value="Submit" name="taskerResponseSubmitButton"/>
-          </form>
-        : <div/>}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-1"/>
+          <div className="col-sm">
+            <TaskerList
+              taskers={this.state.taskers}
+              selectedRow={this.state.selectedRow}
+              showDetails={this.handleTaskerShowDetails}
+              onRowClick={this.handleTaskerClick}
+            />
+          </div>
+          <div className="col-sm-1"/>
+        </div>
+        <div className="row">
+          <div className="col-sm-1"/>
+          <div className="col">
+            <p className="mx-3">{this.state.selectedTasker.desc_text}</p>
+          </div>
+          <div className="col-sm-1"/>
+        </div>
+        <div className="row">
+          <div className="col-sm-1"/>
+          <div className="col">
+            {Object.keys(this.state.selectedTasker).length > 0
+            ? <TaskerResponseForm
+                onSubmit={this.handleResponseSubmit}
+                defaultValue={this.state.selectedTasker.response}
+              />
+            : <div/>}
+          </div>
+          <div className="col-sm-1"/>
+        </div>
       </div>
     );
   }

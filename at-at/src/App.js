@@ -6,17 +6,19 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
-import Cookies from 'universal-cookie';
 
 import Navbar from "./navbar/Navbar";
 import LoginMain from "./login/LoginMain";
 import RegisterMain from "./login/RegisterMain";
+import UserProfileMain from "./login/UserProfileMain";
 import PrivateRoute from './login/PrivateRoute';
 import HomeMain from "./home/HomeMain";
 import TaskerCreationMain from "./tasker_creation/TaskerCreationMain";
 import TaskerInboxMain from "./tasker_in/TaskerInboxMain";
 import TaskerOutboxMain from "./tasker_out/TaskerOutboxMain";
 import NotificationsMain from "./notifications/NotificationsMain";
+import 'bootstrap/dist/css/bootstrap-grid.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -36,6 +38,7 @@ class App extends React.Component {
           <PrivateRoute path="/authenticated_user/tasker_inbox" component={TaskerInboxMain} />
           <PrivateRoute path="/authenticated_user/tasker_outbox" exact component={TaskerOutboxMain} />
           <PrivateRoute path="/authenticated_user/notifications" component={NotificationsMain} />
+          <PrivateRoute path="/authenticated_user/user_profile" component={UserProfileMain} />
         </Router>
       </div>
 

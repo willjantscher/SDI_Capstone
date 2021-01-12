@@ -14,8 +14,7 @@ class TaskerItem extends React.Component {
     const localSuspense = DateTime.fromISO(suspense_date, {zone: 'utc'});
     
     return(
-      <tr>
-        <td><button type="button" id={tasker_id} onClick={this.props.showDetails}>View</button></td>
+      <tr className={this.props.selected} id={this.props.id} onClick={this.props.onClick}>
         <td>{tasker_id}</td>
         <td>{priority_lvl}</td>
         <td>{localSuspense.toLocaleString()}</td>

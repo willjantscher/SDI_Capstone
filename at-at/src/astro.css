@@ -408,7 +408,7 @@
   --segmentedButtonBackgroundColor: var(--colorWhite, rgb(255, 255, 255));
   --segmentedButtonTextColor: var(--colorPrimary, rgb(0, 90, 143));
 
-  --segmentedButtonHoverBackgroundColor: rgb(0, 90, 143, 0.05);
+  --segmentedButtonHoverBackgroundColor: rgb(0, 91, 143);
   --segmentedButtonHoverTextColor: var(--colorPrimary, rgb(0, 90, 143));
 
   --segmentedButtonSelectedBackgroundColor: var(
@@ -1446,11 +1446,13 @@ label {
 .rux-button:focus {
   outline: none;
 }
+
+/* edit here */
 .rux-button:not(.rux-button--outline) {
   border: 1px solid rgb(0, 90, 143);
   border: 1px solid var(--buttonBackgroundColor, rgb(0, 90, 143));
   background-color: rgb(0, 90, 143);
-  background-color: var(--buttonBorderColor, rgb(0, 90, 143));
+  background-color: var(--buttonBorderColor, rgb(0, 8, 27));
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14),
     0 3px 4px rgba(0, 0, 0, 0.12),
     0 1px 5px rgba(0, 0, 0, 0.2)
@@ -1485,7 +1487,7 @@ label {
    !important;
   background-color: var(
     --buttonActiveBackgroundColor,
-    rgb(0, 90, 143)
+    rgb(0, 63, 100)
   ) !important;
 }
 
@@ -1501,7 +1503,7 @@ label {
 }
 
 .rux-button:active:not([hover]):not([disabled]):not(.rux-button--outline) {
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14) !important;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.973) !important;
 }
 
 /* 
@@ -1513,7 +1515,8 @@ label {
   border-color: rgb(58, 129, 191);
   border-color: var(--buttonHoverBorderColor, rgb(58, 129, 191));
   background-color: rgb(58, 129, 191);
-  background-color: var(--buttonHoverBackgroundColor, rgb(58, 129, 191));
+  /* adjust button hover with this */
+  background-color: var(--buttonHoverBackgroundColor, rgba(0, 78, 117, 0.664));
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     0 3px 14px 3px rgba(0, 0, 0, 0.12),
     0 4px 5px rgba(0, 0, 0, 0.2)
@@ -4293,5 +4296,22 @@ input:-moz-focusring {
     rgb(77, 172, 255);
   border-color: transparent transparent transparent
     var(--treeSelectedAccentColor, rgb(77, 172, 255));
+}
+
+
+
+
+
+
+/* Will's custom css ---------------------------------------------------------------------------------------------------------------------------*/
+
+.will-colors {
+  background-color: rgb(0, 8, 27);
+  border: 1px solid rgb(0, 90, 143);
+  color: rgb(255, 255, 255);
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 

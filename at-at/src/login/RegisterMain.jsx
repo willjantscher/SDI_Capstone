@@ -27,13 +27,14 @@ class RegisterMain extends React.Component {
     handleRegistration = async (event) => {
         event.preventDefault()
         if(this.state.passphrase !== this.state.confirmPassphrase){
-            alert('Passwords must match')
+            alert('Passwords must match.')
             return
         }
         if(!this.state.selected_unit || !this.state.username || !this.state.passphrase || !this.state.first_name || !this.state.last_name){
-            alert('Please input a unit')
+            alert('Please fill all fields.')
+            return
         }
-        const response = await fetch(`http://localhost:3001/register`, {
+        const response = await fetch(`http://localhost:3001/login/register`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
@@ -64,7 +65,7 @@ class RegisterMain extends React.Component {
                     <label>Unit:
                         <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
                             <option key="empty" value=""></option>
-                            {this.state.unit_names.map(unit => <option value={unit}> {unit}</option>)}
+                            {this.state.unit_names.map(unit => <option key={unit} value={unit}> {unit}</option>)}
                         </select>
                     </label>
                     <br/>

@@ -1,6 +1,5 @@
 import React from "react"
 import { Redirect } from "react-router-dom";
-import Cookies from 'universal-cookie';
 import isAuthed from './utils';
 
 class LoginMain extends React.Component {
@@ -17,7 +16,7 @@ class LoginMain extends React.Component {
     }    
 
     handleLogin = async () => {
-        const response = await fetch(`http://localhost:3001/authenticate`, {
+        const response = await fetch(`http://localhost:3001/login/authenticate`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
@@ -54,24 +53,9 @@ class LoginMain extends React.Component {
                 <input type='password' name='passphrase' value={this.state.passphrase} onChange={this.handleInput}></input>
                 <br/>
                 <button onClick={this.handleLogin}>Login</button>
-                <br/>
-                <h1>Register</h1>
-                <label>Unit Id: </label>
-                <input type='text' name='unit_id' value={this.state.unit_id} onChange={this.handleInput}></input>
-                <br/>
-                <label>Username: </label>
-                <input type='text' name='username' value={this.state.username} onChange={this.handleInput}></input>
-                <br/>
-                <label>Password: </label>
-                <input type='password' name='password' value={this.state.passphrase} onChange={this.handleInput}></input>
-                <br/>
-                <label>First Name: </label>
-                <input type='text' name='first_name' value={this.state.first_name} onChange={this.handleInput}></input>
-                <br/>
-                <label>Last Name: </label>
-                <input type='text' name='last_name' value={this.state.last_name} onChange={this.handleInput}></input>
-                <br/>
-                <button onClick={this.handleRegistration}>Register</button>
+                <br/><br/>
+                <label>Register </label> 
+                <a className="nav-link" href="/register">here </a>
             </div>
         )
       }
