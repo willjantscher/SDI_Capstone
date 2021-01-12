@@ -30,24 +30,52 @@ class NotificationsMain extends React.Component {
 
     fetchNotifications = async(unitId) => {
         const response = await fetch(`${this.apiURL}/notifications/${unitId}`, {method: 'GET'})
+
+        fetch(`${this.apiURL}/notifications/${unitId}`, {
+            method: 'POST',
+            }).then((res) => console.log(res.json()));
+
         const notifications = await response.json();
         return notifications;
     }
-    handleNotificationClick = (e) => {
-        const selectedRow = e.currentTarget;
-        const selectedId = parseInt(selectedRow.id);
-        const selectedNotification = this.state.notifications.find(notification => notification.notification_id === selectedId);
-        this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
+    handleNotificationClick = async(e) => {
+        const tasker_id = e.target.id;
+        this.props.history.push({
+            pathname: '/authenticated_user/tasker_inbox',
+            state: {
+                tasker_id: tasker_id
+            }
+        });
+//        app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
+
+        // const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})
+        // const taskers = await response.json();
+        // return taskers;
+
+        // const selectedRow = e.currentTarget;
+        // const selectedId = parseInt(selectedRow.id);
+        // const selectedNotification = this.state.notifications.find(notification => notification.notification_id === selectedId);
+        // this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
       }
+
+    handleDelete = (e) => {
+        e.preventDefault();
+        const notificationId = parseInt(e.target.id);
+        fetch(`${this.apiURL}/notifications/${notificationId}`, {
+            method: 'DELETE',
+        }).then((res) => console.log(res.json()));
+
+        const newList = this.state.notifications.filter(i => i.id !== notificationId)
+        this.setState({notifications: newList})
+    }
 
     render() {
         return(
-            <div> NotificationsMain
-
+            <div>
             <NotificationViewer
                 notifications = {this.state.notifications}
-                selectedRow={this.state.selectedRow}
-                onRowClick={this.handleNotificationClick}
+                onViewClick={this.handleNotificationClick}
+                onDelete={this.handleDelete}
             />
             </div>
         )

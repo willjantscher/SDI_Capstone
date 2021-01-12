@@ -65,6 +65,8 @@ app.post('/inbox/notify', taskerInQueries.notifyOriginatorOfResponse);
 app.get('/notifications', notificationQueries.getAllNotifications)
 app.get('/notifications/:id', notificationQueries.myNotifications)
 app.post('/notifications', (request, response) => taskerCreationQueries.postToNotifications(request,response))
+app.post('/notifications/:id', (request, response) => notificationQueries.markAsRead(request,response))
+app.delete('/notifications/:id', (request, response) => notificationQueries.notificationDelete(request, response))
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

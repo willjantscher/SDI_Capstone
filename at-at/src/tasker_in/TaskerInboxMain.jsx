@@ -28,7 +28,23 @@ class TaskerInboxMain extends React.Component {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
-      this.setState({unitId: unit_id, userId: user_id, taskers: taskers, originators: originators});
+      let selectedTasker = {};
+      if(this.props.location.state) {
+        const selectedTaskerId = parseInt(this.props.location.state.tasker_id);
+        selectedTasker = taskers.find(tasker => tasker.tasker_id === selectedTaskerId);
+        // don't let the people view tasker responses they have received from the inbox
+        if (selectedTasker === undefined) {
+          selectedTasker = {};
+        }
+      }
+
+      this.setState({
+        unitId: unit_id,
+        userId: user_id,
+        taskers: taskers,
+        originators: originators,
+        selectedTasker: selectedTasker,
+      });
     }
   }
 
@@ -76,7 +92,7 @@ class TaskerInboxMain extends React.Component {
 
     // get destination for tasker notification
     const originator = this.state.originators.find(originator => {
-      return originator.tasker_id === this.state.selectedTasker.tasker_id
+      return originator.tasker_id === tasker_id
     });
 
     // build notification payload
@@ -84,6 +100,7 @@ class TaskerInboxMain extends React.Component {
       unit_to: originator.originator_unit_id,
       details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
+      tasker_id: tasker_id
     }
 
     // send notification to originator
