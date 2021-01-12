@@ -184,7 +184,7 @@ const TaskerForm = (props) => {
                         {inputFields.map((inputField, index) => (
                             <Fragment key={`${inputField}~${index}`}>
                             <div className="row pl-5">
-                                <label htmlFor="unit" className="col-sm-3" >Unit: </label>
+                                <label htmlFor="unit" className="col-sm-3" >Unit</label>
                                 <select 
                                     className="rux-select col-md-6 will-colors"
                                     id={inputField.unit_id}
@@ -204,7 +204,7 @@ const TaskerForm = (props) => {
                     </div>
 
                     <div className="row pb-3 pl-5"> 
-                        <label htmlFor="tasker_name" className="col-sm-3">Tasker Name:</label>
+                        <label htmlFor="tasker_name" className="col-sm-3">Tasker Name</label>
                         <input 
                             style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                             className="rux-input col-md-4 will-colors"
@@ -267,20 +267,21 @@ const TaskerForm = (props) => {
                 </form>
 
                 <div className="col-md-4 container-fluid">
-                    <form method="post" action="#" id="#"> 
+                    <form onSubmit={props.onClickUploadFiles}> 
                         <div className="row">
                             <label >Add Attachments: </label>
                         </div>
                         <div className="form-group files">
                             <div style={{paddingBottom:'20px'}}></div>
                             <label className="row" htmlFor="file" id="fileInput">
-                                <input style={{height:"337px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple=""/>
+                                <div></div>
+                                <input style={{height:"337px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
                             </label>
                         </div>
                         <div className="row" style={{paddingTop:'15px'}}>
-                                <div className="col-md-1"></div>
-                                <button className="rux-button col-md-8">Upload</button>
-                        </div>            
+                                <div className="col-md-2"></div>
+                                <button type="submit" className="rux-button col-md-8">Upload</button>
+                        </div>
                     </form>
                 </div>
             </div>
