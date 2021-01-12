@@ -153,6 +153,10 @@ class TaskerCreationMain extends React.Component {
         this.setState({ tasker : tempTasker })
     }
 
+    handleFileInputChange = (e) => {
+        console.log(e.target.files[0])
+    }
+
     handleUnitChange = (values) => {
         // console.log(values)
         let tempSendToUnits = [];
@@ -261,7 +265,8 @@ class TaskerCreationMain extends React.Component {
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
                     onUnitChange = {this.handleUnitChange}
-                    onSubmitTasker = {this.handleSubmitTasker}                    
+                    onSubmitTasker = {this.handleSubmitTasker}
+                    onFileInputChange = {this.handleFileInputChange}                    
                     units = {this.state.units}
                     flag = {this.state.submit_flag}
                 />

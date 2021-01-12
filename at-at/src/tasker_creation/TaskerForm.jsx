@@ -172,6 +172,7 @@ const TaskerForm = (props) => {
           }, 200);
     }
 
+
     return(
         <>
             <div className="rux-form-field__label"></div>
@@ -265,15 +266,20 @@ const TaskerForm = (props) => {
 
                 </form>
 
-                <div className="col-md-4">
+                <div className="col-md-4 container-fluid">
                     <form method="post" action="#" id="#"> 
+                        <div className="row">
+                            <label >Add Attachments: </label>
+                        </div>
                         <div className="form-group files">
-                            <label>Add Attachments</label>
                             <div style={{paddingBottom:'20px'}}></div>
-                            <label for="file" id="fileInput">
-                                <input style={{height:"386px"}} type="file" id="file" className="form-control will-colors" multiple=""/>
+                            <label className="row" htmlFor="file" id="fileInput">
+                                <input style={{height:"337px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple=""/>
                             </label>
-                           
+                        </div>
+                        <div className="row" style={{paddingTop:'15px'}}>
+                                <div className="col-md-1"></div>
+                                <button className="rux-button col-md-8">Upload</button>
                         </div>            
                     </form>
                 </div>
