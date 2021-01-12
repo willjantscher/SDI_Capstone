@@ -38,6 +38,7 @@ app.get('/users', userQueries.getAllUsers)
 
 
 app.get('/unit_names', taskerCreationQueries.getAllUnitNames)
+app.get('/units_info', taskerCreationQueries.getAllUnitsInfo)
 app.get('/taskers', taskerCreationQueries.getAllTaskers)
 app.get('/tasker_version', taskerCreationQueries.getAllTaskerVersion)
 app.get('/units_assigned_taskers', taskerCreationQueries.getAllUnitsAssignedTaskers)

@@ -8,6 +8,17 @@ const getAllUnitNames = (request, response) => {
             throw error
         }
         response.status(200).json(results.rows.map(unit => unit.unit_name))
+        // 
+    })
+}
+const getAllUnitsInfo = (request, response) => {
+    pool.query('SELECT * FROM units', (error, results) => {
+        // console.log(results.rows)
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+        // .map(unit => unit.unit_name)
     })
 }
 const getAllTaskers = (request, response) => {
@@ -106,6 +117,7 @@ const postToNotifications = (request, response) => {
 
 module.exports = {
     getAllUnitNames,
+    getAllUnitsInfo,
     getAllTaskers,
     getAllUnitsAssignedTaskers,
     postTasker,
