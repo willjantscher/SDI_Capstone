@@ -89,7 +89,7 @@ class TaskerInboxMain extends React.Component {
 
     // get destination for tasker notification
     const originator = this.state.originators.find(originator => {
-      return originator.tasker_id === this.state.selectedTasker.tasker_id
+      return originator.tasker_id === tasker_id
     });
 
     // build notification payload
@@ -97,6 +97,7 @@ class TaskerInboxMain extends React.Component {
       unit_to: originator.originator_unit_id,
       details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
+      tasker_id: tasker_id
     }
 
     // send notification to originator
