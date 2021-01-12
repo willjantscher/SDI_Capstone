@@ -36,7 +36,7 @@ class App extends React.Component {
           <PrivateRoute path="/authenticated_user/home" component={HomeMain} />
           <PrivateRoute path="/authenticated_user/create_tasker" component={TaskerCreationMain} />
           <PrivateRoute path="/authenticated_user/tasker_inbox" component={TaskerInboxMain} />
-          <PrivateRoute path="/authenticated_user/tasker_outbox" component={TaskerOutboxMain} />
+          <PrivateRoute path="/authenticated_user/tasker_outbox" exact component={TaskerOutboxMain} />
           <PrivateRoute path="/authenticated_user/notifications" component={NotificationsMain} />
           <PrivateRoute path="/authenticated_user/user_profile" component={UserProfileMain} />
         </Router>

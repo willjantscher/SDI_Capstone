@@ -75,6 +75,8 @@ Styling: CSS - https://www.astrouxds.com/
 [Fibonacci](https://www.atlassian.com/agile/project-management/estimation)
 
 [DB Trees](https://www.postgresql.org/docs/9.3/ltree.html)
+
+[Astro UXDS](https://astro-components.netlify.app/?path=/story/components-tabs--tabs-compact)
 ## Daily Schedule
 
 ### 1/4/2021

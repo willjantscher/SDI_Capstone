@@ -1,4 +1,35 @@
 /*
+
+update paths for fetches
+
+
+
+
+
+
+Personal access token for gitlab
+user: will_jantscher
+password: ppHvifzzxzYWCGgVcqAR
+sdi06.staging.dso.mil/sdi06-api/        route to api
+
+pushing to P1
+
+1. copy files into gitlab
+    - merge package.jsons
+2. change environment variables for db stuff
+    detailed in manifest
+3. update dockerfiles?
+4. add docker-compose?
+5. 
+
+work off the github,
+manually update p1 repo
+    - make sure to know what changes are made...
+
+
+
+
+
 to do:
     better select for units
         https://react-select.com/home
@@ -15,6 +46,16 @@ password: password
 docker-compose up --build
 
 redirect if no valid cookie!! implement for all pages
+
+Update readme!
+git lab link: https://code.il2.dso.mil/tron/products/AirmenCoders/sdi06  
+
+1. Update select for units
+    a. update db backend and query 
+    b. update handling of data
+loop through lower and lowest tiers, have better selector, update handling of fetch request(use id? to get name?)
+
+
 */
 
 
@@ -34,7 +75,7 @@ class TaskerCreationMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            units: [],  //api querry should only return array of names
+            units: [{}],  //api querry should only return array of names
             tasker: {
                 tasker_id : null,
                 current_status : 'in progress',  //in progress, completed
@@ -87,7 +128,7 @@ class TaskerCreationMain extends React.Component {
         }
 
         // console.log(current_date)
-        fetch(`http://localhost:3001/unit_names`, {
+        fetch(`http://localhost:3001/units_info`, {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -98,6 +139,7 @@ class TaskerCreationMain extends React.Component {
                     // console.log(res);
                     if(this._isMounted === true) {
                         this.setState({ units : res })
+                        // console.log(res)
                     }
                 })
     }
@@ -112,6 +154,7 @@ class TaskerCreationMain extends React.Component {
     }
 
     handleUnitChange = (values) => {
+        // console.log(values)
         let tempSendToUnits = [];
         let tempSendToUnits_ids = [];
         let tempTasker = this.state.tasker;
@@ -120,7 +163,16 @@ class TaskerCreationMain extends React.Component {
                 tempSendToUnits.push(values[i].unit)
             }
         }
-        tempSendToUnits_ids = tempSendToUnits.map((unit) => this.state.units.indexOf(unit) + 1)
+        // console.log(this.state.units)
+        // console.log("this is the unit: " + this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]))].id)
+        tempSendToUnits_ids = tempSendToUnits.map((unit) => {
+            return(
+                this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]))].id
+            )
+            // this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]) + 1 )].id
+            // this.state.units.indexOf(unit) + 1
+        })
+        
         tempTasker.sendToUnits_ids = tempSendToUnits_ids;
         tempTasker.sendToUnits = tempSendToUnits;
         // console.log(tempSendToUnits)
@@ -205,7 +257,7 @@ class TaskerCreationMain extends React.Component {
         return(
             <div>
                 <h1 className="pl-4 pb-4 pt-2">Create a Tasker</h1>
-
+                {/* {console.log(this.state.units)} */}
                 <TaskerForm 
                     onInputChange = {this.handleInputChange}
                     onUnitChange = {this.handleUnitChange}

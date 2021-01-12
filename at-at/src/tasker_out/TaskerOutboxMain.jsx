@@ -1,5 +1,5 @@
 import React from "react";
-import { Router } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import Cookies from "universal-cookie";
 import EditTasker from './EditTasker';
 
@@ -10,6 +10,17 @@ class TaskerOutboxMain extends React.Component {
         this.state = {
             taskerResponses:[],
             currentTaskers:[],
+            v:'',
+            values : {
+                tid: '',
+                vnum: '',
+                update: '',
+                tasker_name: '',
+                suspense: '',
+                priority: '',
+                workload: '',
+                desc: '',
+            }
         }
     }
     async handleViewTaskers(){
@@ -36,26 +47,43 @@ class TaskerOutboxMain extends React.Component {
 
        handleTaskersHideButton(){
         this.setState({currentTaskers: []})
+        this.setState({v: false})
        }
 
-//        handleDeleteTasker(){
-        
-//      }
+        handleVisibility(){
+            this.setState({v : true})
+            
+      }
 
-   async handleEditTasker(){
-    let tid = this.state.currentTaskers.map((res) => res.tasker_id)
-    console.log(tid)
-    // const response = await fetch(`http://localhost:3001/editmytasker/${tid}`,{
-    //     method: 'PUT',
-    //     mode: 'cors',
-    //     headers: {'Content-Type': 'application/json; charset=UTF-8'},
-    //     body: JSON.stringify(taskerResponse)
-    //     });
+     handleEditTasker(e){
+
+        this.state.values[e.target.name] = e.target.value;
+        this.setState({ values : this.state.values })
        
-    //     const json = await result.json();
-    //     this.setState({currentTaskers: json.concat()})    
-    //     this.setState({taskerResponses: []})
-       }
+    }
+
+async handleUpdate(e){
+    
+    let s = this.state.values
+    console.log(JSON.stringify({tasker_id : [s.tid]}))
+    const response = await fetch('http://localhost:3001/editmytasker'
+    ,{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify({
+            tasker_id: s.tid,
+            version_num: s.vnum,
+            updated_on: s.update,
+            tasker_name: s.tasker_name,
+            suspense_date: s.suspense,
+            priority_lvl:s.priority,
+            predicted_workload: s.workload,
+            desc_text: s.desc
+          }),
+        });
+        e.preventDefault();
+    alert("Successfully Updated")
+  }
     
     render() {
         const {currentTaskers, taskerResponses} = this.state
@@ -65,47 +93,47 @@ class TaskerOutboxMain extends React.Component {
                 <button type="submit" onClick={this.handleViewResponses.bind(this)} id="1"> View</button>
                 {taskerResponses.length > 0 ? <button type="submit" onClick={this.handleResponseHideButton.bind(this)}> Hide</button> 
                 : " "}
-                {taskerResponses.map(res => <div style={{fontWeight: "bold"}}>{"Tasker ID: "+res.tasker_id+ " ----- Assigned Unit ID: "+ res.unit_id+ "----- Status: "+res.current_status+ " ----- Response: "+res.response}</div>)}<br></br><br></br>
+                {taskerResponses.map(res => <div>{"Tasker ID: "+res.tasker_id+ " ----- Assigned Unit ID: "+ res.unit_id+ "----- Status: "+res.current_status+ " ----- Response: "+res.response}</div>)}<br></br><br></br>
 
                 <label id="2"> My Created Taskers</label> <br></br>
                 <button type="submit" onClick={this.handleViewTaskers.bind(this)} id="2"> View</button>
                 {currentTaskers.length > 0 ? <button type="submit" onClick={this.handleTaskersHideButton.bind(this)}> Hide</button> 
                 : " "}
-                
+                {currentTaskers.length > 0 ? <button type="submit" onClick={this.handleVisibility.bind(this)}>Edit Tasker</button>
+                : " "}
+      
                 <table>
                 {currentTaskers.length > 0 ?
                     <thead>
                         <tr>
-                            <td>Version ID ----- </td>
-                            <td>Tasker ID -----</td>
-                            <td>Version # -----</td>
-                            <td>Updated On -----</td>
-                            <td>Tasker Name -----</td>
-                            <td>Suspense Date -----</td>
-                            <td>Priority Level -----</td>
-                            <td>Predicted Workload -----</td>
-                            <td>Description -----</td>
-                            <td>My Unit ID</td>
+                            <td>Tasker ID</td>
+                            <td>Version # </td>
+                            <td>Updated On </td>
+                            <td>Tasker Name </td>
+                            <td>Suspense Date </td>
+                            <td>Priority Level </td>
+                            <td>Predicted Workload </td>
+                            <td>Description </td>
                         </tr>
                     </thead>
                     : ""} 
                     
                     <tbody>
-                        {currentTaskers.map(res => 
-                        <tr>
+                        {currentTaskers.map((res, i) => <tr>
                             {Object.values(res).map(r => 
                             <td>
                                 {r}
-                            </td>)}<EditTasker taskers={this.state.currentTaskers} editTasker={this.handleEditTasker.bind(this)}/>
+                            </td>)}
                         </tr> )}
                     </tbody>
-                </table>
+                </table><br></br>
+                <EditTasker v ={this.state.v} 
+                            handleEdit ={this.handleEditTasker.bind(this)} 
+                            val={this.state.values} 
+                            state={this.state}
+                            update={this.handleUpdate.bind(this)}/>
             </div>     
         )
     }
 }
 export default TaskerOutboxMain;
-
-{// <button type="submit" onClick={this.handleDeleteTasker.bind(this)}>Delete</button>
-                            //<button type="submit" onClick={this.handleEditTasker.bind(this)}>Edit</button>
-                        }
