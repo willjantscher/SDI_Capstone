@@ -62,7 +62,7 @@ class Navbar extends React.Component {
                 >User Profile</rux-tab>
                 <rux-tab id="tab-id-6"
                   onClick={() => {this.props.history.push('/authenticated_user/notifications' )}}
-                ><rux-icon icon="notifications" size="medium" label="notifications" color="#fff">?</rux-icon></rux-tab>
+                >Notifications</rux-tab>
               </rux-tabs>
 
               <rux-clock timezone="UTC" hideDate small></rux-clock>

@@ -1,8 +1,7 @@
 import React from "react";
-import TaskerList from './TaskerList';
+import TaskerList from './HomeTaskerList';
 import Cookies from 'universal-cookie';
 import isAuthed from '../login/utils';
-import TaskerResponseForm from "./TaskerResponseForm";
 
 class TaskerInboxMain extends React.Component {
   constructor(props) {
@@ -28,23 +27,7 @@ class TaskerInboxMain extends React.Component {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
-      let selectedTasker = {};
-      if(this.props.location.state) {
-        const selectedTaskerId = parseInt(this.props.location.state.tasker_id);
-        selectedTasker = taskers.find(tasker => tasker.tasker_id === selectedTaskerId);
-        // don't let the people view tasker responses they have received from the inbox
-        if (selectedTasker === undefined) {
-          selectedTasker = {};
-        }
-      }
-
-      this.setState({
-        unitId: unit_id,
-        userId: user_id,
-        taskers: taskers,
-        originators: originators,
-        selectedTasker: selectedTasker,
-      });
+      this.setState({unitId: unit_id, userId: user_id, taskers: taskers, originators: originators});
     }
   }
 
@@ -61,10 +44,14 @@ class TaskerInboxMain extends React.Component {
   }
 
   handleTaskerClick = (e) => {
+    this.props.history.push('/authenticated_user/tasker_inbox')
+    
+    /*
     const selectedRow = e.currentTarget;
     const selectedId = parseInt(selectedRow.id);
     const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
     this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
+    */
   }
 
   handleResponseSubmit = async(e) => {
@@ -92,7 +79,7 @@ class TaskerInboxMain extends React.Component {
 
     // get destination for tasker notification
     const originator = this.state.originators.find(originator => {
-      return originator.tasker_id === tasker_id
+      return originator.tasker_id === this.state.selectedTasker.tasker_id
     });
 
     // build notification payload
@@ -100,7 +87,6 @@ class TaskerInboxMain extends React.Component {
       unit_to: originator.originator_unit_id,
       details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
-      tasker_id: tasker_id
     }
 
     // send notification to originator
@@ -126,28 +112,8 @@ class TaskerInboxMain extends React.Component {
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
-              showDetails={this.handleTaskerShowDetails}
               onRowClick={this.handleTaskerClick}
             />
-          </div>
-          <div className="col-sm-1"/>
-        </div>
-        <div className="row">
-          <div className="col-sm-1"/>
-          <div className="col">
-            <p className="mx-3 my-3">{this.state.selectedTasker.desc_text}</p>
-          </div>
-          <div className="col-sm-1"/>
-        </div>
-        <div className="row">
-          <div className="col-sm-1"/>
-          <div className="col">
-            {Object.keys(this.state.selectedTasker).length > 0
-            ? <TaskerResponseForm
-                onSubmit={this.handleResponseSubmit}
-                defaultValue={this.state.selectedTasker.response}
-              />
-            : <div/>}
           </div>
           <div className="col-sm-1"/>
         </div>

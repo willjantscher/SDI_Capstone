@@ -17,7 +17,7 @@ class TaskerResponseForm extends React.Component {
           cols={100}
           rows={10}
           autoFocus={true}
-          defaultValue={this.props.defaultValue}
+          defaultValue={this.props.defaultValue ? this.props.defaultValue : ""}
         />
         <input
           className="will-colors rux-button row mx-0"

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Router } from "react-router-dom";
 import Cookies from "universal-cookie";
 import EditTasker from './EditTasker';
-
+import ViewResponses from './ViewResponses';
 
 class TaskerOutboxMain extends React.Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class TaskerOutboxMain extends React.Component {
             taskerResponses:[],
             currentTaskers:[],
             v:'',
+            delVis:'',
             values : {
                 tid: '',
                 vnum: '',
@@ -47,23 +48,51 @@ class TaskerOutboxMain extends React.Component {
 
        handleTaskersHideButton(){
         this.setState({currentTaskers: []})
-        this.setState({v: false})
+        this.setState({v: false, delVis: false})
        }
 
-        handleVisibility(){
-            this.setState({v : true})
-            
+        handleVisibility(e){ 
+            this.setState({v : true, index : e.target.value})
       }
 
-     handleEditTasker(e){
+        handleEditTasker(e){
 
         this.state.values[e.target.name] = e.target.value;
         this.setState({ values : this.state.values })
-       
     }
 
 async handleUpdate(e){
     
+    let v = this.state.values;
+
+    console.log(new Date())
+
+    if(v){e.preventDefault();
+        if(parseInt(v.tid) !== this.state.currentTaskers[this.state.index].tasker_id){
+            return alert("Please click on the 'Tasker ID' text box to ensure you are updating the correct tasker")}
+        else if(v.vnum === '' ){
+            return alert("Enter a value for 'Version number'")}  
+        else if(v.update === ''){
+            return alert("Enter a value for 'Date Updated'")}
+        else if(v.tasker_name === ''){
+            return alert("Enter a value for 'Tasker Name'")}
+        else if(v.suspense === ''){
+            return alert("Enter a value for 'Suspense Date'")}
+
+        else if(v.suspense === '' || new Date(v.suspense) < new Date()){
+            return alert("Please enter a valid suspense date")}
+
+        else if(v.priority === ''){
+            return alert("Enter a value for 'Priority Level'")}
+        else if(v.workload === ''){
+            return alert("Enter a value for 'Estimated Workload'")}
+        else if(v.desc === ''){
+            return alert("Enter a value for 'Tasker Description'")}
+        }
+    
+        alert('Updated Successfully!')
+        window.location.reload();
+
     let s = this.state.values
     console.log(JSON.stringify({tasker_id : [s.tid]}))
     const response = await fetch('http://localhost:3001/editmytasker'
@@ -81,56 +110,86 @@ async handleUpdate(e){
             desc_text: s.desc
           }),
         });
-        e.preventDefault();
-    alert("Successfully Updated")
-  }
-    
-    render() {
-        const {currentTaskers, taskerResponses} = this.state
-        return(
-            <div> 
-                <label id="1"> Received Responses</label> <br></br>
-                <button type="submit" onClick={this.handleViewResponses.bind(this)} id="1"> View</button>
-                {taskerResponses.length > 0 ? <button type="submit" onClick={this.handleResponseHideButton.bind(this)}> Hide</button> 
-                : " "}
-                {taskerResponses.map(res => <div>{"Tasker ID: "+res.tasker_id+ " ----- Assigned Unit ID: "+ res.unit_id+ "----- Status: "+res.current_status+ " ----- Response: "+res.response}</div>)}<br></br><br></br>
+    }
 
-                <label id="2"> My Created Taskers</label> <br></br>
-                <button type="submit" onClick={this.handleViewTaskers.bind(this)} id="2"> View</button>
-                {currentTaskers.length > 0 ? <button type="submit" onClick={this.handleTaskersHideButton.bind(this)}> Hide</button> 
-                : " "}
-                {currentTaskers.length > 0 ? <button type="submit" onClick={this.handleVisibility.bind(this)}>Edit Tasker</button>
-                : " "}
-      
-                <table>
+    deleteTask(e){
+        this.setState({delVis : true, index : e.target.value})
+        alert("Delete actions are final!")
+    }
+
+async handleDelete(){
+
+    let tid = this.state.currentTaskers[this.state.index].tasker_id
+    alert('Delete Success')
+    window.location.reload();
+    const response = await fetch(`http://localhost:3001/deleteTasker/${tid}`
+        ,{
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json; charset=UTF-8'}
+            })
+
+        alert('Delete Success')
+        window.location.reload();
+        }
+
+    componentDidMount(){
+        this.handleViewTaskers()
+    }
+
+    render() {
+        const {currentTaskers} = this.state
+        return(
+            <div className="container-fluid"> 
+                <ViewResponses 
+                    hide={this.handleResponseHideButton.bind(this)} 
+                    responses={this.state.taskerResponses} 
+                    viewResponses={this.handleViewResponses.bind(this)}/><br></br>
+                <div className="container-fluid">
+                    <label><h1>My Created Taskers</h1> </label>
+                        <button  style={{float: 'left'}} className ="rux-button" type="submit" onClick={this.handleViewTaskers.bind (this)}>View</button> 
+                         {currentTaskers.length > 0 ? 
+                        <button className ="rux-button" type="submit" onClick={this.handleTaskersHideButton.bind(this)}> Hide</button> : ""}
+               </div><br></br><br></br>
+
+                <div className="container-fluid">        
+                <table className= "rux-table">
                 {currentTaskers.length > 0 ?
-                    <thead>
-                        <tr>
-                            <td>Tasker ID</td>
-                            <td>Version # </td>
-                            <td>Updated On </td>
-                            <td>Tasker Name </td>
-                            <td>Suspense Date </td>
-                            <td>Priority Level </td>
-                            <td>Predicted Workload </td>
-                            <td>Description </td>
-                        </tr>
-                    </thead>
-                    : ""} 
-                    
                     <tbody>
-                        {currentTaskers.map((res, i) => <tr>
-                            {Object.values(res).map(r => 
-                            <td>
-                                {r}
-                            </td>)}
-                        </tr> )}
+                        <tr>
+                            <td><h3>Tasker ID</h3></td>
+                            <td><h3>Version #</h3></td>
+                            <td><h3>Updated On (YYYY/MM/DD)</h3></td>
+                            <td><h3>Tasker Name</h3></td>
+                            <td><h3>Suspense Date (YYYY/MM/DD)</h3></td>
+                            <td><h3>Priority Level</h3></td>
+                            <td><h3>Est. Workload (Hours)</h3></td>
+                            <td><h3>Description</h3></td>
+                        </tr>
                     </tbody>
-                </table><br></br>
+                    :""} 
+
+                    <tbody>
+                        {currentTaskers.map((res, i) => 
+                        <tr className="will-colors">
+                            {Object.values(res).map(r => 
+                            <td><h3>
+                                {r}</h3>
+                            </td>)}
+                            <td>{currentTaskers.length > 0 ?<button className="rux-button" type="submit" value={i} onClick={this.handleVisibility.bind(this)}>Edit</button>:""}</td>
+                            <td>{currentTaskers.length > 0 ?<button className="rux-button"type="submit" value={i} onClick={this.deleteTask.bind(this)}>Delete</button>:""}</td>
+                        </tr>)}
+                    </tbody>
+                </table>
+                </div> <br></br>
+
                 <EditTasker v ={this.state.v} 
-                            handleEdit ={this.handleEditTasker.bind(this)} 
+                            taskers= {this.state.currentTaskers}
+                            handleEdit ={this.handleEditTasker.bind(this)}
                             val={this.state.values} 
-                            state={this.state}
+                            delVis={this.state.delVis}
+                            delete={this.handleDelete.bind(this)}
+                            index={this.state.index}
+                            hide={this.handleTaskersHideButton.bind(this)}
                             update={this.handleUpdate.bind(this)}/>
             </div>     
         )

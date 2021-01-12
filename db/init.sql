@@ -41,7 +41,7 @@ CREATE TABLE tasker_reply_attachments (
 CREATE TABLE tasker_sent_attachments (
 	id serial PRIMARY KEY,
 	tasker_id INT NOT NULL REFERENCES taskers(id) ON DELETE CASCADE,
-	filepath TEXT NOT NULL
+	fileData BYTEA NOT NULL
 );
 
 CREATE TABLE tasker_version (
@@ -58,6 +58,7 @@ CREATE TABLE tasker_version (
 
 CREATE TABLE notifications (
 	id serial PRIMARY KEY,
+	tasker_id INT NOT NULL REFERENCES taskers(id),
 	unit_to INT NOT NULL REFERENCES units(id),
 	details TEXT,
 	isRead BOOLEAN NOT NULL
@@ -156,11 +157,11 @@ VALUES
 	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', 55, 'Have a finished product to present')
 	;
 
-INSERT INTO notifications( unit_to, details, isRead)
+INSERT INTO notifications( unit_to, tasker_id, details, isRead)
 VALUES 
-	(23, 'Space Force Birthday', false), 
-	(38, 'Capstone', false), 
-	(39, 'Capstone', false), 
-	(16, 'MVP', true), 
-	(17, 'MVP', true), 
-	(24, 'Space Force Birthday', true); 
+	(23, 1, 'Space Force Birthday', false), 
+	(38, 3, 'Capstone', false), 
+	(39, 3, 'Capstone', false), 
+	(16, 2, 'MVP', true), 
+	(17, 2, 'MVP', true), 
+	(24, 1, 'Space Force Birthday', true); 

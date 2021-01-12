@@ -1,7 +1,9 @@
 import React from "react"
 import Cookies from 'universal-cookie';
+import UnitsDropdown from "./UnitsDropdown"
 
 const cookies = new Cookies();
+const apiURL = 'http://localhost:3001';
 
 class UserProfileMain extends React.Component {
     constructor(props) {
@@ -15,16 +17,16 @@ class UserProfileMain extends React.Component {
             old_password: '',
             new_password: '',
             confirm_new_password: '',
-            unit_names: [],
             selected_unit: '',
             editPasswordView: false,
             editUnitView: false,
+            units: [{}],
         }
     }
 
     componentDidMount = () => {
         let user_id = cookies.get("user_id");
-        fetch(`http://localhost:3001/login/user/${user_id}`)
+        fetch(`${apiURL}/login/user/${user_id}`)
         .then(response => response.json())
         .then(user => 
             this.setState({
@@ -34,25 +36,34 @@ class UserProfileMain extends React.Component {
                 last_name: user.last_name
             })
         )
-        fetch('http://localhost:3001/unit_names')
-        .then(response => response.json())
-        .then(resDetails => this.setState({unit_names: resDetails}))
+
+        fetch(`${apiURL}/units_info`, {
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            this.setState({ units : res })
+        })
     }
 
     handleInput = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }    
 
-    changePassword = async () => {
-        if (this.state.new_password != this.state.confirm_new_password){
+    changePassword = async (event) => {
+        event.preventDefault()
+        if (this.state.new_password !== this.state.confirm_new_password){
             alert("New passwords must match.")
             return
         }
-        if (this.state.new_password == ''){
+        if (this.state.new_password === ''){
             alert("New password must not be empty.")
             return
         }
-        const response = await fetch(`http://localhost:3001/login/change_password`, {
+        const response = await fetch(`${apiURL}/login/change_password`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
@@ -72,13 +83,22 @@ class UserProfileMain extends React.Component {
         } else if (response.status === 401){
             alert("Current password is incorrect.")
             return
-        } 
+        } else {
+            alert("Error")
+        }
     }
 
     changeUnit = (event) => {
         event.preventDefault()
-        const new_unit_id = this.state.unit_names.indexOf(this.state.selected_unit) + 1
-        fetch(`http://localhost:3001/login/change_user_unit`, {
+        if(!this.state.selected_unit){
+            alert("Please select a unit.")
+            return
+        }
+
+        const new_unit_id = this.state.units.filter(unit => 
+            unit.unit_name === this.state.selected_unit)[0].unique_id
+
+        fetch(`${apiURL}/login/change_user_unit`, {
             method: 'POST',
             headers: { 'Content-Type':  'application/json' },
             body: JSON.stringify({
@@ -125,19 +145,47 @@ class UserProfileMain extends React.Component {
 
                 {
                 this.state.editPasswordView ? 
-                    <label>
-                        <br/>
-                        Current Password:
-                        <input type='password' name='old_password' value={this.state.old_password} onChange={this.handleInput}></input>
-                        <br/>
-                        New Password:
-                        <input type='password' name='new_password' value={this.state.new_password} onChange={this.handleInput}></input>
-                        <br/>
-                        Confirm New Password:
-                        <input type='password' name='confirm_new_password' value={this.state.confirm_new_password} onChange={this.handleInput}></input>
-                        <br/>
-                        <button onClick={this.changePassword}>Save Changes</button>
-                    </label>
+                    <>
+                    <div className="rux-form-field__label"></div>
+                    <form className="container-fluid" onSubmit = {this.changePassword}>
+                        <div className="row pb-3"> 
+                            <label htmlFor="old_password" className="col-sm-2" >Current Password:</label>
+                            <input
+                                className="rux-input col-md-2 will-colors"
+                                id="old_password"
+                                type="password"
+                                name="old_password"
+                                value={this.state.old_password}
+                                onChange={this.handleInput}
+                            ></input>
+                        </div>
+                        <div className="row pb-3"> 
+                            <label htmlFor="new_password" className="col-sm-2" >New Password:</label>
+                            <input
+                                className="rux-input col-md-2 will-colors"
+                                id="new_password"
+                                type="password"
+                                name="new_password"
+                                value={this.state.new_password}
+                                onChange={this.handleInput}
+                            ></input>
+                        </div>
+                        <div className="row pb-3"> 
+                            <label htmlFor="confirm_new_password" className="col-sm-2" >Confirm New Password:</label>
+                            <input
+                                className="rux-input col-md-2 will-colors"
+                                id="confirm_new_password"
+                                type="password"
+                                name="confirm_new_password"
+                                value={this.state.confirm_new_password}
+                                onChange={this.handleInput}
+                            ></input>
+                        </div>
+                        <div className="row pb-3 pl-5">
+                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
+                        </div>
+                    </form>
+                    </>
                 : null
                 }
                 <br/>
@@ -151,16 +199,19 @@ class UserProfileMain extends React.Component {
 
                 {
                 this.state.editUnitView ? 
-                    <form onSubmit = {this.changeUnit}>
-                        <label>New Unit:
-                            <select name='selected_unit' value={this.state.selected_unit} onChange={this.handleInput}>
-                                <option key="empty" value=""></option>
-                                {this.state.unit_names.map(unit => <option value={unit} key={unit}> {unit}</option>)}
-                            </select>
-                        </label>
-                        <br/>
-                        <input type="submit" value="Save Changes" />
+                    <>
+                    <div className="rux-form-field__label"></div>
+                     <form className="container-fluid" onSubmit = {this.changeUnit}>
+                        <UnitsDropdown                    
+                            units = {this.state.units}
+                            onUnitSelection = {this.handleInput} 
+                            select_name = 'selected_unit'                   
+                        />
+                        <div className="row pb-3 pl-5">
+                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
+                        </div>
                     </form>
+                    </>
                 : null
                 }
 
