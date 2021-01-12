@@ -137,20 +137,27 @@ async handleDelete(){
         window.location.reload();
         }
 
+    componentDidMount(){
+        this.handleViewTaskers()
+    }
+
     
     render() {
         const {currentTaskers} = this.state
         return(
-            <div> 
+            <div className="container-fluid"> 
                 <ViewResponses 
                     hide={this.handleResponseHideButton.bind(this)} 
                     responses={this.state.taskerResponses} 
                     viewResponses={this.handleViewResponses.bind(this)}/><br></br>
+                <div className="container-fluid">
+                    <label><h1>My Created Taskers</h1> </label>
+                        <button  style={{float: 'left'}} className ="rux-button" type="submit" onClick={this.handleViewTaskers.bind (this)}>View</button> 
+                         {currentTaskers.length > 0 ? 
+                        <button className ="rux-button" type="submit" onClick={this.handleTaskersHideButton.bind(this)}> Hide</button> : ""}
+               </div>
 
-                    <label> My Created Taskers</label> <br></br>
-                         <button style={{float: 'left'}} className ="rux-button" type="submit" onClick={this.handleViewTaskers.bind(this)}>View</button>{currentTaskers.length > 0 ? <button className ="rux-button" type="submit" onClick={this.handleTaskersHideButton.bind(this)}> Hide</button> : ""}
-              
-                <table>
+                <table className="container-fluid">
                 {currentTaskers.length > 0 ?
                     <tbody>
                         <tr>
