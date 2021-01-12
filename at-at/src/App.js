@@ -13,6 +13,7 @@ import RegisterMain from "./login/RegisterMain";
 import UserProfileMain from "./login/UserProfileMain";
 import PrivateRoute from './login/PrivateRoute';
 import HomeMain from "./home/HomeMain";
+import HomeTaskerInbox from "./home/HomeTaskerInbox";
 import TaskerCreationMain from "./tasker_creation/TaskerCreationMain";
 import TaskerInboxMain from "./tasker_in/TaskerInboxMain";
 import TaskerOutboxMain from "./tasker_out/TaskerOutboxMain";
@@ -34,6 +35,7 @@ class App extends React.Component {
           <Route path="/register" component={RegisterMain} />
           <PrivateRoute path="/authenticated_user" component={Navbar} />
           <PrivateRoute path="/authenticated_user/home" component={HomeMain} />
+          <PrivateRoute path="/authenticated_user/home" component={HomeTaskerInbox} />
           <PrivateRoute path="/authenticated_user/create_tasker" component={TaskerCreationMain} />
           <PrivateRoute path="/authenticated_user/tasker_inbox" component={TaskerInboxMain} />
           <PrivateRoute path="/authenticated_user/tasker_outbox" exact component={TaskerOutboxMain} />
