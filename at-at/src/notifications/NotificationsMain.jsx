@@ -61,12 +61,11 @@ class NotificationsMain extends React.Component {
     handleDelete = (e) => {
         e.preventDefault();
         const notificationId = parseInt(e.target.id);
-        console.log(notificationId)
         fetch(`${this.apiURL}/notifications/${notificationId}`, {
             method: 'DELETE',
         }).then((res) => console.log(res.json()));
 
-        const newList = this.state.notifications.filter(i => i.tasker_id !== notificationId)
+        const newList = this.state.notifications.filter(i => i.id !== notificationId)
         this.setState({notifications: newList})
     }
 

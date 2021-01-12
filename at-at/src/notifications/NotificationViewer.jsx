@@ -35,7 +35,7 @@ class NotificationViewer extends React.Component {
             type="submit" 
             key={notification.id} 
             onClick={this.props.onDelete}
-            id={notification.tasker_id}
+            id={notification.id}
             value="X"/></td>
         </tr>
     )}
