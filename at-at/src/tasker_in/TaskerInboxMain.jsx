@@ -126,28 +126,10 @@ class TaskerInboxMain extends React.Component {
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
-              showDetails={this.handleTaskerShowDetails}
               onRowClick={this.handleTaskerClick}
+              onSubmitResponse={this.handleResponseSubmit}
+              defaultValueResponse={this.state.selectedTasker.response}
             />
-          </div>
-          <div className="col-sm-1"/>
-        </div>
-        <div className="row">
-          <div className="col-sm-1"/>
-          <div className="col">
-            <p className="mx-3 my-3">{this.state.selectedTasker.desc_text}</p>
-          </div>
-          <div className="col-sm-1"/>
-        </div>
-        <div className="row">
-          <div className="col-sm-1"/>
-          <div className="col">
-            {Object.keys(this.state.selectedTasker).length > 0
-            ? <TaskerResponseForm
-                onSubmit={this.handleResponseSubmit}
-                defaultValue={this.state.selectedTasker.response}
-              />
-            : <div/>}
           </div>
           <div className="col-sm-1"/>
         </div>

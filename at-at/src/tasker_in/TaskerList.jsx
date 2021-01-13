@@ -1,5 +1,6 @@
 import React from "react";
 import TaskerItem from './TaskerItem';
+import TaskerResponseForm from "./TaskerResponseForm";
 
 class TaskerList extends React.Component {
   constructor(props) {
@@ -26,10 +27,10 @@ class TaskerList extends React.Component {
     return aVal - bVal;
   }
 
-  isSelectedClassName = (tasker) => {
+  isSelected = (tasker) => {
     const rowId = tasker.tasker_id;
-    const isSelected = (rowId === this.props.selectedRow.id);
-    return isSelected ? "selected" : "";
+    const isSelected = (rowId === parseInt(this.props.selectedRow.id));
+    return isSelected;
   }
 
   handleClickColumnHeader = (e) => {
@@ -83,14 +84,27 @@ class TaskerList extends React.Component {
           key={`TaskerItem${tasker.tasker_id}`}
           id={tasker.tasker_id}
           tasker={tasker}
-          showDetails={this.props.showDetails}
           onClick={this.props.onRowClick}
-          selected={this.isSelectedClassName(tasker)}
+          selected={this.isSelected(tasker)}
         />
       )
     })
 
-    return taskerItems;
+    const accordions = [];
+    for (let i = 0; i < taskerItems.length; i++) {
+      const taskerItem = taskerItems[i];
+      const tasker = taskerArray[i];
+      const taskerForm = <TaskerResponseForm
+          key={`TaskerInfo${tasker.tasker_id}`}
+          tasker={tasker}
+          selected={this.isSelected(tasker)}
+          onSubmitResponse={this.props.onSubmitResponse}
+          defaultValueResponse={this.props.defaultValueResponse}
+      />;
+      accordions.push(taskerItem, taskerForm);
+    }
+
+    return accordions;
   }
 
   render() {
