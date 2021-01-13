@@ -1,5 +1,5 @@
 import React from "react"
-import NotificationViewer from "./NotificationViewer"
+import NotificationViewer from "./NotificationViewerHome"
 import Cookies from 'universal-cookie';
 
 class NotificationsMain extends React.Component {
@@ -14,11 +14,6 @@ class NotificationsMain extends React.Component {
     }
 
     componentDidMount = async() => {
-        //get all the navbar tabs, deselect all, then select tasker inbox tab
-        let tabs = Array.from(document.querySelectorAll('rux-tab'))
-        tabs.forEach((tab) => tab.selected = false)
-        tabs[1].selected = true
-
         // get user authentication info
         let cookies = new Cookies();
         let user_id = cookies.get("user_id");  //cookie name is user_id
@@ -39,7 +34,6 @@ class NotificationsMain extends React.Component {
             }).then((res) => console.log(res.json()));
 
         const notifications = await response.json();
-        // console.log(notifications)
         return notifications;
     }
     handleNotificationClick = async(e) => {

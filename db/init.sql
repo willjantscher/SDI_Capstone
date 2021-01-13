@@ -27,7 +27,7 @@ CREATE TABLE units_assigned_taskers (
 	unit_id INT NOT NULL REFERENCES units(id) ON DELETE CASCADE,
 	routing_at_unit_id INT REFERENCES units(id) ON DELETE CASCADE,
 	response TEXT,
-  responded_on DATE,
+  	responded_on DATE,
 	current_status TEXT NOT NULL,
 	actual_workload INT
 );
@@ -41,7 +41,12 @@ CREATE TABLE tasker_reply_attachments (
 CREATE TABLE tasker_sent_attachments (
 	id serial PRIMARY KEY,
 	tasker_id INT NOT NULL REFERENCES taskers(id) ON DELETE CASCADE,
-	fileData BYTEA NOT NULL
+	fieldname TEXT,
+	originalname TEXT,
+	encoding_ TEXT,
+	mimetype TEXT,
+	buffer_ BYTEA NOT NULL,
+	size INT
 );
 
 CREATE TABLE tasker_version (
@@ -58,10 +63,11 @@ CREATE TABLE tasker_version (
 
 CREATE TABLE notifications (
 	id serial PRIMARY KEY,
-	tasker_id INT NOT NULL REFERENCES taskers(id),
+	tasker_id INT NOT NULL REFERENCES taskers(id) ON DELETE CASCADE,
 	unit_to INT NOT NULL REFERENCES units(id),
 	details TEXT,
-	isRead BOOLEAN NOT NULL
+	isRead BOOLEAN NOT NULL,
+	notification_type TEXT
 );
 
 -- Populate with mock data
@@ -157,11 +163,11 @@ VALUES
 	(3, 1, '2021-01-01', 'Finish the Capstone Project', '2021-02-15', 'High', 55, 'Have a finished product to present')
 	;
 
-INSERT INTO notifications( unit_to, tasker_id, details, isRead)
+INSERT INTO notifications( unit_to, tasker_id, details, isRead, notification_type)
 VALUES 
-	(23, 1, 'Space Force Birthday', false), 
-	(38, 3, 'Capstone', false), 
-	(39, 3, 'Capstone', false), 
-	(16, 2, 'MVP', true), 
-	(17, 2, 'MVP', true), 
-	(24, 1, 'Space Force Birthday', true); 
+	(23, 1, 'Space Force Birthday', false, 'response'), 
+	(38, 3, 'Capstone', false, 'response'), 
+	(39, 3, 'Capstone', false, 'tasker'), 
+	(16, 2, 'MVP', true, 'response'), 
+	(17, 2, 'MVP', true, 'tasker'), 
+	(24, 1, 'Space Force Birthday', true, 'tasker'); 

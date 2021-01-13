@@ -100,6 +100,8 @@ class HomeTaskerInbox extends React.Component {
       unit_to: originator.originator_unit_id,
       details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
+      notification_type: 'response',
+      tasker_id: updatedTasker.tasker_id,
     }
 
     // send notification to originator
