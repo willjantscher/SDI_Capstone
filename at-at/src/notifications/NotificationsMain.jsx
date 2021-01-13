@@ -10,8 +10,6 @@ class NotificationsMain extends React.Component {
             unitId: 0,
             userId: 0,    
             notifications: ['did not update'],
-            selectedNotification: {},
-            selectedRow: [],
         }
     }
 
@@ -36,26 +34,36 @@ class NotificationsMain extends React.Component {
             }).then((res) => console.log(res.json()));
 
         const notifications = await response.json();
+        console.log(notifications)
         return notifications;
     }
     handleNotificationClick = async(e) => {
         const tasker_id = e.target.id;
-        this.props.history.push({
-            pathname: '/authenticated_user/tasker_inbox',
-            state: {
-                tasker_id: tasker_id
-            }
-        });
+        const taskedUnit = e.target.name;
+        console.log(taskedUnit, typeof taskedUnit);
+        console.log(this.state.unitId, typeof this.state.unitId)
+        if(this.state.unitId === taskedUnit){
+            this.props.history.push({
+                pathname: '/authenticated_user/tasker_inbox',
+                state: {
+                    tasker_id: tasker_id
+                }
+            });
+        } 
+        else {
+            this.props.history.push({
+                pathname: '/authenticated_user/tasker_outbox',
+                state: {
+                    tasker_id: tasker_id
+                }
+            })
+        }
+
 //        app.get('/inbox/taskers/:unitId', taskerInQueries.getIncomingTaskers);
 
         // const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})
         // const taskers = await response.json();
         // return taskers;
-
-        // const selectedRow = e.currentTarget;
-        // const selectedId = parseInt(selectedRow.id);
-        // const selectedNotification = this.state.notifications.find(notification => notification.notification_id === selectedId);
-        // this.setState({selectedRow: selectedRow, selectedNotification: selectedNotification});
       }
 
     handleDelete = (e) => {
@@ -71,12 +79,18 @@ class NotificationsMain extends React.Component {
 
     render() {
         return(
-            <div>
-            <NotificationViewer
-                notifications = {this.state.notifications}
-                onViewClick={this.handleNotificationClick}
-                onDelete={this.handleDelete}
-            />
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-sm-1"/>
+                <div className="col-sm">
+                  <NotificationViewer
+                    notifications = {this.state.notifications}
+                    onViewClick={this.handleNotificationClick}
+                    onDelete={this.handleDelete}
+                 />
+                </div>
+              <div className="col-sm-1"/>
+              </div>
             </div>
         )
     }

@@ -2,7 +2,6 @@ import React from "react";
 
 class NotificationViewer extends React.Component {
 
-    //let unreadNotificationList = props.notifications.map((notification => {if(notification.isRead === false); return <li>{notification.details}</li>}))
     unreadNotificationList = (notifications) => {
         return notifications.filter(notification => !notification.isread).map(notification => 
         <tr key={notification.id}>
@@ -39,36 +38,53 @@ class NotificationViewer extends React.Component {
             value="X"/></td>
         </tr>
     )}
-    // let allNotificationList = props.notifications.map(notification => <li>{notification.details}</li>)
+
+    notificationList = (notifications) => {
+        return notifications.map(notification => 
+            <tr key={notification.id}>
+            <td>{notification.details}</td>
+            <td><input 
+                className="will-colors rux-button" 
+                type="submit" 
+                key={notification.id}
+                onClick={this.props.onViewClick}
+                id={notification.tasker_id}
+                name={notification.unit_to}
+                value="View"/></td>
+            <td><input 
+                className="will-colors rux-button" 
+                type="submit" 
+                key={notification.id} 
+                onClick={this.props.onDelete}
+                id={notification.id}
+                value="X"/></td>
+            </tr>
+        )}    
 
     render() {
         return(
                 <div className="container-fluid">
-                    <table className="container-fluid">
-                        <thead className="row">
-                            <tr>
-                                <th>New Notifications</th>
-                            </tr>
-                        </thead>
-                        <tbody className="row">{this.unreadNotificationList(this.props.notifications)}</tbody>
+
+                    <label id="1"><h1>Unread Notifications</h1></label>
+                    <table className="rux-table">
+                        <tbody>
+                            {this.unreadNotificationList(this.props.notifications)}
+                        </tbody>
                     </table>
 
-                    <table className="container-fluid">
-                        <thead className="row">
-                            <tr>
-                                <th>Old Notifications</th>
-                            </tr>
-                        </thead>
-                    <tbody className="row">{this.readNotificationList(this.props.notifications)}</tbody>
-                    {/* {props.notifications.filter(notification => notification.isread).map(notification => 
-                    <tr>
-                    <td>{notification.details}</td>
-                    <td><button type="submit" key={notification.id}>view</button></td>
-                    <td><button type="submit" key={notification.id}>delete</button></td>
-                    </tr>)} */}
+                    <label id="1"><h1>Read Notifications</h1></label>
+                    <table className="rux-table">
+                        <tbody>
+                            {this.readNotificationList(this.props.notifications)}
+                        </tbody>
                     </table>
-                    {/* All Notifications
-                    <ul>{allNotificationList}</ul> */}
+
+                    <label id="1"><h1>Received Notifications</h1></label>
+                    <table className="rux-table">
+                        <tbody>
+                            {this.notificationList(this.props.notifications)}
+                        </tbody>
+                    </table>
 
                 </div>
             )
