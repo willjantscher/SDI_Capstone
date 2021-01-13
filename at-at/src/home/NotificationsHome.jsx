@@ -1,5 +1,5 @@
 import React from "react"
-import NotificationViewer from "./NotificationViewer"
+import NotificationViewer from "./NotificationViewerHome"
 import Cookies from 'universal-cookie';
 
 class NotificationsMain extends React.Component {
@@ -34,7 +34,6 @@ class NotificationsMain extends React.Component {
             }).then((res) => console.log(res.json()));
 
         const notifications = await response.json();
-        // console.log(notifications)
         return notifications;
     }
     handleNotificationClick = async(e) => {

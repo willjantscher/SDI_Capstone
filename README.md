@@ -106,7 +106,7 @@ ToDo:
 - Cascade FKeys in database
 - Standardize table styling
 - Unfurl table data inside tables
-- "Suspense" is spelled wrong in the notification from tasker creation
+- "Suspense" is spelled wrong in the notification from tasker creation - DONE
 - Update the navbar when redirected
 
 
