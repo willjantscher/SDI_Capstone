@@ -1,56 +1,14 @@
 /*
-
 update paths for fetches
-
 Personal access token for gitlab
 user: will_jantscher
 password: ppHvifzzxzYWCGgVcqAR
 sdi06.staging.dso.mil/sdi06-api/        route to api
-
-pushing to P1
-
-1. copy files into gitlab
-    - merge package.jsons
-2. change environment variables for db stuff
-    detailed in manifest
-3. update dockerfiles?
-4. add docker-compose?
-5. 
-
-work off the github,
-manually update p1 repo
-    - make sure to know what changes are made...
-
-
-
-
-
-to do:
-    better select for units
-        https://react-select.com/home
-
-    additional features:
-        add attachments'
-        change unit select
-            have sub selects under their parents    refactor fetch to return id, parent id, and name
-            https://github.com/insin/react-filtered-multiselect
-
 username: bigCheese
 password: password
-
-docker-compose up --build
-
-redirect if no valid cookie!! implement for all pages
-
-Update readme!
-git lab link: https://code.il2.dso.mil/tron/products/AirmenCoders/sdi06  
-
-1. Update select for units
-    a. update db backend and query 
-    b. update handling of data
-loop through lower and lowest tiers, have better selector, update handling of fetch request(use id? to get name?)
-
-
+1. correct tasker id for posting attachments
+2. api for finding attachments by tasker id
+3. add multiple attachments
 */
 
 
@@ -91,7 +49,8 @@ class TaskerCreationMain extends React.Component {
             }, 
             submit_flag: null,
             loged_in_unit: null,
-            selected_file: null,
+            selected_files: null,
+            selected_files_num: null,
         }
     }
 
@@ -152,8 +111,10 @@ class TaskerCreationMain extends React.Component {
     }
 
     handleFileInputChange = (e) => {
-        console.log(e.target.files[0])
-        this.setState({ selected_file : e.target.files[0], loaded: 0, })
+        // console.log(e.target.files)
+        // console.log(e.target.files.length)
+        this.setState({ selected_files_num : e.target.files.length })
+        this.setState({ selected_files : e.target.files })
     }
 
     handleClickUploadFiles = (e) => {
@@ -179,6 +140,38 @@ class TaskerCreationMain extends React.Component {
                 .catch(error => {
                     console.log(error);
                 });
+    }
+
+    uploadFiles = (tasker_id) => {
+        // console.log(this.state.selected_files)
+        if(this.state.selected_files !== null) {
+            for(var i = 0; i < this.state.selected_files.length; i++) {
+                const formData = new FormData() 
+                formData.append('file', this.state.selected_files[i])
+                // for (var key of formData.entries()) {
+                //     console.log(key[0] + ', ' + key[1]);
+                // }
+                
+                fetch(`${this.state.route}/upload/${tasker_id}`, {
+                    headers : {
+                        'Access-Control-Allow-Origin' : '*',
+                    },
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.json())
+                        .then(data => {
+                        console.log(data)
+                        document.getElementById("tasker_form").reset();
+                        document.getElementById("file").value = null;
+                        this.setState({ selected_files : null})
+                        this.setState({ selected_files_num : null})
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+            }
+        }
     }
 
     handleUnitChange = (values) => {
@@ -225,9 +218,13 @@ class TaskerCreationMain extends React.Component {
                 .then((res) => res.json())
                     //res is now the id assigned to the tasker in the taskers table, now post to the tasker_version table
                     .then((res) => {
+
+                        //send fetches to db with file/files to save
+                        this.uploadFiles(res);
+
                         let newTasker = this.state.tasker;
                         newTasker.tasker_id = res;
-                        // console.log(newTasker)
+
                         this.setState({ tasker : newTasker });
 
                         fetch(`${this.state.route}/tasker_version`, {
@@ -291,9 +288,10 @@ class TaskerCreationMain extends React.Component {
                     onUnitChange = {this.handleUnitChange}
                     onSubmitTasker = {this.handleSubmitTasker}
                     onFileInputChange = {this.handleFileInputChange}      
-                    onClickUploadFiles = {this.handleClickUploadFiles}              
+                    // onClickUploadFiles = {this.handleClickUploadFiles}              
                     units = {this.state.units}
                     flag = {this.state.submit_flag}
+                    selected_files = {this.state.selected_files}
                 />
 
             </div>
@@ -352,7 +350,9 @@ class TaskerCreationMain extends React.Component {
                                 </div>
                             )
                     }
-                })()}    
+                })()}
+
+                {/* <a href="http://localhost:3001/download/1" download>download first file</a>     */}
 
             </div>
         )

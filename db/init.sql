@@ -27,7 +27,7 @@ CREATE TABLE units_assigned_taskers (
 	unit_id INT NOT NULL REFERENCES units(id) ON DELETE CASCADE,
 	routing_at_unit_id INT REFERENCES units(id) ON DELETE CASCADE,
 	response TEXT,
-  responded_on DATE,
+  	responded_on DATE,
 	current_status TEXT NOT NULL,
 	actual_workload INT
 );
@@ -41,7 +41,12 @@ CREATE TABLE tasker_reply_attachments (
 CREATE TABLE tasker_sent_attachments (
 	id serial PRIMARY KEY,
 	tasker_id INT NOT NULL REFERENCES taskers(id) ON DELETE CASCADE,
-	fileData BYTEA NOT NULL
+	fieldname TEXT,
+	originalname TEXT,
+	encoding_ TEXT,
+	mimetype TEXT,
+	buffer_ BYTEA NOT NULL,
+	size INT
 );
 
 CREATE TABLE tasker_version (
