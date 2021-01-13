@@ -18,8 +18,6 @@ class NotificationViewer extends React.Component {
         </tr>
          )
          if(result.length === 0) {
-            console.log('test')
-
              result.push(<tr>
                  <td>{'You have no new notifications.'}</td>
              </tr>)

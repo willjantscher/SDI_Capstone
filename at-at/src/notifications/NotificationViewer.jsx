@@ -80,7 +80,7 @@ class NotificationViewer extends React.Component {
                     </table> */}
 
                     <label id="1"><h1>All Notifications</h1></label>
-                    <table className="rux-table">
+                    <table className="rux-table" key="allNotifications">
                         <tbody>
                             {this.notificationList(this.props.notifications)}
                         </tbody>

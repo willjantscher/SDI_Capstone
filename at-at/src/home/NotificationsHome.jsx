@@ -34,7 +34,6 @@ class NotificationsMain extends React.Component {
             }).then((res) => console.log(res.json()));
 
         const notifications = await response.json();
-        console.log(notifications)
         return notifications;
     }
     handleNotificationClick = async(e) => {
