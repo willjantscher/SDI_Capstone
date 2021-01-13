@@ -90,6 +90,10 @@ class TaskerList extends React.Component {
       )
     })
 
+    if (this.props.homepage && taskerItems.length > 3){
+      return taskerItems.slice(0,3)
+    }
+
     return taskerItems;
   }
 
