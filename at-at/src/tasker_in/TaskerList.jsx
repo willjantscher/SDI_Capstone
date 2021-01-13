@@ -45,6 +45,15 @@ class TaskerList extends React.Component {
   generateColumnHeaders = () => {
     return (
       Object.keys(this.headers).map(headerName => {
+        if(this.props.homepage){
+          return (
+          <th
+            key={headerName}
+            onClick={this.props.onRowClick}
+          >
+          {headerName}
+          </th>)
+        } 
         return (
           <th
             key={headerName}
