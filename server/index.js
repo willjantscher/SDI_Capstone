@@ -106,7 +106,7 @@ filename: function (req, file, cb) {
 }
 })
 
-app.post('/upload',function(req, res) {
+app.post('/upload/:tasker_id',function(req, res) {
      
   upload(req, res, function (err) {
          if (err instanceof multer.MulterError) {
@@ -115,13 +115,13 @@ app.post('/upload',function(req, res) {
              return res.status(500).json(err)
          }
          var columnDataToInsert = '\\x' + req.file.buffer.toString('hex');
-         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fieldname, originalname, encoding_, mimetype, buffer_, size) VALUES ($1, $2, $3, $4, $5, $6, $7)', [ '1', req.file.fieldname, req.file.originalname, req.file.encoding, req.file.mimetype, columnDataToInsert, req.file.size ],  function(error, results) {
+         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fieldname, originalname, encoding_, mimetype, buffer_, size) VALUES ($1, $2, $3, $4, $5, $6, $7)', [ req.params.tasker_id, req.file.fieldname, req.file.originalname, req.file.encoding, req.file.mimetype, columnDataToInsert, req.file.size ],  function(error, results) {
           if (error) {
             throw error
         }
         return res.status(200).json(`${req.file.originalname} uploaded`)
          })
-         console.log(req.file)
+        //  console.log(req.file)
   })
 
 });
@@ -147,7 +147,7 @@ app.get('/download', function(req, res) {
     const file = results.rows[0]
 
     var fileContents = Buffer.from(file.buffer_, "base64");
-    console.log(fileContents)
+    // console.log(fileContents)
 
     var readStream = new stream.PassThrough();
     readStream.end(fileContents);
@@ -162,7 +162,7 @@ app.get('/download', function(req, res) {
 
 
 app.get('/files_names', function(req, res) {
-  pool.query('SELECT originalname FROM tasker_sent_attachments', (error, results)=> {
+  pool.query('SELECT originalname, tasker_id FROM tasker_sent_attachments', (error, results)=> {
     if (error) {
       throw error
     }

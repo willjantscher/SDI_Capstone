@@ -144,14 +144,14 @@ class TaskerCreationMain extends React.Component {
                 });
     }
 
-    uploadFiles = () => {
+    uploadFiles = (tasker_id) => {
         const formData = new FormData() 
         formData.append('file', this.state.selected_file)
         // for (var key of formData.entries()) {
         //     console.log(key[0] + ', ' + key[1]);
         // }
         
-         fetch(`${this.state.route}/upload`, {
+         fetch(`${this.state.route}/upload/${tasker_id}`, {
             headers : {
                 'Access-Control-Allow-Origin' : '*',
             },
@@ -213,7 +213,7 @@ class TaskerCreationMain extends React.Component {
                     .then((res) => {
 
                         //send fetches to db with file/files to save
-                        this.uploadFiles();
+                        this.uploadFiles(res);
 
                         let newTasker = this.state.tasker;
                         newTasker.tasker_id = res;
