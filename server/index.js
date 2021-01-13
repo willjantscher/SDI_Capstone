@@ -126,20 +126,19 @@ app.post('/upload/:tasker_id',function(req, res) {
 
 });
 
-app.get('/upload', function(req, res) {
-  pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
-    // console.log(results.rows)
+app.get('/attachments/:tasker_id', function(req, res) {
+  console.log('recieved')
+  pool.query('SELECT id, originalname, tasker_id FROM tasker_sent_attachments WHERE tasker_id = $1', [req.params.tasker_id], (error, results) => {
     if (error) {
-        throw error
+      throw error
     }
-    res.status(200).json(results.rows)
-    // 
+    res.json(results.rows)
   })
 })
 
-app.get('/download', function(req, res) {
+app.get('/download/:attachment_id', function(req, res) {
 
-  pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
+  pool.query('SELECT * FROM tasker_sent_attachments WHERE id = $1',[req.params.attachment_id], (error, results) => {
     if (error) {
       console.log(err);
       res.json({msg: 'Error', detail: err});
@@ -167,5 +166,14 @@ app.get('/files_names', function(req, res) {
       throw error
     }
     res.json(results.rows)
+  })
+})
+
+app.get('/full_attachment_row', function(req, res) {
+  pool.query('SELECT * from tasker_sent_attachments', (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.json(results.rows[0])
   })
 })

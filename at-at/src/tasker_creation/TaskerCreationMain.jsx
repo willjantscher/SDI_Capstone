@@ -1,19 +1,14 @@
 /*
-
 update paths for fetches
-
 Personal access token for gitlab
 user: will_jantscher
 password: ppHvifzzxzYWCGgVcqAR
 sdi06.staging.dso.mil/sdi06-api/        route to api
-
 username: bigCheese
 password: password
-
 1. correct tasker id for posting attachments
 2. api for finding attachments by tasker id
 3. add multiple attachments
-
 */
 
 
@@ -354,4 +349,3 @@ class TaskerCreationMain extends React.Component {
 
 
 export default TaskerCreationMain;
-
