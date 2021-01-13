@@ -48,8 +48,8 @@ class LoginMain extends React.Component {
       } else {
         return(
             <div>
-                <h1>AT-AT</h1>
-                <h2>Login</h2>
+                <h1 className="pl-4 pb-2 pt-2">AT-AT</h1>
+                <h2 className="pl-4 pb-2 pt-2">Login</h2>
                 <div className="rux-form-field__label"></div>
                 <form className="container-fluid" onSubmit = {this.handleLogin}>
                     <div className="row pb-3 pl-5"> 
@@ -78,8 +78,8 @@ class LoginMain extends React.Component {
                         <input className="will-colors rux-button" type="submit" value="Login"/>
                     </div>
                 </form>
-                
-                <label> 
+
+                <label className="pl-4 pb-4 pt-2"> 
                     Not on AT-AT yet? 
                     <a className="nav-link" href="/register"> Register here</a>
                 </label> 
