@@ -111,8 +111,8 @@ class TaskerCreationMain extends React.Component {
     }
 
     handleFileInputChange = (e) => {
-        console.log(e.target.files)
-        console.log(e.target.files.length)
+        // console.log(e.target.files)
+        // console.log(e.target.files.length)
         this.setState({ selected_files_num : e.target.files.length })
         this.setState({ selected_files : e.target.files })
     }
@@ -143,34 +143,35 @@ class TaskerCreationMain extends React.Component {
     }
 
     uploadFiles = (tasker_id) => {
-        console.log(this.state.selected_files)
-        for(var i = 0; i < this.state.selected_files.length; i++) {
-            const formData = new FormData() 
-            formData.append('file', this.state.selected_files[i])
-            // for (var key of formData.entries()) {
-            //     console.log(key[0] + ', ' + key[1]);
-            // }
-            
-             fetch(`${this.state.route}/upload/${tasker_id}`, {
-                headers : {
-                    'Access-Control-Allow-Origin' : '*',
-                },
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.json())
-                    .then(data => {
-                    console.log(data)
-                    document.getElementById("tasker_form").reset();
-                    document.getElementById("file").value = null;
-                    this.setState({ selected_files : null})
-                    this.setState({ selected_files_num : null})
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+        // console.log(this.state.selected_files)
+        if(this.state.selected_files !== null) {
+            for(var i = 0; i < this.state.selected_files.length; i++) {
+                const formData = new FormData() 
+                formData.append('file', this.state.selected_files[i])
+                // for (var key of formData.entries()) {
+                //     console.log(key[0] + ', ' + key[1]);
+                // }
+                
+                fetch(`${this.state.route}/upload/${tasker_id}`, {
+                    headers : {
+                        'Access-Control-Allow-Origin' : '*',
+                    },
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.json())
+                        .then(data => {
+                        console.log(data)
+                        document.getElementById("tasker_form").reset();
+                        document.getElementById("file").value = null;
+                        this.setState({ selected_files : null})
+                        this.setState({ selected_files_num : null})
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+            }
         }
-
     }
 
     handleUnitChange = (values) => {
@@ -287,7 +288,7 @@ class TaskerCreationMain extends React.Component {
                     onUnitChange = {this.handleUnitChange}
                     onSubmitTasker = {this.handleSubmitTasker}
                     onFileInputChange = {this.handleFileInputChange}      
-                    onClickUploadFiles = {this.handleClickUploadFiles}              
+                    // onClickUploadFiles = {this.handleClickUploadFiles}              
                     units = {this.state.units}
                     flag = {this.state.submit_flag}
                     selected_files = {this.state.selected_files}
@@ -351,7 +352,7 @@ class TaskerCreationMain extends React.Component {
                     }
                 })()}
 
-                <a href="http://localhost:3001/download/1" download>download first file</a>    
+                {/* <a href="http://localhost:3001/download/1" download>download first file</a>     */}
 
             </div>
         )

@@ -6,7 +6,22 @@ import React, { useState, Fragment } from "react";
 
 
 const TaskerForm = (props) => {
-
+    let file_names_render = [];
+    if(props.selected_files !== null) {
+        let selected_files_names = []
+        for(var i = 0; i < props.selected_files.length; i++) {
+            selected_files_names.push(props.selected_files[i].name)
+            // console.log(props.selected_files[i].name)
+        }
+        // console.log(selected_files_names)
+        file_names_render = selected_files_names.map((name) => {
+            return(
+                <div>
+                    <div style={{textAlign: "center"}}>{name}</div>
+                </div>
+            )
+        })
+    }
 
 
     let topChain = props.units.filter(element => element.parent_unique_id === null);
@@ -262,7 +277,7 @@ const TaskerForm = (props) => {
                     </div>
 
                     <div className="row pb-3 pl-5">
-                        <div className="col-md-6"></div>
+                        <div className=""></div>
                         <input className="will-colors rux-button col-md-5" type="submit" value="Send Tasker with Extreme Prejudice"/>
                     </div>
 
@@ -280,10 +295,19 @@ const TaskerForm = (props) => {
                                 <input style={{height:"387px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
                             </label>
                         </div>
+                        <div style={{marginTop:'-220px', position:"relative"}}>
+                            {file_names_render}
+                        </div>
                         <div className="row" style={{paddingTop:'15px'}}>
                                 <div className="col-md-2"></div>
                                 {/* <button type="submit" className="rux-button col-md-8">Upload</button> */}
                         </div>
+                        {/* <div className="row" style={{paddingTop: ""}}>
+                            <div className="col-md-4"></div>
+                            <div className="col-md-4">
+                                {file_names_render}
+                            </div>
+                        </div> */}
                     </form>
                 </div>
             </div>
