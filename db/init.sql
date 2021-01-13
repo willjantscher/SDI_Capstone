@@ -27,7 +27,7 @@ CREATE TABLE units_assigned_taskers (
 	unit_id INT NOT NULL REFERENCES units(id) ON DELETE CASCADE,
 	routing_at_unit_id INT REFERENCES units(id) ON DELETE CASCADE,
 	response TEXT,
-  responded_on DATE,
+  	responded_on DATE,
 	current_status TEXT NOT NULL,
 	actual_workload INT
 );

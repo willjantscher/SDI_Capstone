@@ -6,7 +6,9 @@ import React, { useState, Fragment } from "react";
 
 
 const TaskerForm = (props) => {
-    // console.log(props.units)
+
+
+
     let topChain = props.units.filter(element => element.parent_unique_id === null);
     let midChain = props.units.filter(element => element.parent_unique_id === 1);
     let botChain = props.units.filter(element => element.parent_unique_id > 1  )
@@ -267,7 +269,7 @@ const TaskerForm = (props) => {
                 </form>
 
                 <div className="col-md-4 container-fluid">
-                    <form onSubmit={props.onClickUploadFiles}> 
+                    <form id="attachments_form" onSubmit={props.onClickUploadFiles}> 
                         <div className="row">
                             <label >Add Attachments: </label>
                         </div>
@@ -275,12 +277,12 @@ const TaskerForm = (props) => {
                             <div style={{paddingBottom:'20px'}}></div>
                             <label className="row" htmlFor="file" id="fileInput">
                                 <div></div>
-                                <input style={{height:"337px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
+                                <input style={{height:"387px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
                             </label>
                         </div>
                         <div className="row" style={{paddingTop:'15px'}}>
                                 <div className="col-md-2"></div>
-                                <button type="submit" className="rux-button col-md-8">Upload</button>
+                                {/* <button type="submit" className="rux-button col-md-8">Upload</button> */}
                         </div>
                     </form>
                 </div>
