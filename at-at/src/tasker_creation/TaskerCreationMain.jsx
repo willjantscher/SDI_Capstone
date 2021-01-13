@@ -6,9 +6,9 @@ password: ppHvifzzxzYWCGgVcqAR
 sdi06.staging.dso.mil/sdi06-api/        route to api
 username: bigCheese
 password: password
-1. correct tasker id for posting attachments
-2. api for finding attachments by tasker id
-3. add multiple attachments
+1. add back end for responding to taskers with attachments
+    updated init.db
+2. add buttons/href in Tasker In Box for all tasker attachments for that 
 */
 
 
@@ -192,12 +192,14 @@ class TaskerCreationMain extends React.Component {
         // console.log(this.state.units)
         // console.log("this is the unit: " + this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]))].id)
         tempSendToUnits_ids = tempSendToUnits.map((unit) => {
+            // console.log("the units" + this.state.units)
+            // console.log("the send to units" + tempSendToUnits)
+            let indexOf = tempSendToUnits.indexOf(unit);
             return(
-                this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]))].id
+                this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[indexOf]))].id
             )
-            // this.state.units[(this.state.units.findIndex(unit => unit.unit_name === tempSendToUnits[0]) + 1 )].id
-            // this.state.units.indexOf(unit) + 1
         })
+        // console.log(tempSendToUnits_ids)
         
         tempTasker.sendToUnits_ids = tempSendToUnits_ids;
         tempTasker.sendToUnits = tempSendToUnits;
