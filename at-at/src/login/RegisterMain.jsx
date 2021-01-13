@@ -74,7 +74,8 @@ class RegisterMain extends React.Component {
     render() {
         return(
             <div>
-                <h1>Register</h1>
+                <h1>AT-AT</h1>
+                <h2>Register</h2>                
                 <div className="rux-form-field__label"></div>
                 <form className="container-fluid" onSubmit = {this.handleRegistration}>
                     <UnitsDropdown                    
@@ -93,6 +94,7 @@ class RegisterMain extends React.Component {
                             onChange={this.handleInput}
                         ></input>
                     </div>
+
                     <div className="row pb-3 pl-5"> 
                         <label htmlFor="passphrase" className="col-sm-2" >Password:</label>
                         <input
