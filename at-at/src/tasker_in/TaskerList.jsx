@@ -106,6 +106,19 @@ class TaskerList extends React.Component {
     return taskerItems;
   }
 
+  generateHomePageFooter = () => {
+    if(this.props.taskers.length === 0){
+      return(
+        <tr onClick={this.props.onRowClick}><td colspan="6">No taskers in your inbox!</td></tr>
+      )
+    }
+    if(this.props.taskers.length > 3){
+      return(
+        <tr onClick={this.props.onRowClick}><td colspan="6">...</td></tr>
+      )
+    }
+  }
+
   render() {
     return(
         <table className="rux-table">
@@ -116,6 +129,7 @@ class TaskerList extends React.Component {
           </thead>
           <tbody>
             {this.generateTaskerItems(this.props.taskers)}
+            {this.props.homepage ? this.generateHomePageFooter() : null}
           </tbody>
         </table>
     );
