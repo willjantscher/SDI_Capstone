@@ -1,6 +1,4 @@
 import React from "react"
-// import { RuxIcon } from '@astrouxds/rux-icon/rux-icon.js';
-import HomeTaskerInbox from "./HomeTaskerInbox"
 
 class HomeMain extends React.Component {
     constructor(props) {
@@ -8,6 +6,13 @@ class HomeMain extends React.Component {
         this.state = {
             logged_in : null,
         }
+    }
+
+    componentDidMount() {
+      //get all the navbar tabs, deselect all, then select tasker inbox tab
+      let tabs = Array.from(document.querySelectorAll('rux-tab'))
+      tabs.forEach((tab) => tab.selected = false)
+      tabs[0].selected = true
     }
 
     render() {
