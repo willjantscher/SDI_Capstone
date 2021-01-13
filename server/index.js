@@ -35,8 +35,6 @@ app.use(cors(corsOptions))
  
 app.options('*', cors())
 
-
-
 app.use(express.json())
 
 
@@ -97,6 +95,8 @@ app.listen(port, () => {
 // adding files stuff -------------------------------------------------------------------------------------------------------------------------------------
 
 var upload = multer({ storage: storage }).single('file')
+var stream = require('stream');
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -107,6 +107,9 @@ filename: function (req, file, cb) {
 }
 })
 
+
+
+
 app.post('/upload',function(req, res) {
      
   upload(req, res, function (err) {
@@ -116,13 +119,13 @@ app.post('/upload',function(req, res) {
              return res.status(500).json(err)
          }
          var columnDataToInsert = '\\x' + req.file.buffer.toString('hex');
-         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fileData) VALUES ($1, $2)', [ '1', columnDataToInsert ],  function(error, results) {
+         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fieldname, originalname, encoding_, mimetype, buffer_, size) VALUES ($1, $2, $3, $4, $5, $6, $7)', [ '1', req.file.fieldname, req.file.originalname, req.file.encoding, req.file.mimetype, columnDataToInsert, req.file.size ],  function(error, results) {
           if (error) {
             throw error
         }
         return res.status(200).json(`${req.file.originalname} uploaded`)
          })
-        //  console.log(req.file)
+         console.log(req.file)
   })
 
 });
@@ -136,5 +139,62 @@ app.get('/upload', function(req, res) {
     }
     res.status(200).json(results.rows)
     // 
+  })
 })
-})
+
+// app.get('/download', function(req, res) {
+//   pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
+//     // console.log(results.rows)
+//     if (error) {
+//         throw error
+//     }
+//     const file = results.rows[0]
+//     res.json(file)
+//   })
+// })
+
+
+
+app.get('/download', function(req, res) {
+
+  pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
+    if (error) {
+      console.log(err);
+      res.json({msg: 'Error', detail: err});
+      }
+    const file = results.rows[0]
+    // console.log(file.buffer_)
+
+    var fileContents = Buffer.from(file.buffer_, "base64");
+    console.log(fileContents)
+
+    var readStream = new stream.PassThrough();
+    readStream.end(fileContents);
+    
+    res.set('Content-disposition', 'attachment; filename=' + file.originalname);
+    res.set('Content-Type', file.mimetype);
+ 
+    readStream.pipe(res);
+  })
+
+
+
+  // pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
+  //   var file = results.rows[0]
+
+    
+  //   var fileContents = Buffer.from(file.buffer_, "base64");
+  //   var readStream = new stream.PassThrough();
+  //   readStream.end(fileContents);
+    
+  //   res.set('Content-disposition', 'attachment; filename=' + file.name);
+  //   res.set('Content-Type', file.type);
+ 
+  //   readStream.pipe(res);
+  // }).catch(err => {
+  //   console.log(err);
+  //   res.json({msg: 'Error', detail: err});
+  // });
+
+  }
+)

@@ -41,7 +41,12 @@ CREATE TABLE tasker_reply_attachments (
 CREATE TABLE tasker_sent_attachments (
 	id serial PRIMARY KEY,
 	tasker_id INT NOT NULL REFERENCES taskers(id) ON DELETE CASCADE,
-	fileData BYTEA NOT NULL
+	fieldname TEXT,
+	originalname TEXT,
+	encoding_ TEXT,
+	mimetype TEXT,
+	buffer_ BYTEA NOT NULL,
+	size INT
 );
 
 CREATE TABLE tasker_version (

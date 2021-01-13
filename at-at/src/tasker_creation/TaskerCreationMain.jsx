@@ -352,8 +352,10 @@ class TaskerCreationMain extends React.Component {
                                 </div>
                             )
                     }
-                })()}    
+                })()}
 
+                <a href="http://localhost:3001/download" download>download first file</a>    
+                
             </div>
         )
     }
@@ -362,3 +364,4 @@ class TaskerCreationMain extends React.Component {
 
 
 export default TaskerCreationMain;
+
