@@ -10,6 +10,7 @@ class TaskerResponseForm extends React.Component {
 
     return(
       <tr
+        className="selected"
         style={{display: display}}
       >
         <td colSpan="6">
