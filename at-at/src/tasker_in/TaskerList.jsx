@@ -1,5 +1,6 @@
 import React from "react";
 import TaskerItem from './TaskerItem';
+import TaskerInfo from "./TaskerInfo";
 
 class TaskerList extends React.Component {
   constructor(props) {
@@ -16,7 +17,9 @@ class TaskerList extends React.Component {
       'Suspense': 'suspense_date',
       'Priority': 'priority_lvl',
       'Est. Workload': 'predicted_workload',
+      'Responded': 'current_status',
     };
+    this.statuses = ['in progress', 'completed'];
     this.priorities = ['high', 'medium', 'low'];
   }
 
@@ -26,10 +29,10 @@ class TaskerList extends React.Component {
     return aVal - bVal;
   }
 
-  isSelectedClassName = (tasker) => {
+  isSelected = (tasker) => {
     const rowId = tasker.tasker_id;
-    const isSelected = (rowId === this.props.selectedRow.id);
-    return isSelected ? "selected" : "";
+    const isSelected = (rowId === parseInt(this.props.selectedRow.id));
+    return isSelected;
   }
 
   handleClickColumnHeader = (e) => {
@@ -92,18 +95,31 @@ class TaskerList extends React.Component {
           key={`TaskerItem${tasker.tasker_id}`}
           id={tasker.tasker_id}
           tasker={tasker}
-          showDetails={this.props.showDetails}
           onClick={this.props.onRowClick}
-          selected={this.isSelectedClassName(tasker)}
+          selected={this.isSelected(tasker)}
         />
       )
     })
 
-    if (this.props.homepage && taskerItems.length > 3){
-      return taskerItems.slice(0,3)
+    const rows = [];
+    for (let i = 0; i < taskerItems.length; i++) {
+      const taskerItem = taskerItems[i];
+      const tasker = taskerArray[i];
+      const taskerForm = <TaskerInfo
+          key={`TaskerInfo${tasker.tasker_id}`}
+          tasker={tasker}
+          selected={this.isSelected(tasker)}
+          onSubmitResponse={this.props.onSubmitResponse}
+          defaultValueResponse={this.props.defaultValueResponse}
+      />;
+      rows.push(taskerItem, taskerForm);
     }
 
-    return taskerItems;
+    if (this.props.homepage && taskerItems.length > 3){
+      return taskerItems.slice(0,3)
+    } else {
+      return rows;
+    }
   }
 
   generateHomePageFooter = () => {

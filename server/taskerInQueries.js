@@ -1,4 +1,4 @@
-const pool = require('./pool.js').getPool()
+const pool = require('./pool.js').getPool();
 
 const getIncomingTaskers = (request, response) => {
   pool.query(
@@ -10,7 +10,9 @@ const getIncomingTaskers = (request, response) => {
       units_assigned_taskers.unit_id, \
       tasker_version.desc_text, \
       units_assigned_taskers.response, \
-      tasker_version.updated_on \
+      tasker_version.updated_on, \
+      units_assigned_taskers.current_status, \
+      units_assigned_taskers.responded_on \
     FROM units_assigned_taskers \
     INNER JOIN tasker_version ON units_assigned_taskers.tasker_id = tasker_version.tasker_id \
     WHERE unit_id = $1',
@@ -39,9 +41,24 @@ const getTaskerOriginators = (request, response) => {
 }
 
 const updateTaskerResponse = (request, response) => {
+  const { unitId, taskerId } = request.params;
+  const tasker = request.body;
   pool.query(
-    'UPDATE units_assigned_taskers SET response = $3, current_status = $4 WHERE unit_id = $1 AND tasker_id = $2 RETURNING *',
-    [request.params.unitId, request.params.taskerId, request.body.response, "completed"],
+    'UPDATE units_assigned_taskers SET \
+      response = $4, \
+      current_status = $3, \
+      actual_workload = $5, \
+      responded_on = $6 \
+    WHERE unit_id = $1 AND tasker_id = $2 \
+    RETURNING *',
+    [
+      unitId,
+      taskerId,
+      "completed",
+      tasker.response,
+      tasker.actual_workload,
+      tasker.responded_on,
+    ],
     (error, result) => {
       if (error) {
         response.sendStatus(500);

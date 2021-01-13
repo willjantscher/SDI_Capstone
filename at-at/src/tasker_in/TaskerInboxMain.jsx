@@ -2,7 +2,7 @@ import React from "react";
 import TaskerList from './TaskerList';
 import Cookies from 'universal-cookie';
 import isAuthed from '../login/utils';
-import TaskerResponseForm from "./TaskerResponseForm";
+import { DateTime } from 'luxon';
 
 class TaskerInboxMain extends React.Component {
   constructor(props) {
@@ -66,18 +66,30 @@ class TaskerInboxMain extends React.Component {
   }
 
   handleTaskerClick = (e) => {
-    const selectedRow = e.currentTarget;
+    let selectedRow = e.currentTarget;
     const selectedId = parseInt(selectedRow.id);
-    const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
+    let selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
+    // toggle selection
+    if (this.state.selectedTasker === selectedTasker) {
+      selectedRow = [];
+      selectedTasker = {};
+    }
     this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
   }
 
   handleResponseSubmit = async(e) => {
     e.preventDefault();
     // isolate data entered into text area
-    const formChildren = Array.from(e.target.children);
-    const responseTextArea = formChildren.find(element => element.name === "taskerResponseData")
-    const taskerResponse = {"response": responseTextArea.value};
+    const responseText = document.getElementById("taskerResponseData").value;
+    const responseWorkload = document.getElementById("taskerResponseWorkload").value;
+    const now = DateTime.utc();
+
+    // build payload
+    const taskerResponse = {
+      "response": responseText,
+      "actual_workload": responseWorkload,
+      "responded_on": now,
+    };
 
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;
@@ -132,28 +144,10 @@ class TaskerInboxMain extends React.Component {
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
-              showDetails={this.handleTaskerShowDetails}
               onRowClick={this.handleTaskerClick}
+              onSubmitResponse={this.handleResponseSubmit}
+              defaultValueResponse={this.state.selectedTasker.response}
             />
-          </div>
-          <div className="col-sm-1"/>
-        </div>
-        <div className="row">
-          <div className="col-sm-1"/>
-          <div className="col">
-            <p className="mx-3 my-3">{this.state.selectedTasker.desc_text}</p>
-          </div>
-          <div className="col-sm-1"/>
-        </div>
-        <div className="row">
-          <div className="col-sm-1"/>
-          <div className="col">
-            {Object.keys(this.state.selectedTasker).length > 0
-            ? <TaskerResponseForm
-                onSubmit={this.handleResponseSubmit}
-                defaultValue={this.state.selectedTasker.response}
-              />
-            : <div/>}
           </div>
           <div className="col-sm-1"/>
         </div>
