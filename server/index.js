@@ -92,8 +92,7 @@ app.listen(port, () => {
   
 
 
-// adding files stuff -------------------------------------------------------------------------------------------------------------------------------------
-
+// handling file upload/download -------------------------------------------------------------------------------------------------------------------------------------
 var upload = multer({ storage: storage }).single('file')
 var stream = require('stream');
 
@@ -106,9 +105,6 @@ filename: function (req, file, cb) {
   cb(null, Date.now() + '-' +file.originalname )
 }
 })
-
-
-
 
 app.post('/upload',function(req, res) {
      
@@ -130,7 +126,6 @@ app.post('/upload',function(req, res) {
 
 });
 
-
 app.get('/upload', function(req, res) {
   pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
     // console.log(results.rows)
@@ -142,19 +137,6 @@ app.get('/upload', function(req, res) {
   })
 })
 
-// app.get('/download', function(req, res) {
-//   pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
-//     // console.log(results.rows)
-//     if (error) {
-//         throw error
-//     }
-//     const file = results.rows[0]
-//     res.json(file)
-//   })
-// })
-
-
-
 app.get('/download', function(req, res) {
 
   pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
@@ -163,7 +145,6 @@ app.get('/download', function(req, res) {
       res.json({msg: 'Error', detail: err});
       }
     const file = results.rows[0]
-    // console.log(file.buffer_)
 
     var fileContents = Buffer.from(file.buffer_, "base64");
     console.log(fileContents)
@@ -176,25 +157,15 @@ app.get('/download', function(req, res) {
  
     readStream.pipe(res);
   })
-
-
-
-  // pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
-  //   var file = results.rows[0]
-
-    
-  //   var fileContents = Buffer.from(file.buffer_, "base64");
-  //   var readStream = new stream.PassThrough();
-  //   readStream.end(fileContents);
-    
-  //   res.set('Content-disposition', 'attachment; filename=' + file.name);
-  //   res.set('Content-Type', file.type);
- 
-  //   readStream.pipe(res);
-  // }).catch(err => {
-  //   console.log(err);
-  //   res.json({msg: 'Error', detail: err});
-  // });
-
   }
 )
+
+
+app.get('/files_names', function(req, res) {
+  pool.query('SELECT originalname FROM tasker_sent_attachments', (error, results)=> {
+    if (error) {
+      throw error
+    }
+    res.json(results.rows)
+  })
+})

@@ -7,49 +7,12 @@ user: will_jantscher
 password: ppHvifzzxzYWCGgVcqAR
 sdi06.staging.dso.mil/sdi06-api/        route to api
 
-pushing to P1
-
-1. copy files into gitlab
-    - merge package.jsons
-2. change environment variables for db stuff
-    detailed in manifest
-3. update dockerfiles?
-4. add docker-compose?
-5. 
-
-work off the github,
-manually update p1 repo
-    - make sure to know what changes are made...
-
-
-
-
-
-to do:
-    better select for units
-        https://react-select.com/home
-
-    additional features:
-        add attachments'
-        change unit select
-            have sub selects under their parents    refactor fetch to return id, parent id, and name
-            https://github.com/insin/react-filtered-multiselect
-
 username: bigCheese
 password: password
 
-docker-compose up --build
-
-redirect if no valid cookie!! implement for all pages
-
-Update readme!
-git lab link: https://code.il2.dso.mil/tron/products/AirmenCoders/sdi06  
-
-1. Update select for units
-    a. update db backend and query 
-    b. update handling of data
-loop through lower and lowest tiers, have better selector, update handling of fetch request(use id? to get name?)
-
+1. correct tasker id for posting attachments
+2. api for finding attachments by tasker id
+3. add multiple attachments
 
 */
 
@@ -181,6 +144,29 @@ class TaskerCreationMain extends React.Component {
                 });
     }
 
+    uploadFiles = () => {
+        const formData = new FormData() 
+        formData.append('file', this.state.selected_file)
+        // for (var key of formData.entries()) {
+        //     console.log(key[0] + ', ' + key[1]);
+        // }
+        
+         fetch(`${this.state.route}/upload`, {
+            headers : {
+                'Access-Control-Allow-Origin' : '*',
+            },
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+                .then(data => {
+                console.log(data)
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+    }
+
     handleUnitChange = (values) => {
         // console.log(values)
         let tempSendToUnits = [];
@@ -225,9 +211,13 @@ class TaskerCreationMain extends React.Component {
                 .then((res) => res.json())
                     //res is now the id assigned to the tasker in the taskers table, now post to the tasker_version table
                     .then((res) => {
+
+                        //send fetches to db with file/files to save
+                        this.uploadFiles();
+
                         let newTasker = this.state.tasker;
                         newTasker.tasker_id = res;
-                        // console.log(newTasker)
+
                         this.setState({ tasker : newTasker });
 
                         fetch(`${this.state.route}/tasker_version`, {
@@ -355,7 +345,7 @@ class TaskerCreationMain extends React.Component {
                 })()}
 
                 <a href="http://localhost:3001/download" download>download first file</a>    
-                
+
             </div>
         )
     }
