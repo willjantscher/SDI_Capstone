@@ -14,7 +14,7 @@ class TaskerInfo extends React.Component {
         className="selected"
         style={{display: display}}
       >
-        <td colSpan="7">
+        <td colSpan="8">
           <label
             className="row mt-1"
             htmlFor="taskerDetails"

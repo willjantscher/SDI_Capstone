@@ -2,6 +2,7 @@ import React from "react";
 import TaskerList from './TaskerList';
 import Cookies from 'universal-cookie';
 import isAuthed from '../login/utils';
+import { DateTime } from 'luxon';
 
 class TaskerInboxMain extends React.Component {
   constructor(props) {
@@ -76,11 +77,14 @@ class TaskerInboxMain extends React.Component {
     // isolate data entered into text area
     const responseText = document.getElementById("taskerResponseData").value;
     const responseWorkload = document.getElementById("taskerResponseWorkload").value;
+    const now = DateTime.utc();
+
+    // build payload
     const taskerResponse = {
       "response": responseText,
       "actual_workload": responseWorkload,
+      "responded_on": now,
     };
-    console.log(taskerResponse);
 
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;
