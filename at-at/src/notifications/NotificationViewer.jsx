@@ -49,7 +49,7 @@ class NotificationViewer extends React.Component {
                 key={notification.id}
                 onClick={this.props.onViewClick}
                 id={notification.tasker_id}
-                name={notification.unit_to}
+                name={notification.notification_type}
                 value="View"/></td>
             <td><input 
                 className="will-colors rux-button" 

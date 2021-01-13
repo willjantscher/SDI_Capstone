@@ -39,10 +39,9 @@ class NotificationsMain extends React.Component {
     }
     handleNotificationClick = async(e) => {
         const tasker_id = e.target.id;
-        const taskedUnit = e.target.name;
-        console.log(taskedUnit, typeof taskedUnit);
-        console.log(this.state.unitId, typeof this.state.unitId)
-        if(this.state.unitId === taskedUnit){
+        const notificationType = e.target.name;
+        
+        if(notificationType === 'tasker'){
             this.props.history.push({
                 pathname: '/authenticated_user/tasker_inbox',
                 state: {
@@ -50,7 +49,7 @@ class NotificationsMain extends React.Component {
                 }
             });
         } 
-        else {
+        else if(notificationType === 'response') {
             this.props.history.push({
                 pathname: '/authenticated_user/tasker_outbox',
                 state: {
