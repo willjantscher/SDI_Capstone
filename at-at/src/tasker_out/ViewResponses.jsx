@@ -4,6 +4,7 @@ class ViewResponses extends React.Component {
 
     componentDidMount(){
         this.props.viewResponses()
+        
     }
 
   render() {

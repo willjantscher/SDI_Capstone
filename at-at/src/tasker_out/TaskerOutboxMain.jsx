@@ -59,6 +59,7 @@ class TaskerOutboxMain extends React.Component {
 
         this.state.values[e.target.name] = e.target.value;
         this.setState({ values : this.state.values })
+
     }
 
 async handleUpdate(e){
@@ -78,10 +79,6 @@ async handleUpdate(e){
             return alert("Enter a value for 'Tasker Name'")}
         else if(v.suspense === ''){
             return alert("Enter a value for 'Suspense Date'")}
-
-        else if(v.suspense === '' || new Date(v.suspense) < new Date()){
-            return alert("Please enter a valid suspense date")}
-
         else if(v.priority === ''){
             return alert("Enter a value for 'Priority Level'")}
         else if(v.workload === ''){
@@ -164,6 +161,7 @@ async handleDelete(){
                             <td><h3>Priority Level</h3></td>
                             <td><h3>Est. Workload (Hours)</h3></td>
                             <td><h3>Description</h3></td>
+                            <td></td>
                         </tr>
                     </tbody>
                     :""} 
@@ -172,8 +170,10 @@ async handleDelete(){
                         {currentTaskers.map((res, i) => 
                         <tr className="will-colors">
                             {Object.values(res).map(r => 
-                            <td><h3>
-                                {r}</h3>
+                            <td>
+                                <h3>
+                                    {r}
+                                </h3>
                             </td>)}
                             <td>{currentTaskers.length > 0 ?<button className="rux-button" type="submit" value={i} onClick={this.handleVisibility.bind(this)}>Edit</button>:""}</td>
                             <td>{currentTaskers.length > 0 ?<button className="rux-button"type="submit" value={i} onClick={this.deleteTask.bind(this)}>Delete</button>:""}</td>
