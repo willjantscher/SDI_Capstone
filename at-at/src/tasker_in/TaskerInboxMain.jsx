@@ -2,7 +2,6 @@ import React from "react";
 import TaskerList from './TaskerList';
 import Cookies from 'universal-cookie';
 import isAuthed from '../login/utils';
-import TaskerResponseForm from "./TaskerResponseForm";
 
 class TaskerInboxMain extends React.Component {
   constructor(props) {

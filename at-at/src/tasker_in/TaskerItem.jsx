@@ -10,6 +10,7 @@ class TaskerItem extends React.Component {
       tasker_name, 
       predicted_workload,
       updated_on,
+      current_status,
     } = this.props.tasker;
     
     const localSuspense = DateTime.fromISO(suspense_date, {zone: 'utc'});
@@ -28,6 +29,7 @@ class TaskerItem extends React.Component {
         <td>{localSuspense.toLocaleString()}</td>
         <td>{priority_lvl}</td>
         <td>{predicted_workload}</td>
+        <td>{current_status}</td>
       </tr>
     );
   }

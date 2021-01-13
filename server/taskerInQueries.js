@@ -10,7 +10,8 @@ const getIncomingTaskers = (request, response) => {
       units_assigned_taskers.unit_id, \
       tasker_version.desc_text, \
       units_assigned_taskers.response, \
-      tasker_version.updated_on \
+      tasker_version.updated_on, \
+      units_assigned_taskers.current_status \
     FROM units_assigned_taskers \
     INNER JOIN tasker_version ON units_assigned_taskers.tasker_id = tasker_version.tasker_id \
     WHERE unit_id = $1',

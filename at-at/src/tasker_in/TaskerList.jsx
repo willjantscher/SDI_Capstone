@@ -6,7 +6,7 @@ class TaskerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortingMode: "predicted_workload",
+      sortingMode: "updated_on",
       sortDescending: false
     };
     // to change headers, likely have to update taskerInQueries to get more data
@@ -17,7 +17,9 @@ class TaskerList extends React.Component {
       'Suspense': 'suspense_date',
       'Priority': 'priority_lvl',
       'Est. Workload': 'predicted_workload',
+      'Responded': 'current_status',
     };
+    this.statuses = ['in progress', 'completed'];
     this.priorities = ['high', 'medium', 'low'];
   }
 
@@ -90,7 +92,7 @@ class TaskerList extends React.Component {
       )
     })
 
-    const accordions = [];
+    const rows = [];
     for (let i = 0; i < taskerItems.length; i++) {
       const taskerItem = taskerItems[i];
       const tasker = taskerArray[i];
@@ -101,10 +103,10 @@ class TaskerList extends React.Component {
           onSubmitResponse={this.props.onSubmitResponse}
           defaultValueResponse={this.props.defaultValueResponse}
       />;
-      accordions.push(taskerItem, taskerForm);
+      rows.push(taskerItem, taskerForm);
     }
 
-    return accordions;
+    return rows;
   }
 
   render() {

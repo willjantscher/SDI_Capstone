@@ -13,7 +13,7 @@ class TaskerResponseForm extends React.Component {
         className="selected"
         style={{display: display}}
       >
-        <td colSpan="6">
+        <td colSpan="7">
           <p className="row">{desc_text}</p>
           <form onSubmit={this.props.onSubmitResponse}>
             <label
