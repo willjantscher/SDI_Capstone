@@ -5,7 +5,7 @@ class TaskerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortingMode: "predicted_workload",
+      sortingMode: "suspense_date",
       sortDescending: false
     };
     // to change headers, likely have to update taskerInQueries to get more data
