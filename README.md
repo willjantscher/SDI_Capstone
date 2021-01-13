@@ -109,6 +109,14 @@ ToDo:
 - "Suspense" is spelled wrong in the notification from tasker creation - DONE
 - Update the navbar when redirected
 
+### 1/13/2021
+ToDo:
+- Incorporate table design from TaskerInbox to TaskerOutbox
+- Add file attachments to TaskerInbox and TaskerOutbox
+- Add styling to login/logout/profile pages
+- Add footer to NavBar
+- Finalize table styling for TaskerInbox and TaskerOutbox
+- Add more thorough tasker prepopulation data to init.sql
 
 ## Notes
 ### Project setup
