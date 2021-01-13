@@ -12,68 +12,48 @@ class TaskerResponseForm extends React.Component {
   }
 
   render() {
-    const {
-      desc_text,
-    } = this.props.tasker;
-    
-    const display = this.props.selected ? "table-row" : "none";
     const currentResponse = this.props.defaultValueResponse;
 
     return(
-      <tr
-        className="selected"
-        style={{display: display}}
-      >
-        <td colSpan="7">
-            <label
-              className="row mt-1"
-              htmlFor="taskerDetails"
-            >
-              Details:
-            </label>
-          <p className="row mt-2" id="taskerDetails">{desc_text}</p>
-          <hr/>
-          <form onSubmit={this.props.onSubmitResponse}>
-            <label
-              className="row mt-3"
-              htmlFor="taskerResponseData"
-            >
-              Response:
-            </label>
-            <textarea
-              className="row mt-1 rux-form-field--large will-colors"
-              id="taskerResponseData"
-              name="taskerResponseData"
-              cols={100}
-              rows={10}
-              autoFocus={true}
-              defaultValue={currentResponse ? currentResponse : ""}
-            />
-            <div className="row mt-2">
-              <label
-                className="mr-2 mt-1"
-                htmlFor="taskerResponseWorkload"
-              >
-                Workload:
-              </label>
-              <select
-                className="rux-select will-colors"
-                id="taskerResponseWorkload"
-                placeholder="hrs"
-              >
-                <optgroup label="Hours"></optgroup>
-                {this.generateWorkloadOptions()}
-              </select>
-            </div>
-            <input
-              className="will-colors rux-button row mt-2"
-              type="submit"
-              value="Submit"
-              name="taskerResponseSubmitButton"
-            />
-          </form>
-        </td>
-      </tr>
+      <form onSubmit={this.props.onSubmitResponse}>
+        <label
+          className="row mt-3"
+          htmlFor="taskerResponseData"
+        >
+          Response:
+        </label>
+        <textarea
+          className="row mt-1 rux-form-field--large will-colors"
+          id="taskerResponseData"
+          name="taskerResponseData"
+          cols={100}
+          rows={10}
+          autoFocus={true}
+          defaultValue={currentResponse ? currentResponse : ""}
+        />
+        <div className="row mt-2">
+          <label
+            className="mr-2 mt-1"
+            htmlFor="taskerResponseWorkload"
+          >
+            Workload:
+          </label>
+          <select
+            className="rux-select will-colors"
+            id="taskerResponseWorkload"
+            placeholder="hrs"
+          >
+            <optgroup label="Hours"></optgroup>
+            {this.generateWorkloadOptions()}
+          </select>
+        </div>
+        <input
+          className="will-colors rux-button row mt-2"
+          type="submit"
+          value="Submit"
+          name="taskerResponseSubmitButton"
+        />
+      </form>
     );
   }
 }

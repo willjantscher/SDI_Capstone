@@ -15,7 +15,6 @@ class TaskerItem extends React.Component {
     
     const localSuspense = DateTime.fromISO(suspense_date, {zone: 'utc'});
     const localAssignedDate = DateTime.fromISO(updated_on, {zone: 'utc'});
-    const display = this.props.selected ? "none" : "table-row";
 
     return(
       <tr

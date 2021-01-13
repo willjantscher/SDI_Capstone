@@ -1,6 +1,6 @@
 import React from "react";
 import TaskerItem from './TaskerItem';
-import TaskerResponseForm from "./TaskerResponseForm";
+import TaskerInfo from "./TaskerInfo";
 
 class TaskerList extends React.Component {
   constructor(props) {
@@ -96,7 +96,7 @@ class TaskerList extends React.Component {
     for (let i = 0; i < taskerItems.length; i++) {
       const taskerItem = taskerItems[i];
       const tasker = taskerArray[i];
-      const taskerForm = <TaskerResponseForm
+      const taskerForm = <TaskerInfo
           key={`TaskerInfo${tasker.tasker_id}`}
           tasker={tasker}
           selected={this.isSelected(tasker)}
