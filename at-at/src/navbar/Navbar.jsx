@@ -45,7 +45,7 @@ class Navbar extends React.Component {
             <div>
             <rux-global-status-bar appname="AT-AT" version="1.0" theme="dark" style={{ marginTop : '20px' }}>
               <rux-tabs id="tab-set-id-1">
-                <rux-tab id="tab-id-1" selected="true" small="true"
+                <rux-tab id="tab-id-1" small="true"
                   onClick={() => {this.props.history.push('/authenticated_user/home')}}
                 >Home</rux-tab>
                 <rux-tab small="true"id="tab-id-2"
