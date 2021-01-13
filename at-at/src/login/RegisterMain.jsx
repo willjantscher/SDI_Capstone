@@ -74,8 +74,8 @@ class RegisterMain extends React.Component {
     render() {
         return(
             <div>
-                <h1>AT-AT</h1>
-                <h2>Register</h2>                
+                <h1 className="pl-4 pb-2 pt-2">AT-AT</h1>
+                <h2 className="pl-4 pb-2 pt-2">Register</h2>              
                 <div className="rux-form-field__label"></div>
                 <form className="container-fluid" onSubmit = {this.handleRegistration}>
                     <UnitsDropdown                    
@@ -147,7 +147,7 @@ class RegisterMain extends React.Component {
                         <input className="will-colors rux-button" type="submit" value="Register"/>
                     </div>
                 </form>
-                <label>Already have an account? 
+                <label className="pl-4 pb-4 pt-2">Already have an account? 
                     <a className="nav-link" href="/login"> Login here</a>
                 </label>
             </div>
