@@ -72,7 +72,7 @@ class NotificationViewer extends React.Component {
 
     render() {
         return(
-                <div className="container-fluid">
+                <div>
 
                     <label id="1"><h1>Notifications</h1></label>
                     <table className="rux-table">
