@@ -94,7 +94,7 @@ class TaskerList extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="container-fluid">
       <label id="1"><h1>Upcoming Taskers</h1></label>
         <table className="rux-table">        
           <thead>

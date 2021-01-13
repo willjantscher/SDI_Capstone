@@ -65,7 +65,7 @@ class NotificationViewer extends React.Component {
         return(
                 <div className="container-fluid">
 
-                    <label id="1"><h1>Unread Notifications</h1></label>
+                    {/* <label id="1"><h1>Unread Notifications</h1></label>
                     <table className="rux-table">
                         <tbody>
                             {this.unreadNotificationList(this.props.notifications)}
@@ -77,9 +77,9 @@ class NotificationViewer extends React.Component {
                         <tbody>
                             {this.readNotificationList(this.props.notifications)}
                         </tbody>
-                    </table>
+                    </table> */}
 
-                    <label id="1"><h1>Received Notifications</h1></label>
+                    <label id="1"><h1>All Notifications</h1></label>
                     <table className="rux-table">
                         <tbody>
                             {this.notificationList(this.props.notifications)}
