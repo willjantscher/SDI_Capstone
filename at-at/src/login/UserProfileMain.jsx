@@ -25,6 +25,11 @@ class UserProfileMain extends React.Component {
     }
 
     componentDidMount = () => {
+        //get all the navbar tabs, deselect all, then select tasker inbox tab
+        let tabs = Array.from(document.querySelectorAll('rux-tab'))
+        tabs.forEach((tab) => tab.selected = false)
+        tabs[5].selected = true
+
         let user_id = cookies.get("user_id");
         fetch(`${apiURL}/login/user/${user_id}`)
         .then(response => response.json())

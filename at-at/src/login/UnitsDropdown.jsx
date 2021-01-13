@@ -48,16 +48,13 @@ const UnitsDropdown = (props) => {
             }
         }
     }
-
-    console.log(selectValues)
-
+    
     const [inputFields, setInputFields] = useState([
         { unit : '' , unit_id : ''}
     ]);
 
     const handleInputChange = (event) => {
         setInputFields({ unit: event.target.value, unit_id: event.target.id })
-        console.log(event.target.value)
         props.onUnitSelection(event);
     };
 

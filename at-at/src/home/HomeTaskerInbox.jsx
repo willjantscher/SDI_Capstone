@@ -1,9 +1,9 @@
 import React from "react";
-import TaskerList from './HomeTaskerList';
+import TaskerList from '../tasker_in/TaskerList';
 import Cookies from 'universal-cookie';
 import isAuthed from '../login/utils';
 
-class TaskerInboxMain extends React.Component {
+class HomeTaskerInbox extends React.Component {
   constructor(props) {
     super(props);
     this.apiURL = 'http://localhost:3001';
@@ -44,14 +44,27 @@ class TaskerInboxMain extends React.Component {
   }
 
   handleTaskerClick = (e) => {
-    this.props.history.push('/authenticated_user/tasker_inbox')
-    
-    /*
     const selectedRow = e.currentTarget;
     const selectedId = parseInt(selectedRow.id);
     const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
     this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
-    */
+  }
+
+  handleRedirectToInbox = (e) => {
+    const selectedRow = e.currentTarget;
+    const selectedId = parseInt(selectedRow.id);
+    const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
+    if(selectedTasker){
+      const tasker_id = selectedTasker.tasker_id;
+      this.props.history.push({
+          pathname: '/authenticated_user/tasker_inbox',
+          state: {
+              tasker_id: tasker_id
+          }
+      });
+    } else {
+      this.props.history.push('/authenticated_user/tasker_inbox')
+    }
   }
 
   handleResponseSubmit = async(e) => {
@@ -87,6 +100,8 @@ class TaskerInboxMain extends React.Component {
       unit_to: originator.originator_unit_id,
       details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
+      notification_type: 'response',
+      tasker_id: updatedTasker.tasker_id,
     }
 
     // send notification to originator
@@ -109,10 +124,12 @@ class TaskerInboxMain extends React.Component {
         <div className="row">
           <div className="col-sm-1"/>
           <div className="col-sm">
+            <label id="1"><h1>Upcoming Taskers</h1></label>
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
-              onRowClick={this.handleTaskerClick}
+              onRowClick={this.handleRedirectToInbox}
+              homepage={true}
             />
           </div>
           <div className="col-sm-1"/>
@@ -122,4 +139,4 @@ class TaskerInboxMain extends React.Component {
   }
 }
 
-export default TaskerInboxMain;
+export default HomeTaskerInbox;

@@ -6,7 +6,7 @@ class TaskerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortingMode: "updated_on",
+      sortingMode: "suspense_date",
       sortDescending: false
     };
     // to change headers, likely have to update taskerInQueries to get more data
@@ -48,6 +48,15 @@ class TaskerList extends React.Component {
   generateColumnHeaders = () => {
     return (
       Object.keys(this.headers).map(headerName => {
+        if(this.props.homepage){
+          return (
+          <th
+            key={headerName}
+            onClick={this.props.onRowClick}
+          >
+          {headerName}
+          </th>)
+        } 
         return (
           <th
             key={headerName}
@@ -106,7 +115,24 @@ class TaskerList extends React.Component {
       rows.push(taskerItem, taskerForm);
     }
 
-    return rows;
+    if (this.props.homepage && taskerItems.length > 3){
+      return taskerItems.slice(0,3)
+    } else {
+      return rows;
+    }
+  }
+
+  generateHomePageFooter = () => {
+    if(this.props.taskers.length === 0){
+      return(
+        <tr onClick={this.props.onRowClick}><td colSpan="6">You have no upcoming taskers.</td></tr>
+      )
+    }
+    if(this.props.taskers.length > 3){
+      return(
+        <tr onClick={this.props.onRowClick}><td colSpan="6">...</td></tr>
+      )
+    }
   }
 
   render() {
@@ -119,6 +145,7 @@ class TaskerList extends React.Component {
           </thead>
           <tbody>
             {this.generateTaskerItems(this.props.taskers)}
+            {this.props.homepage ? this.generateHomePageFooter() : null}
           </tbody>
         </table>
     );

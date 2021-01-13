@@ -77,6 +77,11 @@ Styling: CSS - https://www.astrouxds.com/
 [DB Trees](https://www.postgresql.org/docs/9.3/ltree.html)
 
 [Astro UXDS](https://astro-components.netlify.app/?path=/story/components-tabs--tabs-compact)
+
+https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
+https://grokonez.com/node-js/sequelize/node-js-express-rest-api-postgresql-example-upload-file-download-file-multer-sequelize-crud
+
+
 ## Daily Schedule
 
 ### 1/4/2021
@@ -106,9 +111,17 @@ ToDo:
 - Cascade FKeys in database
 - Standardize table styling
 - Unfurl table data inside tables
-- "Suspense" is spelled wrong in the notification from tasker creation
+- "Suspense" is spelled wrong in the notification from tasker creation - DONE
 - Update the navbar when redirected
 
+### 1/13/2021
+ToDo:
+- Incorporate table design from TaskerInbox to TaskerOutbox
+- Add file attachments to TaskerInbox and TaskerOutbox
+- Add styling to login/logout/profile pages
+- Add footer to NavBar
+- Finalize table styling for TaskerInbox and TaskerOutbox
+- Add more thorough tasker prepopulation data to init.sql
 
 ## Notes
 ### Project setup

@@ -1,6 +1,4 @@
 import React from "react"
-// import { RuxIcon } from '@astrouxds/rux-icon/rux-icon.js';
-import HomeTaskerInbox from "./HomeTaskerInbox"
 
 class HomeMain extends React.Component {
     constructor(props) {
@@ -10,17 +8,16 @@ class HomeMain extends React.Component {
         }
     }
 
+    componentDidMount() {
+      //get all the navbar tabs, deselect all, then select tasker inbox tab
+      let tabs = Array.from(document.querySelectorAll('rux-tab'))
+      tabs.forEach((tab) => tab.selected = false)
+      tabs[0].selected = true
+    }
+
     render() {
         return(
-            <div> We would be honored if you would join us...
-                <rux-notification open message="You have received new taskers!" status='critical' closeAfter></rux-notification>
-
-<body>
-    <p style={{color:'blue'}}>
-      I'm a big, blue, <strong>strong</strong> paragraph
-    </p>
-  </body>
-                Tasker In Box Preview:
+            <div> 
             </div>
         )
     }

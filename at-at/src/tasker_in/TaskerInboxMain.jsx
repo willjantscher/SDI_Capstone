@@ -19,6 +19,11 @@ class TaskerInboxMain extends React.Component {
   }
 
   componentDidMount = async() => {
+    //get all the navbar tabs, deselect all, then select tasker inbox tab
+    let tabs = Array.from(document.querySelectorAll('rux-tab'))
+    tabs.forEach((tab) => tab.selected = false)
+    tabs[3].selected = true
+
     // get user authentication info
     const cookies = new Cookies();
     const user_id = cookies.get("user_id");  //cookie name is user_id
@@ -112,7 +117,8 @@ class TaskerInboxMain extends React.Component {
       unit_to: originator.originator_unit_id,
       details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
-      tasker_id: tasker_id
+      tasker_id: updatedTasker.tasker_id,
+      notification_type: 'response',
     }
 
     // send notification to originator

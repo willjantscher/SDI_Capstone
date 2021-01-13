@@ -35,8 +35,6 @@ app.use(cors(corsOptions))
  
 app.options('*', cors())
 
-
-
 app.use(express.json())
 
 
@@ -94,9 +92,10 @@ app.listen(port, () => {
   
 
 
-// adding files stuff -------------------------------------------------------------------------------------------------------------------------------------
-
+// handling file upload/download -------------------------------------------------------------------------------------------------------------------------------------
 var upload = multer({ storage: storage }).single('file')
+var stream = require('stream');
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -107,7 +106,7 @@ filename: function (req, file, cb) {
 }
 })
 
-app.post('/upload',function(req, res) {
+app.post('/upload/:tasker_id',function(req, res) {
      
   upload(req, res, function (err) {
          if (err instanceof multer.MulterError) {
@@ -116,7 +115,7 @@ app.post('/upload',function(req, res) {
              return res.status(500).json(err)
          }
          var columnDataToInsert = '\\x' + req.file.buffer.toString('hex');
-         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fileData) VALUES ($1, $2)', [ '1', columnDataToInsert ],  function(error, results) {
+         pool.query('INSERT INTO tasker_sent_attachments (tasker_id, fieldname, originalname, encoding_, mimetype, buffer_, size) VALUES ($1, $2, $3, $4, $5, $6, $7)', [ req.params.tasker_id, req.file.fieldname, req.file.originalname, req.file.encoding, req.file.mimetype, columnDataToInsert, req.file.size ],  function(error, results) {
           if (error) {
             throw error
         }
@@ -127,14 +126,54 @@ app.post('/upload',function(req, res) {
 
 });
 
-
-app.get('/upload', function(req, res) {
-  pool.query('SELECT * FROM tasker_sent_attachments', (error, results) => {
-    // console.log(results.rows)
+app.get('/attachments/:tasker_id', function(req, res) {
+  console.log('recieved')
+  pool.query('SELECT id, originalname, tasker_id FROM tasker_sent_attachments WHERE tasker_id = $1', [req.params.tasker_id], (error, results) => {
     if (error) {
-        throw error
+      throw error
     }
-    res.status(200).json(results.rows)
-    // 
+    res.json(results.rows)
+  })
 })
+
+app.get('/download/:attachment_id', function(req, res) {
+
+  pool.query('SELECT * FROM tasker_sent_attachments WHERE id = $1',[req.params.attachment_id], (error, results) => {
+    if (error) {
+      console.log(err);
+      res.json({msg: 'Error', detail: err});
+      }
+    const file = results.rows[0]
+
+    var fileContents = Buffer.from(file.buffer_, "base64");
+    // console.log(fileContents)
+
+    var readStream = new stream.PassThrough();
+    readStream.end(fileContents);
+    
+    res.set('Content-disposition', 'attachment; filename=' + file.originalname);
+    res.set('Content-Type', file.mimetype);
+ 
+    readStream.pipe(res);
+  })
+  }
+)
+
+
+app.get('/files_names', function(req, res) {
+  pool.query('SELECT originalname, tasker_id FROM tasker_sent_attachments', (error, results)=> {
+    if (error) {
+      throw error
+    }
+    res.json(results.rows)
+  })
+})
+
+app.get('/full_attachment_row', function(req, res) {
+  pool.query('SELECT * from tasker_sent_attachments', (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.json(results.rows[0])
+  })
 })

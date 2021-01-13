@@ -18,6 +18,7 @@ import TaskerCreationMain from "./tasker_creation/TaskerCreationMain";
 import TaskerInboxMain from "./tasker_in/TaskerInboxMain";
 import TaskerOutboxMain from "./tasker_out/TaskerOutboxMain";
 import NotificationsMain from "./notifications/NotificationsMain";
+import NotificationsHome from "./home/NotificationsHome";
 import 'bootstrap/dist/css/bootstrap-grid.css';
 
 
@@ -35,6 +36,7 @@ class App extends React.Component {
           <Route path="/register" component={RegisterMain} />
           <PrivateRoute path="/authenticated_user" component={Navbar} />
           <PrivateRoute path="/authenticated_user/home" component={HomeMain} />
+          <PrivateRoute path="/authenticated_user/home" component={NotificationsHome} /> 
           <PrivateRoute path="/authenticated_user/home" component={HomeTaskerInbox} />
           <PrivateRoute path="/authenticated_user/create_tasker" component={TaskerCreationMain} />
           <PrivateRoute path="/authenticated_user/tasker_inbox" component={TaskerInboxMain} />
