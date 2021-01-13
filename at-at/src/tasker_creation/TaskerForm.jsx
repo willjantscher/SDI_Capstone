@@ -201,7 +201,7 @@ const TaskerForm = (props) => {
                         {inputFields.map((inputField, index) => (
                             <Fragment key={`${inputField}~${index}`}>
                             <div className="row pl-5">
-                                <label htmlFor="unit" className="col-sm-3" >Unit</label>
+                                <label htmlFor="unit" className="col-sm-3" >Unit: </label>
                                 <select 
                                     className="rux-select col-md-6 will-colors"
                                     id={inputField.unit_id}
@@ -221,7 +221,7 @@ const TaskerForm = (props) => {
                     </div>
 
                     <div className="row pb-3 pl-5"> 
-                        <label htmlFor="tasker_name" className="col-sm-3">Tasker Name</label>
+                        <label htmlFor="tasker_name" className="col-sm-3">Tasker Name: </label>
                         <input 
                             style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                             className="rux-input col-md-4 will-colors"
@@ -233,7 +233,7 @@ const TaskerForm = (props) => {
                     </div>
 
                     <div className="row pb-3 pl-5">
-                        <label htmlFor="suspense_date" className="col-sm-3" >Suspense Date</label>
+                        <label htmlFor="suspense_date" className="col-sm-3" >Suspense Date: </label>
                         <input
                             style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                             className="rux-input col-md-4 will-colors"
@@ -244,7 +244,7 @@ const TaskerForm = (props) => {
                     </div>
 
                     <div className="row pb-3 pl-5">
-                        <label htmlFor="priority_lvl" className="col-sm-3">Priority</label>
+                        <label htmlFor="priority_lvl" className="col-sm-3">Priority: </label>
                         <select className="rux-select col-md-4 will-colors" id="priority_lvl" defaultValue = "Low" onChange={props.onInputChange}>
                             <option key="Low" value="Low">Low</option>
                             <option key="Medium" value="Medium">Medium</option>
@@ -253,7 +253,7 @@ const TaskerForm = (props) => {
                     </div>
                                 
                     <div className="row pb-3 pl-5">
-                        <label htmlFor="predicted_workload" className="col-sm-3" >Predicted Workload</label>
+                        <label htmlFor="predicted_workload" className="col-sm-3" >Predicted Workload: </label>
                         <select
                             className="rux-select col-md-2 will-colors"
                             id="predicted_workload"

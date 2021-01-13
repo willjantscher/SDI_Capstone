@@ -77,6 +77,11 @@ Styling: CSS - https://www.astrouxds.com/
 [DB Trees](https://www.postgresql.org/docs/9.3/ltree.html)
 
 [Astro UXDS](https://astro-components.netlify.app/?path=/story/components-tabs--tabs-compact)
+
+https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
+https://grokonez.com/node-js/sequelize/node-js-express-rest-api-postgresql-example-upload-file-download-file-multer-sequelize-crud
+
+
 ## Daily Schedule
 
 ### 1/4/2021
