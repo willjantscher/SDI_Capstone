@@ -124,6 +124,7 @@ class HomeTaskerInbox extends React.Component {
         <div className="row">
           <div className="col-sm-1"/>
           <div className="col-sm">
+            <label id="1"><h1>Upcoming Taskers</h1></label>
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
