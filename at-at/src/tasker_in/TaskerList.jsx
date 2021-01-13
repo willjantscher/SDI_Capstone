@@ -109,7 +109,7 @@ class TaskerList extends React.Component {
   generateHomePageFooter = () => {
     if(this.props.taskers.length === 0){
       return(
-        <tr onClick={this.props.onRowClick}><td colspan="6">No taskers in your inbox!</td></tr>
+        <tr onClick={this.props.onRowClick}><td colspan="6">You have no upcoming taskers.</td></tr>
       )
     }
     if(this.props.taskers.length > 3){
