@@ -74,9 +74,13 @@ class TaskerInboxMain extends React.Component {
   handleResponseSubmit = async(e) => {
     e.preventDefault();
     // isolate data entered into text area
-    const formChildren = Array.from(e.target.children);
-    const responseTextArea = formChildren.find(element => element.name === "taskerResponseData")
-    const taskerResponse = {"response": responseTextArea.value};
+    const responseText = document.getElementById("taskerResponseData").value;
+    const responseWorkload = document.getElementById("taskerResponseWorkload").value;
+    const taskerResponse = {
+      "response": responseText,
+      "actual_workload": responseWorkload,
+    };
+    console.log(taskerResponse);
 
     // build request data
     const { unit_id, tasker_id } = this.state.selectedTasker;

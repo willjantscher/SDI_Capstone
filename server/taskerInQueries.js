@@ -40,9 +40,22 @@ const getTaskerOriginators = (request, response) => {
 }
 
 const updateTaskerResponse = (request, response) => {
+  const { unitId, taskerId } = request.params;
+  const tasker = request.body;
   pool.query(
-    'UPDATE units_assigned_taskers SET response = $3, current_status = $4 WHERE unit_id = $1 AND tasker_id = $2 RETURNING *',
-    [request.params.unitId, request.params.taskerId, request.body.response, "completed"],
+    'UPDATE units_assigned_taskers SET \
+      response = $3, \
+      current_status = $5, \
+      actual_workload = $4 \
+    WHERE unit_id = $1 AND tasker_id = $2 \
+    RETURNING *',
+    [
+      unitId,
+      taskerId,
+      tasker.response,
+      tasker.actual_workload,
+      "completed"
+    ],
     (error, result) => {
       if (error) {
         response.sendStatus(500);

@@ -25,7 +25,13 @@ class TaskerResponseForm extends React.Component {
         style={{display: display}}
       >
         <td colSpan="7">
-          <p className="row mt-1">{desc_text}</p>
+            <label
+              className="row mt-1"
+              htmlFor="taskerDetails"
+            >
+              Details:
+            </label>
+          <p className="row mt-2" id="taskerDetails">{desc_text}</p>
           <hr/>
           <form onSubmit={this.props.onSubmitResponse}>
             <label
@@ -48,11 +54,11 @@ class TaskerResponseForm extends React.Component {
                 className="mr-2 mt-1"
                 htmlFor="taskerResponseWorkload"
               >
-                Workload to define response:
+                Workload:
               </label>
               <select
-                className="rux-select col-md-1 will-colors"
-                id="actual_workload"
+                className="rux-select will-colors"
+                id="taskerResponseWorkload"
                 placeholder="hrs"
               >
                 <optgroup label="Hours"></optgroup>
