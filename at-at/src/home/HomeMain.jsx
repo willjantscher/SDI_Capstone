@@ -18,8 +18,6 @@ class HomeMain extends React.Component {
     render() {
         return(
             <div> 
-                <rux-notification open message="You have received new taskers!" status='critical' closeAfter></rux-notification>
-                <h1>Upcoming Taskers:</h1>
             </div>
         )
     }
