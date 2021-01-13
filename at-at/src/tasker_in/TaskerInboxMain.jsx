@@ -61,9 +61,14 @@ class TaskerInboxMain extends React.Component {
   }
 
   handleTaskerClick = (e) => {
-    const selectedRow = e.currentTarget;
+    let selectedRow = e.currentTarget;
     const selectedId = parseInt(selectedRow.id);
-    const selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
+    let selectedTasker = this.state.taskers.find(tasker => tasker.tasker_id === selectedId);
+    // toggle selection
+    if (this.state.selectedTasker === selectedTasker) {
+      selectedRow = [];
+      selectedTasker = {};
+    }
     this.setState({selectedRow: selectedRow, selectedTasker: selectedTasker});
   }
 
