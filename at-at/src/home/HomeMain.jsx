@@ -12,14 +12,9 @@ class HomeMain extends React.Component {
 
     render() {
         return(
-            <div> We would be honored if you would join us...
+            <div>
 
-<body>
-    <p style={{color:'blue'}}>
-      I'm a big, blue, <strong>strong</strong> paragraph
-    </p>
-  </body>
-                Tasker In Box Preview:
+
             </div>
         )
     }

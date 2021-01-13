@@ -94,7 +94,9 @@ class TaskerList extends React.Component {
 
   render() {
     return(
-        <table className="rux-table">
+      <div>
+      <label id="1"><h1>Upcoming Taskers</h1></label>
+        <table className="rux-table">        
           <thead>
             <tr>
               {this.generateColumnHeaders()}
@@ -115,6 +117,7 @@ class TaskerList extends React.Component {
               </tr>
           </tfoot>
         </table>
+      </div>
     );
   }
 }
