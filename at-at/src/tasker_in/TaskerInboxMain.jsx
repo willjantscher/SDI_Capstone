@@ -22,7 +22,7 @@ class TaskerInboxMain extends React.Component {
     //get all the navbar tabs, deselect all, then select tasker inbox tab
     let tabs = Array.from(document.querySelectorAll('rux-tab'))
     tabs.forEach((tab) => tab.selected = false)
-    tabs[2].selected = true
+    tabs[3].selected = true
 
     // get user authentication info
     const cookies = new Cookies();

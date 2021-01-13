@@ -133,7 +133,7 @@ async handleDelete(){
         //get all the navbar tabs, deselect all, then select tasker inbox tab
         let tabs = Array.from(document.querySelectorAll('rux-tab'))
         tabs.forEach((tab) => tab.selected = false)
-        tabs[3].selected = true
+        tabs[4].selected = true
 
         this.handleViewTaskers()
     }

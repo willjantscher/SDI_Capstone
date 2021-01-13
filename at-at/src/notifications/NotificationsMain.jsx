@@ -19,7 +19,7 @@ class NotificationsMain extends React.Component {
         //get all the navbar tabs, deselect all, then select tasker inbox tab
         let tabs = Array.from(document.querySelectorAll('rux-tab'))
         tabs.forEach((tab) => tab.selected = false)
-        tabs[5].selected = true
+        tabs[1].selected = true
 
         // get user authentication info
         let cookies = new Cookies();
