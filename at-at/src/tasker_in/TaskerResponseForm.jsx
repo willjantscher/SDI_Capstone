@@ -7,6 +7,7 @@ class TaskerResponseForm extends React.Component {
     } = this.props.tasker;
     
     const display = this.props.selected ? "table-row" : "none";
+    const currentResponse = this.props.defaultValueResponse;
 
     return(
       <tr
@@ -29,7 +30,7 @@ class TaskerResponseForm extends React.Component {
               cols={100}
               rows={10}
               autoFocus={true}
-              defaultValue={this.props.defaultValueResponse ? this.props.defaultValueResponse : ""}
+              defaultValue={currentResponse ? currentResponse : ""}
             />
             <input
               className="will-colors rux-button row"
