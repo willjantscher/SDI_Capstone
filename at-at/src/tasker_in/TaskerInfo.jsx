@@ -42,7 +42,13 @@ class TaskerInfo extends React.Component {
               >
                 Details:
               </label>
-              <p className="row mt-2" id="taskerDetails">{desc_text}</p>
+              <p
+                className="row mt-2"
+                id="taskerDetails"
+                style={{width: "100%", wordBreak: "break-word", whiteSpace: "normal"}}
+              >
+                {desc_text}
+              </p>
             </div>
             {this.getAttachmentNames()}
           </div>
