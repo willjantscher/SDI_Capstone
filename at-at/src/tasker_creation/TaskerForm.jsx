@@ -288,7 +288,7 @@ const TaskerForm = (props) => {
                             <div style={{paddingBottom:'20px'}}></div>
                             <label className="row mb-5" htmlFor="file" id="fileInput" style={{marginTop:"-15px"}}>
                                 <div></div>
-                                <input style={{height:"403px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
+                                <input style={{height:"403px", borderRadius:'3px'}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
                             </label>
                         </div>
                         <div style={{marginTop:'-250px', position:"relative"}}>
