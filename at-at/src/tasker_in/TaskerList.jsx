@@ -17,7 +17,7 @@ class TaskerList extends React.Component {
       'Suspense': 'suspense_date',
       'Priority': 'priority_lvl',
       'Est. Workload': 'predicted_workload',
-      'Responded': 'current_status',
+      'Response': 'current_status',
     };
     this.statuses = ['in progress', 'completed'];
     this.priorities = ['high', 'medium', 'low'];
