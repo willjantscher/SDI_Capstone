@@ -136,6 +136,16 @@ app.get('/attachments/:tasker_id', function(req, res) {
   })
 })
 
+app.get('/attachments', function(req, res) {
+  console.log('recieved')
+  pool.query('SELECT id, originalname, tasker_id FROM tasker_sent_attachments', (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.json(results.rows)
+  })
+})
+
 app.get('/download/:attachment_id', function(req, res) {
 
   pool.query('SELECT * FROM tasker_sent_attachments WHERE id = $1',[req.params.attachment_id], (error, results) => {
