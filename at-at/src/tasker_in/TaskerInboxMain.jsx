@@ -16,7 +16,7 @@ class TaskerInboxMain extends React.Component {
         originators: [],
         selectedTasker: {},
         selectedRow: [],
-        selected_files: [],
+        selected_files: null,
         selected_files_num: 0,
     }
   }
@@ -36,6 +36,7 @@ class TaskerInboxMain extends React.Component {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
+      console.log(taskers)
       const attachments = await this.fetchAttachments(taskers.map(tasker => tasker.tasker_id))
       let selectedTasker = {};
       if(this.props.location.state) {
@@ -156,27 +157,30 @@ class TaskerInboxMain extends React.Component {
   }
 
   uploadFiles = (units_assigned_taskers_id) => {
-    for(var i = 0; i < this.state.selected_files.length; i++) {
-      const formData = new FormData();
-      formData.append('file', this.state.selected_files[i]);
-      fetch(`${this.apiURL}/upload_response/${units_assigned_taskers_id}`, {
-        headers : {
-            'Access-Control-Allow-Origin' : '*',
-        },
-        method: 'POST',
-        body: formData,
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        document.getElementById("attachments_form").reset();
-        document.getElementById("file").value = [];
-        this.setState({ selected_files : []})
-        this.setState({ selected_files_num : 0})
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    //this is dumb
+    if(this.state.selected_files !== null) {
+      for(var i = 0; i < this.state.selected_files.length; i++) {
+        const formData = new FormData();
+        formData.append('file', this.state.selected_files[i]);
+        fetch(`${this.apiURL}/upload_response/${units_assigned_taskers_id}`, {
+          headers : {
+              'Access-Control-Allow-Origin' : '*',
+          },
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          document.getElementById("attachments_form").reset();
+          document.getElementById("file").value = [];
+          this.setState({ selected_files : []})
+          this.setState({ selected_files_num : 0})
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
     }
   }
 

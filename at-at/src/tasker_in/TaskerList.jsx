@@ -105,9 +105,12 @@ class TaskerList extends React.Component {
     for (let i = 0; i < taskerItems.length; i++) {
       const taskerItem = taskerItems[i];
       const tasker = taskerArray[i];
-      const taskerAttachments = this.props.attachments.filter(attachment => {
-        return attachment.tasker_id === tasker.tasker_id
-      });
+      let taskerAttachments = [];
+      if(this.props.attachments) {
+        taskerAttachments = this.props.attachments.filter(attachment => {
+          return attachment.tasker_id === tasker.tasker_id
+        });
+    }
       const taskerForm = <TaskerInfo
           key={`TaskerInfo${tasker.tasker_id}`}
           tasker={tasker}
