@@ -145,6 +145,9 @@ class TaskerList extends React.Component {
 
   render() {
     return(
+      <div className="container-fluid">
+        <div className="row pb-3 pl-5"> 
+
         <table className="rux-table">
           <thead>
             <tr>
@@ -156,6 +159,8 @@ class TaskerList extends React.Component {
             {this.props.homepage ? this.generateHomePageFooter() : this.generateEmptyTaskerList()}
           </tbody>
         </table>
+        </div>
+      </div>
     );
   }
 }
