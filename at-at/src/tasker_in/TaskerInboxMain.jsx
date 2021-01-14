@@ -59,8 +59,21 @@ class TaskerInboxMain extends React.Component {
   }
 
   fetchTaskers = async(unitId) => {
-    const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})
-    const taskers = await response.json();
+    const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'});
+    const allTaskers = await response.json();
+    const taskers = [];
+    for (let tasker of allTaskers) {
+      // get tasker if it is already in array
+      const includedTasker = taskers.find(arrayTasker => arrayTasker.tasker_id === tasker.tasker_id);
+      // if version of tasker is already in array
+      // and the new tasker's version is greater than what's already in array
+      if (includedTasker && (tasker.version_num > includedTasker.version_num)) {
+          // replace that tasker with the newer version
+          taskers[taskers.indexOf] = tasker;
+      } else {
+        taskers.push(tasker);
+      }
+    }
     return taskers;
   }
 
