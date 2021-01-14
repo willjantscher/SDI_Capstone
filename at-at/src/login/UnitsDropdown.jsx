@@ -58,6 +58,25 @@ const UnitsDropdown = (props) => {
         props.onUnitSelection(event);
     };
 
+    if(props.register){
+        return(
+            <>
+            <label htmlFor="unit" className="col-5" >Unit: </label>
+            <select 
+                className="rux-select col-7 will-colors"
+                id={inputFields.unit_id}
+                name={props.select_name}
+                value={inputFields.unit}
+                onChange={event => { handleInputChange(event) }}
+                >
+                <optgroup label="USSF"></optgroup>
+                <option key="empty" value=""></option>
+                {selectValues}
+            </select>
+            </>
+        )
+    }
+
     return(
         <>
         <div className="rux-form-field__label container-fluid"></div>
