@@ -3,8 +3,10 @@ import React from "react";
 class TaskerAttachmentInput extends React.Component {
   generateFileNames = () => {
     let selected_files_names = [];
-    for(var i = 0; i < this.props.selected_files.length; i++) {
-        selected_files_names.push(this.props.selected_files[i].name)
+    if(this.props.selected_files) {
+      for(var i = 0; i < this.props.selected_files.length; i++) {
+          selected_files_names.push(this.props.selected_files[i].name)
+      }
     }
     return (
       selected_files_names.map((name) => {
