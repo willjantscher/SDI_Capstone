@@ -12,7 +12,7 @@ class EditTasker extends React.Component {
 
       <div className="container-fluid" > 
             {this.props.delVis ?
-            <div style={{fontWeight: "bold"}} style={{color: "red"}}> Are you sure you want to delete tasker {this.props.taskers[this.props.index].tasker_id}? <br></br>
+            <div style={{fontWeight: "bold"}} style={{color: "red"}}> Are you sure you want to delete tasker {taskers[index].tasker_id}, Version # {taskers[index].version_num}? <br></br>
             <button style={{float: 'left'}} className ="rux-button" type="submit" onClick={this.props.delete}>Final Delete</button>{' '}
             <button className ="rux-button" type="submit" onClick={this.props.hide}>Cancel</button>
             </div> : ''}
