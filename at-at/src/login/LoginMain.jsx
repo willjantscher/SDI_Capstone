@@ -52,7 +52,7 @@ class LoginMain extends React.Component {
             <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
             <rux-global-status-bar appname="Aggregate Tasker Administration Tool" version="1.0" theme="dark" style={{ marginTop : '20px', height : '80px' }}>     </rux-global-status-bar>
             <div className="container-fluid " align="center">
-                <div class="card card-container">
+                <div className="card card-container">
                     <div className="rux-form-field__label"></div>
                     <form className="container-fluid ">
                         <h1 className="pb-4" >Login</h1>
@@ -81,9 +81,9 @@ class LoginMain extends React.Component {
                             ></input>
                         </div>
                         <div className="row pt-3 pb-3"> 
-                            <div class="col"/>
+                            <div className="col"/>
                             <rux-button onClick={this.handleLogin}>Login</rux-button>
-                            <div class="col"/>
+                            <div className="col"/>
                         </div>
                         <label className=""> 
                             Need an account?
