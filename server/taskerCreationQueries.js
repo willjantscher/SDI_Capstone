@@ -92,16 +92,16 @@ const postUnitsAssignedTaskers = (request, response) => {
     })
 }
 const postToNotifications = (request, response) => {
-    const tasker = request.body;
-    // console.log(tasker)
+    let tasker = request.body;
+    let name = tasker.tasker_name.replace(/'/g, "").replace(/"/g, "");
     let posts = [];
     for(let i = 0; i < tasker.sendToUnits.length; i ++) {
-        posts.push([tasker.sendToUnits_ids[i], `You have been assigned a tasker, "${tasker.tasker_name}", with a suspense of ${tasker.suspense_date}.`, false, tasker.tasker_id, `tasker`])
+        posts.push([tasker.sendToUnits_ids[i], `You have been assigned a tasker, "${name}", with a suspense of ${tasker.suspense_date}.`, false, tasker.tasker_id, `tasker`])
     }
     // console.log(posts)
     let query = '';
     for(let item of posts) {
-        query += 'INSERT INTO notifications (unit_to, details, isRead, tasker_id, notification_type) VALUES (' + item[0] + `, '` + item[1] + `', ` + item[2] + ', ' + item[3] + `, '` + item[4] + `'); `
+        query += `INSERT INTO notifications (unit_to, details, isRead, tasker_id, notification_type) VALUES (${item[0]}, '${item[1]}' , ${item[2]}, ${item[3]}, '${item[4]}');`
     }
     // console.log(query)
     pool.query(query, (error, results) => {
