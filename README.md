@@ -25,11 +25,11 @@ API: Javascript/Express
 Styling: CSS - https://www.astrouxds.com/ 
 
 ## Project Members
-- William Jantscher - Tasker Creation Lead, P1 Deployment Lead
+- William Jantscher - Tasker Creation Lead
 - Alden Davidson - Tasker In-Box Lead
 - Antonio Daehler - Tasker Out-Box Lead
-- Brianna Tanusi - User Management Lead, Home Page lead
-- Tom Thorpe - DB Lead, Notifications lead
+- Brianna Tanusi - User Management Lead
+- Tom Thorpe - DB Lead
 
 ## Daily Ceremonies
  - Stand-up: 8:00 MST
@@ -79,10 +79,61 @@ Styling: CSS - https://www.astrouxds.com/
 [Astro UXDS](https://astro-components.netlify.app/?path=/story/components-tabs--tabs-compact)
 
 https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
-
 https://grokonez.com/node-js/sequelize/node-js-express-rest-api-postgresql-example-upload-file-download-file-multer-sequelize-crud
+
+
+## Daily Schedule
+
+### 1/4/2021
+1. Create user stories (Trello)
+2. Create ERD for database
+3. React/file structure setup
+4. Postgress DB and Server API setup
+
+### 1/5/2021
+1. Setup testing environment
+    - Unit tests
+    - Component tests
+    - End-to-End tests
+    - API tests
+2. Populate db with mock data
+3. Working branches setup
+4. MVP coding
+
+### 1/6/2021
+
+### 1/7/2021
+- MVPs due!
+
+### 1/12/2021
+ToDo:
+- Update logout button with Will's Colors
+- Cascade FKeys in database
+- Standardize table styling
+- Unfurl table data inside tables
+- "Suspense" is spelled wrong in the notification from tasker creation - DONE
+- Update the navbar when redirected
+
+### 1/13/2021
+ToDo:
+- Incorporate table design from TaskerInbox to TaskerOutbox
+- Add file attachments to TaskerInbox and TaskerOutbox
+- Add styling to login/logout/profile pages
+- Add footer to NavBar
+- Finalize table styling for TaskerInbox and TaskerOutbox
+- Add more thorough tasker prepopulation data to init.sql
 
 ## Notes
 ### Project setup
+
 npx create-react-app at-at
+
+### Saving files!!!
+use node fs write file/read file in express (use async)
+save files in local file structure, save file location in database
+
+### proxy?
+do the same way as project 1?
+use CORS middleware for express
+
 
