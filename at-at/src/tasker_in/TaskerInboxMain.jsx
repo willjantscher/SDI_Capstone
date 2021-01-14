@@ -111,11 +111,12 @@ class TaskerInboxMain extends React.Component {
     const originator = this.state.originators.find(originator => {
       return originator.tasker_id === tasker_id
     });
-
+  
     // build notification payload
     const notification = {
       unit_to: originator.originator_unit_id,
-      details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
+      details: `You have received a response on Tasker "${updatedTasker.tasker_name}" from ${originator.unit_name}`,
+//    details: `You have received a response on Tasker ${updatedTasker.tasker_id} from Unit ${this.state.unitId}`,
       isread: false,
       tasker_id: updatedTasker.tasker_id,
       notification_type: 'response',

@@ -1,5 +1,7 @@
-import React from "react"
-import NotificationViewer from "./NotificationViewerHome"
+import React from "react";
+import NotificationViewer from "../notifications/NotificationViewer";
+import TaskerList from '../tasker_in/TaskerList';
+
 import Cookies from 'universal-cookie';
 
 class NotificationsMain extends React.Component {
@@ -85,6 +87,7 @@ class NotificationsMain extends React.Component {
                     notifications = {this.state.notifications}
                     onViewClick={this.handleNotificationClick}
                     onDelete={this.handleDelete}
+                    homepage={true}
                  />
                 </div>
               <div className="col-sm-1"/>
