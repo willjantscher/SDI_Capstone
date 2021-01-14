@@ -145,6 +145,14 @@ class TaskerList extends React.Component {
     }
   }
 
+  generateEmptyTaskerList = () => {
+    if(this.props.taskers.length === 0){
+      return(
+        <tr onClick={this.props.onRowClick}><td colSpan="6">You have no taskers assigned to your unit.</td></tr>
+      )
+    }
+  }
+
   render() {
     return(
         <table className="rux-table">
@@ -155,7 +163,7 @@ class TaskerList extends React.Component {
           </thead>
           <tbody>
             {this.generateTaskerItems(this.props.taskers)}
-            {this.props.homepage ? this.generateHomePageFooter() : null}
+            {this.props.homepage ? this.generateHomePageFooter() : this.generateEmptyTaskerList()}
           </tbody>
         </table>
     );
