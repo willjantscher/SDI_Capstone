@@ -154,7 +154,7 @@ async handleDelete(){
         if (isResponse) {
             apiURL = `http://localhost:3001/attachments/${taskerId}`;
         }
-        const response = await fetch(, {method: 'GET'});
+        const response = await fetch(`${apiURL}`, {method: 'GET'});
         const attachments = await response.json();
         return attachments;
     }
