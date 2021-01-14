@@ -10,6 +10,8 @@ class TaskerOutboxMain extends React.Component {
         this.state = {
             taskerResponses:[],
             currentTaskers:[],
+            attachments:[],
+            descText: '',
             v:'',
             delVis:'',
             values : {
@@ -53,8 +55,8 @@ class TaskerOutboxMain extends React.Component {
 
         handleVisibility(e){ 
             this.setState({v : true, index : e.target.value})
+        
       }
-
         handleEditTasker(e){
 
         this.state.values[e.target.name] = e.target.value;
@@ -111,15 +113,15 @@ async handleUpdate(e){
 
     deleteTask(e){
         this.setState({delVis : true, index : e.target.value})
-        alert("Delete actions are final!")
     }
 
 async handleDelete(){
 
     let tid = this.state.currentTaskers[this.state.index].tasker_id
+    let vnum = this.state.currentTaskers[this.state.index].version_num
     alert('Delete Success')
     window.location.reload();
-    const response = await fetch(`http://localhost:3001/deleteTasker/${tid}`
+    const response = await fetch(`http://localhost:3001/deleteTasker/${tid}/${vnum}`
         ,{
             method: 'DELETE',
             headers: {'Content-Type': 'application/json; charset=UTF-8'}
@@ -134,9 +136,28 @@ async handleDelete(){
         let tabs = Array.from(document.querySelectorAll('rux-tab'))
         tabs.forEach((tab) => tab.selected = false)
         tabs[4].selected = true
-
         this.handleViewTaskers()
     }
+
+    async fetchAttachments(){
+        let tid = this.state.currentTaskers[1].tasker_id
+        const response = await fetch(`http://localhost:3001/attachments/${tid}`, {method: 'GET'});
+        const attachments = await response.json();
+        
+        this.setState({attachments:attachments.concat()})
+    }
+
+//     handleRowClick(e){ 
+//         this.setState({v : true, index : e.target.value})
+
+//         console.log(Array.from(e.currentTarget.getElementsByTagName("td")))
+//         let taskId = Array.from(e.currentTarget.getElementsByTagName("td"))[0].innerHTML
+
+//         //this.setState({descText: this})
+//         console.log(this.state.currentTaskers[this.state.index].desc_text)
+        
+
+//   }
 
     render() {
         const {currentTaskers} = this.state
@@ -160,13 +181,13 @@ async handleDelete(){
                         <tr>
                             <td><h3>Tasker ID</h3></td>
                             <td><h3>Version #</h3></td>
-                            <td><h3>Updated On (YYYY/MM/DD)</h3></td>
+                            <td><h3>Updated On </h3></td>
                             <td><h3>Tasker Name</h3></td>
-                            <td><h3>Suspense Date (YYYY/MM/DD)</h3></td>
+                            <td><h3>Suspense Date</h3></td>
                             <td><h3>Priority Level</h3></td>
-                            <td><h3>Est. Workload (Hours)</h3></td>
-                            <td><h3>Description</h3></td>
-                            <td></td>
+                            <td><h3>Est. Workload</h3></td>
+                            <td ><h3>Description</h3></td>
+                            <td><h3>Attachments</h3></td>
                         </tr>
                     </tbody>
                     :""} 
@@ -176,13 +197,14 @@ async handleDelete(){
                         <tr className="will-colors">
                             {Object.values(res).map(r => 
                             <td>
-                                <h3>
-                                    {r}
-                                </h3>
-                            </td>)}
+                                {r}
+                            </td>)}<td>this data</td>
                             <td>{currentTaskers.length > 0 ?<button className="rux-button" type="submit" value={i} onClick={this.handleVisibility.bind(this)}>Edit</button>:""}</td>
-                            <td>{currentTaskers.length > 0 ?<button className="rux-button"type="submit" value={i} onClick={this.deleteTask.bind(this)}>Delete</button>:""}</td>
-                        </tr>)}
+                            <td>{currentTaskers.length > 0 ?<button className="rux-button"type="submit" value={i} onClick={this.deleteTask.bind(this)}>Delete</button>:""}</td>  
+                            
+                            
+                        </tr >)}
+                        
                     </tbody>
                 </table>
                 </div> <br></br>
@@ -196,6 +218,13 @@ async handleDelete(){
                             index={this.state.index}
                             hide={this.handleTaskersHideButton.bind(this)}
                             update={this.handleUpdate.bind(this)}/>
+
+
+
+            
+            
+                <button onClick={this.fetchAttachments.bind(this)}>Click It</button>
+                <p>{this.state.attachments.map(r => Object.keys(r[0])+" "+Object.values(r[0]))}</p>
             </div>     
         )
     }
