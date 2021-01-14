@@ -19,22 +19,22 @@ class ViewResponses extends React.Component {
 
             <table className="rux-table">
                 {responses.length > 0 ?
-                    <tbody>
+                    <thead>
                         <tr>
                             <td><h3>Tasker ID</h3></td>
                             <td><h3>Assigned Unit ID</h3></td>
                             <td><h3>Status</h3></td>
                             <td><h3>Response</h3></td>
                         </tr>
-                    </tbody>
+                    </thead>
                     :""} 
 
                     <tbody>
                         {responses.map((res, i) => 
-                        <tr>
+                        <tr className="will-colors">
                             {Object.values(res).map(r => 
-                            <td className="will-colors"><h3>{r}</h3>
-                                
+                            <td>
+                                {r}
                             </td>)}
                         </tr>)}
                     </tbody>
