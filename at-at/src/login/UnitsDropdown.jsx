@@ -63,6 +63,7 @@ const UnitsDropdown = (props) => {
             <>
             <label htmlFor="unit" className="col-5" >Unit: </label>
             <select 
+                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                 className="rux-select col-7 will-colors"
                 id={inputFields.unit_id}
                 name={props.select_name}
@@ -80,14 +81,15 @@ const UnitsDropdown = (props) => {
     return(
         <>
         <div className="rux-form-field__label container-fluid"></div>
-        <div className="row pb-3 pl-5">
-            <label htmlFor="unit" className="col-sm-2" >Unit: </label>
+        <div className="row pb-3 pl-5 pt-3">
+            <label htmlFor="unit" className="col-2 pt-2" >Unit: </label>
             <select 
-                className="rux-select col-md-3 will-colors"
+                className="rux-select col-3 will-colors"
                 id={inputFields.unit_id}
                 name={props.select_name}
                 value={inputFields.unit}
                 onChange={event => { handleInputChange(event) }}
+                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                 >
                 <optgroup label="USSF"></optgroup>
                 <option key="empty" value=""></option>

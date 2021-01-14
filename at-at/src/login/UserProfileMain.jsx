@@ -1,6 +1,7 @@
 import React from "react"
 import Cookies from 'universal-cookie';
 import UnitsDropdown from "./UnitsDropdown"
+import './userprofile.css'
 
 const cookies = new Cookies();
 const apiURL = 'http://localhost:3001';
@@ -133,93 +134,141 @@ class UserProfileMain extends React.Component {
         this.setState({editUnitView: !this.state.editUnitView}, this.render)
     }
 
+    unitView = () => {
+        if(this.state.editUnitView){
+            return(
+                <>
+                <div className="rux-form-field__label"></div>
+                 <form className="container-fluid" onSubmit = {this.changeUnit}>
+                    <UnitsDropdown                    
+                        units = {this.state.units}
+                        onUnitSelection = {this.handleInput} 
+                        select_name = 'selected_unit'                   
+                    />
+                    <div className="row pb-3 pl-5 pt-2">
+                        <div className="col-2"></div>
+                        <div className="col-md-1">
+                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
+                        </div>
+                        <div className="col-md-1"></div>
+                        <div className="col-md-1">
+                            <input className="will-colors rux-button" type="button" onClick={this.editUnitView} value="Cancel"/>
+                        </div>
+                    </div>
+                </form>
+                </>
+            )
+        } else {
+            return null
+        }
+    }
+
+    passwordView = () => {
+        if(this.state.editPasswordView){
+        //if(true){
+            return(
+                <>
+                <div className="rux-form-field__label"></div>
+                <form className="container-fluid" onSubmit = {this.changePassword}>
+                    <div className="row pb-3 pl-5 pt-3"> 
+                        <label htmlFor="old_password" className="col-2 pt-2" >Current Password:</label>
+                        <input
+                            style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                            className="rux-input col-3 will-colors"
+                            id="old_password"
+                            type="password"
+                            name="old_password"
+                            value={this.state.old_password}
+                            onChange={this.handleInput}
+                        ></input>
+                    </div>
+                    <div className="row pb-3 pl-5"> 
+                        <label htmlFor="new_password" className="col-2 pt-2" >New Password:</label>
+                        <input
+                            style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                            className="rux-input col-3 will-colors"
+                            id="new_password"
+                            type="password"
+                            name="new_password"
+                            value={this.state.new_password}
+                            onChange={this.handleInput}
+                        ></input>
+                    </div>
+                    <div className="row pb-3 pl-5"> 
+                        <label htmlFor="confirm_new_password" className="col-2 pt-2" >Confirm New Password:</label>
+                        <input
+                            style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
+                            className="rux-input col-3 will-colors"
+                            id="confirm_new_password"
+                            type="password"
+                            name="confirm_new_password"
+                            value={this.state.confirm_new_password}
+                            onChange={this.handleInput}
+                        ></input>
+                    </div>
+                    <div className="row pb-3 pl-5 pt-2">
+                        <div className="col-2"></div>
+                        <div className="col-md-1">
+                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
+                        </div>
+                        <div className="col-md-1"></div>
+                        <div className="col-md-1">
+                            <input className="will-colors rux-button" type="button" onClick={this.editPasswordView} value="Cancel"/>
+                        </div>
+                    </div>
+                </form>
+                </>
+            )
+        }else{
+            return null
+        }
+    }
+
     render() {
         return(
-            <div> 
-                <h1>Welcome {this.state.first_name} {this.state.last_name}!</h1>
-                <label>Name: {this.state.first_name} {this.state.last_name} </label>
-                <br/>
-                <label>Username: {this.state.username} </label>
-                <br/>
-                <label>Password: ***** </label>
-                {
-                this.state.editPasswordView ? 
-                    <button onClick={this.editPasswordView}>Close</button>
-                : <button onClick={this.editPasswordView}>Edit</button>
-                }
-
-                {
-                this.state.editPasswordView ? 
-                    <>
-                    <div className="rux-form-field__label"></div>
-                    <form className="container-fluid" onSubmit = {this.changePassword}>
-                        <div className="row pb-3"> 
-                            <label htmlFor="old_password" className="col-sm-2" >Current Password:</label>
-                            <input
-                                className="rux-input col-md-2 will-colors"
-                                id="old_password"
-                                type="password"
-                                name="old_password"
-                                value={this.state.old_password}
-                                onChange={this.handleInput}
-                            ></input>
-                        </div>
-                        <div className="row pb-3"> 
-                            <label htmlFor="new_password" className="col-sm-2" >New Password:</label>
-                            <input
-                                className="rux-input col-md-2 will-colors"
-                                id="new_password"
-                                type="password"
-                                name="new_password"
-                                value={this.state.new_password}
-                                onChange={this.handleInput}
-                            ></input>
-                        </div>
-                        <div className="row pb-3"> 
-                            <label htmlFor="confirm_new_password" className="col-sm-2" >Confirm New Password:</label>
-                            <input
-                                className="rux-input col-md-2 will-colors"
-                                id="confirm_new_password"
-                                type="password"
-                                name="confirm_new_password"
-                                value={this.state.confirm_new_password}
-                                onChange={this.handleInput}
-                            ></input>
-                        </div>
-                        <div className="row pb-3 pl-5">
-                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
-                        </div>
-                    </form>
-                    </>
-                : null
-                }
-                <br/>
-                <label>Unit: {this.state.unit_name} </label>
-
-                {
-                this.state.editUnitView ? 
-                    <button onClick={this.editUnitView}>Close</button>
-                : <button onClick={this.editUnitView}>Edit</button>
-                }
-
-                {
-                this.state.editUnitView ? 
-                    <>
-                    <div className="rux-form-field__label"></div>
-                     <form className="container-fluid" onSubmit = {this.changeUnit}>
-                        <UnitsDropdown                    
-                            units = {this.state.units}
-                            onUnitSelection = {this.handleInput} 
-                            select_name = 'selected_unit'                   
-                        />
-                        <div className="row pb-3 pl-5">
-                            <input className="will-colors rux-button" type="submit" value="Save Changes"/>
-                        </div>
-                    </form>
-                    </>
-                : null
-                }
-
+            <div className="container-fluid user_profile_table"> 
+                <h1 className="pl-3 pb-4 pt-3">Welcome {this.state.first_name} {this.state.last_name}!</h1>
+                <hr></hr>
+                <div className="row pl-5 pt-4"> 
+                    <label htmlFor="name" className="col-2"><b>Name:</b></label>
+                    <label htmlFor="name" className="col-2">{this.state.first_name} {this.state.last_name}</label>
+                </div>
+                <div className="row pl-5 pt-4"> 
+                    <label htmlFor="username" className="col-2"><b>Username:</b></label>
+                    <label htmlFor="username" className="col-2">{this.state.username}</label>
+                </div>
+                <div className="row pl-5 pt-4"> 
+                    <label htmlFor="password" className="col-2"><b>Password:</b></label>
+                    <label htmlFor="password" className="col-2">********</label>
+                    <label htmlFor="password" className="col-2">
+                        {this.state.editPasswordView 
+                        ? null
+                        :
+                            <input 
+                            className="will-colors rux-button" 
+                            type="button" 
+                            onClick={this.editPasswordView}
+                            value="Edit"/>
+                        }
+                    </label>
+                </div>
+                {this.passwordView()}
+                <div className="row pl-5 pt-3"> 
+                    <label htmlFor="password" className="col-2"><b>Unit:</b></label>
+                    <label htmlFor="password" className="col-2">{this.state.unit_name}</label>
+                    <label htmlFor="password" className="col-2">
+                        {this.state.editUnitView 
+                        ? null
+                        :
+                            <input 
+                            className="will-colors rux-button" 
+                            type="button" 
+                            onClick={this.editUnitView}
+                            value="Edit"/>
+                        }
+                    </label>
+                </div>
+                {this.unitView()}
             </div>
         )
     }
