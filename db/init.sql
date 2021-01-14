@@ -156,7 +156,12 @@ INSERT INTO taskers (originator_unit_id) VALUES
 	(1),
 	(4),
 	(4),
-	(2);
+	(2),
+	(1),
+	(1),
+	(1),
+	(1),
+	(1);
 
 -- unit assigned taskers
 INSERT INTO units_assigned_taskers (tasker_id, unit_id, routing_at_unit_id, response, current_status, actual_workload) VALUES
@@ -190,7 +195,14 @@ INSERT INTO units_assigned_taskers (tasker_id, unit_id, routing_at_unit_id, resp
 	(4, 13, NULL, NULL, 'in progress', NULL),
 	(4, 14, NULL, NULL, 'in progress', NULL),
 
-	(5, 1, NULL, NULL, 'in progress', NULL);
+	(5, 1, NULL, NULL, 'in progress', NULL),
+	
+	(6, 4, NULL, NULL, 'in progress', NULL),
+	(7, 4, NULL, NULL, 'in progress', NULL),
+	(8, 4, NULL, NULL, 'in progress', NULL),
+	(9, 4, NULL, NULL, 'in progress', NULL),
+	(10, 4, NULL, 'Good to go!', 'completed', NULL)
+	;
 
 -- tasker versions
 INSERT INTO 
@@ -200,8 +212,13 @@ VALUES
 	(1, 2, '2020-12-20', 'Operation Peace ', '2021-02-20', 'Medium', 10, 'Provide feedback on secret plan, Operation Peace. Bring peace, freedom, justice and security to my new empire'),
 	(2, 1, '2020-12-25', 'Intelligence report', '2021-02-07', 'Medium', 6, 'Gather and provide all known information on the whereabouts of known insurrectionist Luke Skywalker.'),
 	(3, 1, '2021-01-01', 'Asset allocation', '2021-02-15', 'High', 3, 'Provide a report of all available manpower and resources available to support Opeation Peace.'),
-	(4, 1, '2021-01-01', 'Marksmanship CBT', '2021-02-15', 'High', 3, 'All personnel are required to complete the Stormtrooper Marksmanship CBT. Report 100% compliance by NLT 15 Feb 21.'),
-	(5, 1, '2021-01-01', 'Announcement', '2021-02-15', 'High', 1, 'Hey boss, dont forget to announce the new Space Force rank structure!');
+	(4, 1, '2021-01-12', 'Marksmanship CBT', '2021-02-04', 'High', 3, 'All personnel are required to complete the Stormtrooper Marksmanship CBT. Report 100% compliance by NLT 15 Feb 21.'),
+	(5, 1, '2021-01-02', 'Announcement', '2021-02-06', 'High', 1, 'Hey boss, dont forget to announce the new Space Force rank structure!'),
+	(6, 1, '2021-01-03', 'Space Warfare Tactics Report', '2021-02-11', 'Low', 17, 'Review and provide comments to the latest Space Warfare Tactics Report'),
+	(7, 1, '2021-01-04', 'Secret Mission', '2021-02-24', 'High', 2, 'Amplifying details on Classified AT-AT system.'),
+	(8, 1, '2021-01-05', 'Green Door Assignment', '2021-02-02', 'Medium', 12, 'Provide names and resumes of people interested applying for a lead position on an upcoming new battle station.'),
+	(9, 1, '2021-01-06', 'Morale Survey', '2021-03-01', 'Medium', 19, 'All personnel are required to complete the morale survey. Report 100% compliance by NLT 01 Mar 21.'),
+	(10, 1, '2021-01-07', 'Astronomical Survey', '2021-02-28', 'High', 4, 'Perform a month-long astronomical survey of the Alpha Quadrant and report any anomalies.');
 
 INSERT INTO notifications( unit_to, tasker_id, details, isRead, notification_type)
 VALUES 
@@ -239,4 +256,10 @@ VALUES
 	(14, 4, 'You have been assigned a tasker, "Marksmanship CBT", with a suspense of 2021-02-15', false, 'tasker'),
 	(4, 4, 'You have received a response on Tasker "Marksmanship CBT" from Delta 2 (SDA)', false, 'response'),
 	
-	(1, 5, 'You have been assigned a tasker, "Announcement", with a suspense of 2021-02-15', false, 'tasker');
+	(1, 5, 'You have been assigned a tasker, "Announcement", with a suspense of 2021-02-15', false, 'tasker'),
+
+	(4, 6, 'You have been assigned a tasker, "Space Warfare Tactics Report", with a suspense of 2021-02-11', true, 'tasker'),
+	(4, 7, 'You have been assigned a tasker, "Secret Mission", with a suspense of 2021-02-24', true, 'tasker'),
+	(4, 8, 'You have been assigned a tasker, "Green Door Assignment", with a suspense of 2021-02-02', true, 'tasker'),
+	(4, 9, 'You have been assigned a tasker, "Morale Survey", with a suspense of 2021-03-01', true, 'tasker'),
+	(4, 10, 'You have been assigned a tasker, "Astronomical Survey", with a suspense of 2021-02-28', true, 'tasker');
