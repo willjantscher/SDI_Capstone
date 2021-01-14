@@ -40,7 +40,7 @@ class NotificationViewer extends React.Component {
     )}
 
     notificationList = (notifications) => {
-        return notifications.map(notification => 
+        let result = notifications.map(notification => 
             <tr key={notification.id}>
             <td>{notification.details}</td>
             <td><input 
@@ -59,7 +59,14 @@ class NotificationViewer extends React.Component {
                 id={notification.id}
                 value="X"/></td>
             </tr>
-        )}    
+        )
+        if(result.length === 0) {
+            result.push(<tr>
+                <td>{'Congratulations! You have no notifications. Sit back and enjoy your day.'}</td>
+            </tr>)
+        }
+        return result;
+    }    
 
     render() {
         return(
