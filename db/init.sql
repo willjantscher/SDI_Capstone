@@ -35,7 +35,12 @@ CREATE TABLE units_assigned_taskers (
 CREATE TABLE tasker_reply_attachments (
 	id serial PRIMARY KEY,
 	units_assigned_taskers_id INT NOT NULL REFERENCES units_assigned_taskers(id) ON DELETE CASCADE,
-	filepath TEXT NOT NULL
+	fieldname TEXT,
+	originalname TEXT,
+	encoding_ TEXT,
+	mimetype TEXT,
+	buffer_ BYTEA NOT NULL,
+	size INT
 );
 
 CREATE TABLE tasker_sent_attachments (

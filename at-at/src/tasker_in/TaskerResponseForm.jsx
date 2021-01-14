@@ -16,27 +16,12 @@ class TaskerResponseForm extends React.Component {
 
     return(
       <form onSubmit={this.props.onSubmitResponse}>
-        <label
-          className="row mt-3"
-          htmlFor="taskerResponseData"
-        >
-          Response:
-        </label>
-        <textarea
-          className="row mt-1 rux-form-field--large will-colors"
-          id="taskerResponseData"
-          name="taskerResponseData"
-          cols={100}
-          rows={10}
-          autoFocus={true}
-          defaultValue={currentResponse ? currentResponse : ""}
-        />
         <div className="row mt-2">
           <label
             className="mr-2 mt-1"
             htmlFor="taskerResponseWorkload"
           >
-            Workload:
+            Actual Workload:
           </label>
           <select
             className="rux-select will-colors"
@@ -47,6 +32,21 @@ class TaskerResponseForm extends React.Component {
             {this.generateWorkloadOptions()}
           </select>
         </div>
+        <label
+          className="row mt-2"
+          htmlFor="taskerResponseData"
+        >
+          Response:
+        </label>
+        <textarea
+          className="row mt-1 rux-form-field--large will-colors"
+          style={{width: "100%", height: "100%"}}
+          id="taskerResponseData"
+          name="taskerResponseData"
+          rows={15}
+          autoFocus={true}
+          defaultValue={currentResponse ? currentResponse : ""}
+        />
         <input
           className="will-colors rux-button row mt-2"
           type="submit"

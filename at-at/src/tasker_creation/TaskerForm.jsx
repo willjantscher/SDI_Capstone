@@ -281,17 +281,17 @@ const TaskerForm = (props) => {
 
                 <div className="col-md-4 container-fluid">
                     <form id="attachments_form" onSubmit={props.onClickUploadFiles}> 
-                        <div className="row">
+                        <div className="row mb-2" style={{marginTop:"-10px"}}>
                             <label >Add Attachments: </label>
                         </div>
-                        <div className="form-group files">
+                        <div className="form-group files mt-0">
                             <div style={{paddingBottom:'20px'}}></div>
-                            <label className="row" htmlFor="file" id="fileInput">
+                            <label className="row mb-5" htmlFor="file" id="fileInput" style={{marginTop:"-15px"}}>
                                 <div></div>
-                                <input style={{height:"387px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
+                                <input style={{height:"403px"}} type="file" id="file" onChange={props.onFileInputChange} className="form-control will-colors" multiple/>
                             </label>
                         </div>
-                        <div style={{marginTop:'-220px', position:"relative"}}>
+                        <div style={{marginTop:'-250px', position:"relative"}}>
                             {file_names_render}
                         </div>
                         <div className="row" style={{paddingTop:'15px'}}>

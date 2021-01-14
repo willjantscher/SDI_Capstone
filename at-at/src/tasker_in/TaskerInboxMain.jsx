@@ -12,9 +12,12 @@ class TaskerInboxMain extends React.Component {
         unitId: 0,
         userId: 0,
         taskers: [],
+        attachments: [],
         originators: [],
         selectedTasker: {},
         selectedRow: [],
+        selected_files: [],
+        selected_files_num: 0,
     }
   }
 
@@ -33,6 +36,7 @@ class TaskerInboxMain extends React.Component {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
+      const attachments = await this.fetchAttachments(taskers.map(tasker => tasker.tasker_id))
       let selectedTasker = {};
       if(this.props.location.state) {
         const selectedTaskerId = parseInt(this.props.location.state.tasker_id);
@@ -49,6 +53,7 @@ class TaskerInboxMain extends React.Component {
         taskers: taskers,
         originators: originators,
         selectedTasker: selectedTasker,
+        attachments: attachments,
       });
     }
   }
@@ -63,6 +68,13 @@ class TaskerInboxMain extends React.Component {
     const response = await fetch(`${this.apiURL}/inbox/taskers/originators/${unitId}`, {method: 'GET'})
     const originators = await response.json();
     return originators;
+  }
+
+  fetchAttachments = async(taskerIds) => {
+    const response = await fetch(`${this.apiURL}/attachments`, {method: 'GET'});
+    const attachments = await response.json();
+    const unitAttachments = attachments.filter(attachment => taskerIds.includes(attachment.tasker_id));
+    return unitAttachments;
   }
 
   handleTaskerClick = (e) => {
@@ -103,6 +115,9 @@ class TaskerInboxMain extends React.Component {
     const response = await fetch(`${this.apiURL}/inbox/taskers/${unit_id}/${tasker_id}`, requestContent);
     const updatedTaskerData = await response.json();
 
+    // store attachments
+    await this.uploadFiles(updatedTaskerData[0].id);
+
     // update locally-stored tasker so that changes appear correctly
     const newTaskers = await this.fetchTaskers(this.state.unitId);
     const updatedTasker = {...this.state.selectedTasker, ...updatedTaskerData};
@@ -134,6 +149,36 @@ class TaskerInboxMain extends React.Component {
 
     this.setState({taskers: newTaskers, selectedTasker: updatedTasker});
   }
+  
+  handleFileInputChange = (e) => {
+    this.setState({ selected_files_num : e.target.files.length })
+    this.setState({ selected_files : e.target.files })
+  }
+
+  uploadFiles = (units_assigned_taskers_id) => {
+    for(var i = 0; i < this.state.selected_files.length; i++) {
+      const formData = new FormData();
+      formData.append('file', this.state.selected_files[i]);
+      fetch(`${this.apiURL}/upload_response/${units_assigned_taskers_id}`, {
+        headers : {
+            'Access-Control-Allow-Origin' : '*',
+        },
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        document.getElementById("attachments_form").reset();
+        document.getElementById("file").value = [];
+        this.setState({ selected_files : []})
+        this.setState({ selected_files_num : 0})
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+  }
 
   render() {
     return(
@@ -143,7 +188,11 @@ class TaskerInboxMain extends React.Component {
           <div className="col-sm">
             <TaskerList
               taskers={this.state.taskers}
+              attachments={this.state.attachments}
               selectedRow={this.state.selectedRow}
+              apiURL={this.apiURL}
+              selected_files={this.state.selected_files}
+              onInputFileChange={this.handleFileInputChange}
               onRowClick={this.handleTaskerClick}
               onSubmitResponse={this.handleResponseSubmit}
               defaultValueResponse={this.state.selectedTasker.response}
