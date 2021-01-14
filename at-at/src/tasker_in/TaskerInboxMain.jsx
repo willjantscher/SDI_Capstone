@@ -36,7 +36,6 @@ class TaskerInboxMain extends React.Component {
       // get other data based on user unit
       const taskers = await this.fetchTaskers(unit_id);
       const originators = await this.fetchOriginators(unit_id);
-      console.log(taskers)
       const attachments = await this.fetchAttachments(taskers.map(tasker => tasker.tasker_id))
       let selectedTasker = {};
       if(this.props.location.state) {
@@ -171,7 +170,7 @@ class TaskerInboxMain extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-          console.log(data)
+          // console.log(data)
           document.getElementById("attachments_form").reset();
           document.getElementById("file").value = [];
           this.setState({ selected_files : []})
