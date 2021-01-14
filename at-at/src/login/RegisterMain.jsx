@@ -83,8 +83,9 @@ class RegisterMain extends React.Component {
                     <form className="container-fluid">
                         <h1 className="pb-4" >Register</h1>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="first_name" className="col-5" >First Name:</label>
+                            <label htmlFor="first_name" className="col-5 pt-1" >First Name:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="first_name"
                                 type="text"
@@ -94,8 +95,9 @@ class RegisterMain extends React.Component {
                             ></input>
                         </div>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="last_name" className="col-5" >Last Name:</label>
+                            <label htmlFor="last_name" className="col-5 pt-1" >Last Name:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="last_name"
                                 type="text"
@@ -113,8 +115,9 @@ class RegisterMain extends React.Component {
                             />
                         </div>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="username" className="col-5" >Username:</label>
+                            <label htmlFor="username" className="col-5 pt-1" >Username:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="username"
                                 type="text"
@@ -124,8 +127,9 @@ class RegisterMain extends React.Component {
                             ></input>
                         </div>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="passphrase" className="col-5" >Password:</label>
+                            <label htmlFor="passphrase" className="col-5 pt-1" >Password:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="passphrase"
                                 type="password"
@@ -135,8 +139,9 @@ class RegisterMain extends React.Component {
                             ></input>
                         </div>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="confirmPassphrase" className="col-5" >Confirm Password:</label>
+                            <label htmlFor="confirmPassphrase" className="col-5 pt-1" >Confirm Password:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="passphrase"
                                 type="password"
@@ -152,7 +157,7 @@ class RegisterMain extends React.Component {
                         </div>
                         <label className=""> 
                             Already have an account?
-                            <a className="nav-link" href="/login"> Login here</a>
+                            <a className="nav-link" href="/login"> Login</a>
                         </label>
                     </form>
                 </div>

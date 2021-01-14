@@ -57,8 +57,9 @@ class LoginMain extends React.Component {
                     <form className="container-fluid ">
                         <h1 className="pb-4" >Login</h1>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="username" className="col-5" >Username:</label>
+                            <label htmlFor="username" className="col-5 pt-1" >Username:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="username"
                                 type="text"
@@ -68,8 +69,9 @@ class LoginMain extends React.Component {
                             ></input>
                         </div>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
-                            <label htmlFor="passphrase" className="col-5" >Password:</label>
+                            <label htmlFor="passphrase" className="col-5 pt-1" >Password:</label>
                             <input
+                                style={{height:'35px', fontSize:'15px', borderRadius:'3px'}}
                                 className="rux-input col-7 will-colors"
                                 id="passphrase"
                                 type="password"
