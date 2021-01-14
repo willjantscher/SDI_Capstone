@@ -25,6 +25,8 @@ import { Redirect, Route } from "react-router-dom";
 import TaskerForm from "./TaskerForm"
 import SubmitTaskerChecker from "./SubmitTaskerChecker"
 
+import { RuxModal } from '@astrouxds/rux-modal/rux-modal.js';
+
 let cookies = new Cookies();
 
 
