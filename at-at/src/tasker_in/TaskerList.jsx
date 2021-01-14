@@ -135,12 +135,12 @@ class TaskerList extends React.Component {
   generateHomePageFooter = () => {
     if(this.props.taskers.length === 0){
       return(
-        <tr onClick={this.props.onRowClick}><td colSpan="6">You have no upcoming taskers.</td></tr>
+        <tr onClick={this.props.onRowClick}><td colSpan="7">You have no upcoming taskers.</td></tr>
       )
     }
     if(this.props.taskers.length > 3){
       return(
-        <tr onClick={this.props.onRowClick}><td colSpan="6">...</td></tr>
+        <tr onClick={this.props.onRowClick}><td colSpan="7">...</td></tr>
       )
     }
   }
@@ -148,7 +148,7 @@ class TaskerList extends React.Component {
   generateEmptyTaskerList = () => {
     if(this.props.taskers.length === 0){
       return(
-        <tr onClick={this.props.onRowClick}><td colSpan="6">You have no taskers assigned to your unit.</td></tr>
+        <tr onClick={this.props.onRowClick}><td colSpan="7">You have no taskers assigned to your unit.</td></tr>
       )
     }
   }
