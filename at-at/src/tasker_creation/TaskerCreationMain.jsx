@@ -25,6 +25,8 @@ import { Redirect, Route } from "react-router-dom";
 import TaskerForm from "./TaskerForm"
 import SubmitTaskerChecker from "./SubmitTaskerChecker"
 
+import { RuxModal } from '@astrouxds/rux-modal/rux-modal.js';
+
 let cookies = new Cookies();
 
 
@@ -293,7 +295,7 @@ class TaskerCreationMain extends React.Component {
 
     taskerRenderer = () => {
         return(
-            <div>
+            <div >
                 <h1 className="pl-4 pb-4 pt-2">Create a Tasker</h1>
                 {/* {console.log(this.state.units)} */}
                 <TaskerForm 

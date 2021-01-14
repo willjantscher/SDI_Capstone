@@ -44,6 +44,7 @@ class App extends React.Component {
           <PrivateRoute path="/authenticated_user/notifications" component={NotificationsMain} />
           <PrivateRoute path="/authenticated_user/user_profile" component={UserProfileMain} />
         </Router>
+        <div className="pb-5"></div>
         <footer className="footer">
           <div>@ 2021 The Empire Inc. All Rights Reserved. </div>
           <div>

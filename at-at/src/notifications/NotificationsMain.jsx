@@ -43,9 +43,9 @@ class NotificationsMain extends React.Component {
         return notifications;
     }
     handleNotificationClick = async(e) => {
-        const tasker_id = e.target.id;
+        const tasker_id = parseInt(e.target.id);
         const notificationType = e.target.name;
-        
+        console.log(tasker_id, notificationType)
         if(notificationType === 'tasker'){
             this.props.history.push({
                 pathname: '/authenticated_user/tasker_inbox',
@@ -83,18 +83,15 @@ class NotificationsMain extends React.Component {
 
     render() {
         return(
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-sm-1"/>
-                <div className="col-sm">
+            <div>
+   
+                 <h1 className="pl-4 pb-4 pt-2">Notifications</h1>
                   <NotificationViewer
                     notifications = {this.state.notifications}
                     onViewClick={this.handleNotificationClick}
                     onDelete={this.handleDelete}
                  />
-                </div>
-              <div className="col-sm-1"/>
-              </div>
+
             </div>
         )
     }

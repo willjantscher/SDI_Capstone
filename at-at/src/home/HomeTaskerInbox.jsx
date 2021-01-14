@@ -120,20 +120,22 @@ class HomeTaskerInbox extends React.Component {
 
   render() {
     return(
-      <div className="container-fluid">
+      <div>
+      {/* <div className="container-fluid">
         <div className="row">
           <div className="col-sm-1"/>
-          <div className="col-sm">
-            <label id="1"><h1>Upcoming Taskers</h1></label>
+          <div className="col-sm"> */}
+            <label id="1"><h1 className="pl-4 pb-4 pt-2">Upcoming Taskers</h1></label>
             <TaskerList
               taskers={this.state.taskers}
               selectedRow={this.state.selectedRow}
               onRowClick={this.handleRedirectToInbox}
               homepage={true}
             />
-          </div>
+          {/* </div>
           <div className="col-sm-1"/>
         </div>
+      </div> */}
       </div>
     );
   }
