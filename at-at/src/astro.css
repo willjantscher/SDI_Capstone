@@ -1306,7 +1306,7 @@ body {
 
   background-color: rgb(24, 38, 53);
 
-  background-color: var(--backgroundColor, rgb(24, 38, 53));
+  background-color: var(--backgroundColor, rgb(23, 37, 58));
 
   scrollbar-color: rgb(58, 129, 191)
     rgb(32, 50, 70);
@@ -4369,4 +4369,17 @@ input:-moz-focusring {
 
 #fileInput {
   
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(89, 114, 180);
+  color: white;
+  text-align: center;
+  opacity: 0.5;
+  text-shadow: cyan;
+  font-size: small;
 }

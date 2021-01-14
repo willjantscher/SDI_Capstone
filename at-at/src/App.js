@@ -29,7 +29,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <body>
         <Router>
           <Route exact path="/" ><Redirect to="/login"></Redirect> </Route>
           <Route path="/login" component={LoginMain} />
@@ -44,7 +44,13 @@ class App extends React.Component {
           <PrivateRoute path="/authenticated_user/notifications" component={NotificationsMain} />
           <PrivateRoute path="/authenticated_user/user_profile" component={UserProfileMain} />
         </Router>
-      </div>
+        <footer className="footer">
+          <div>@ 2021 The Empire Inc. All Rights Reserved. </div>
+          <div>
+            <a style={{color:"cyan"}}href="https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=RickRoll">www.theEmpire.com</a>
+          </div>
+        </footer>
+      </body>
 
     )
   }
