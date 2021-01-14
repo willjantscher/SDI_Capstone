@@ -183,6 +183,7 @@ class TaskerInboxMain extends React.Component {
   render() {
     return(
       <div className="container-fluid">
+        <div className="row"><p>{/* garbage filler to pop the table away from the top */}</p></div>
         <div className="row">
           <div className="col-sm-1"/>
           <div className="col-sm">
