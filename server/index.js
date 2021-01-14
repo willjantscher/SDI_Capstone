@@ -127,7 +127,6 @@ app.post('/upload/:tasker_id',function(req, res) {
 });
 
 app.get('/attachments/:tasker_id', function(req, res) {
-  console.log('recieved')
   pool.query('SELECT id, originalname, tasker_id FROM tasker_sent_attachments WHERE tasker_id = $1', [req.params.tasker_id], (error, results) => {
     if (error) {
       throw error
@@ -187,3 +186,59 @@ app.get('/full_attachment_row', function(req, res) {
     res.json(results.rows[0])
   })
 })
+
+//query for posting response attachments
+app.post('/upload_response/:units_assigned_taskers_id',function(req, res) {
+  console.log(req.body);
+  console.log(req.file)
+  upload(req, res, function (err) {
+         if (err instanceof multer.MulterError) {
+             return res.status(500).json(err)
+         } else if (err) {
+             return res.status(500).json(err)
+         }
+         var columnDataToInsert = '\\x' + req.file.buffer.toString('hex');
+         pool.query('INSERT INTO tasker_reply_attachments (units_assigned_taskers_id, fieldname, originalname, encoding_, mimetype, buffer_, size) VALUES ($1, $2, $3, $4, $5, $6, $7)', [ req.params.units_assigned_taskers_id, req.file.fieldname, req.file.originalname, req.file.encoding, req.file.mimetype, columnDataToInsert, req.file.size ],  function(error, results) {
+          if (error) {
+            throw error
+        }
+        return res.status(200).json(`${req.file.originalname} uploaded`)
+         })
+        //  console.log(req.file)
+  })
+
+});
+
+//query for getting attachments from units_assigned_taskers
+app.get('/units_assigned_taskers/attachments', function(req, res) {
+  pool.query('SELECT id, originalname, units_assigned_taskers_id FROM tasker_reply_attachments', (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.json(results.rows)
+  })
+})
+
+//query for downloading attachment from units_assigned_taskers
+app.get('/download/reply/:tasker_reply_attachments_id', function(req, res) {
+
+  pool.query('SELECT * FROM tasker_reply_attachments WHERE id = $1',[req.params.tasker_reply_attachments_id], (error, results) => {
+    if (error) {
+      console.log(err);
+      res.json({msg: 'Error', detail: err});
+      }
+    const file = results.rows[0]
+
+    var fileContents = Buffer.from(file.buffer_, "base64");
+    // console.log(fileContents)
+
+    var readStream = new stream.PassThrough();
+    readStream.end(fileContents);
+    
+    res.set('Content-disposition', 'attachment; filename=' + file.originalname);
+    res.set('Content-Type', file.mimetype);
+ 
+    readStream.pipe(res);
+  })
+  }
+)

@@ -16,6 +16,8 @@ class TaskerInboxMain extends React.Component {
         originators: [],
         selectedTasker: {},
         selectedRow: [],
+        selected_files: [],
+        selected_files_num: 0,
     }
   }
 
@@ -113,6 +115,9 @@ class TaskerInboxMain extends React.Component {
     const response = await fetch(`${this.apiURL}/inbox/taskers/${unit_id}/${tasker_id}`, requestContent);
     const updatedTaskerData = await response.json();
 
+    // store attachments
+    await this.uploadFiles(updatedTaskerData[0].id);
+
     // update locally-stored tasker so that changes appear correctly
     const newTaskers = await this.fetchTaskers(this.state.unitId);
     const updatedTasker = {...this.state.selectedTasker, ...updatedTaskerData};
@@ -150,31 +155,28 @@ class TaskerInboxMain extends React.Component {
     this.setState({ selected_files : e.target.files })
   }
 
-  uploadFiles = (tasker_id) => {
-    if(this.state.selected_files !== null) {
-      for(var i = 0; i < this.state.selected_files.length; i++) {
-        const formData = new FormData() 
-        formData.append('file', this.state.selected_files[i])
-        
-        fetch(`${this.state.apiURL}/upload/${tasker_id}`, {
-          headers : {
-              'Access-Control-Allow-Origin' : '*',
-          },
-          method: 'POST',
-          body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          document.getElementById("tasker_form").reset();
-          document.getElementById("file").value = null;
-          this.setState({ selected_files : null})
-          this.setState({ selected_files_num : null})
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      }
+  uploadFiles = (units_assigned_taskers_id) => {
+    for(var i = 0; i < this.state.selected_files.length; i++) {
+      const formData = new FormData();
+      formData.append('file', this.state.selected_files[i]);
+      fetch(`${this.apiURL}/upload_response/${units_assigned_taskers_id}`, {
+        headers : {
+            'Access-Control-Allow-Origin' : '*',
+        },
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        document.getElementById("attachments_form").reset();
+        document.getElementById("file").value = [];
+        this.setState({ selected_files : []})
+        this.setState({ selected_files_num : 0})
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
   }
 
@@ -189,6 +191,7 @@ class TaskerInboxMain extends React.Component {
               attachments={this.state.attachments}
               selectedRow={this.state.selectedRow}
               apiURL={this.apiURL}
+              selected_files={this.state.selected_files}
               onInputFileChange={this.handleFileInputChange}
               onRowClick={this.handleTaskerClick}
               onSubmitResponse={this.handleResponseSubmit}

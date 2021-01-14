@@ -113,6 +113,7 @@ class TaskerList extends React.Component {
           tasker={tasker}
           attachments={taskerAttachments}
           apiUrl={this.props.apiURL}
+          selected_files={this.props.selected_files}
           onInputFileChange={this.props.onInputFileChange}
           selected={this.isSelected(tasker)}
           onSubmitResponse={this.props.onSubmitResponse}

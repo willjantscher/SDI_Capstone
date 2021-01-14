@@ -17,10 +17,10 @@ class TaskerItem extends React.Component {
 
   render() {
     const { 
-      tasker_id, 
-      priority_lvl, 
-      suspense_date, 
-      tasker_name, 
+      tasker_id,
+      priority_lvl,
+      suspense_date,
+      tasker_name,
       predicted_workload,
       updated_on,
       current_status,

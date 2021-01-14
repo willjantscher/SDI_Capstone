@@ -9,8 +9,8 @@ class TaskerInfo extends React.Component {
       <div className="col-md-4">
         {this.props.attachments.map(attachment => {
           return(
-            <p className="">
-              <img src={icon} height="20" width="20"/>
+            <p key={attachment.id} className="">
+              <img src={icon} alt="listItemIcon" height="20" width="20"/>
               <a href={`${this.props.apiUrl}/download/${attachment.id}`}>
                 {attachment.originalname}
               </a>
@@ -28,7 +28,6 @@ class TaskerInfo extends React.Component {
     } = this.props.tasker;
   
     const display = this.props.selected ? "table-row" : "none";
-
     return(
       <tr
         className="selected"
@@ -56,7 +55,10 @@ class TaskerInfo extends React.Component {
               />
             </div>
             <div className="col-md-4">
-              <TaskerAttachmentInput onInputFileChange={this.props.onInputFileChange}/>
+              <TaskerAttachmentInput
+                onInputFileChange={this.props.onInputFileChange}
+                selected_files={this.props.selected_files}
+              />
             </div>
           </div>
         </td>

@@ -3,6 +3,9 @@ import React from "react";
 class TaskerAttachmentInput extends React.Component {
   generateFileNames = () => {
     let selected_files_names = [];
+    for(var i = 0; i < this.props.selected_files.length; i++) {
+        selected_files_names.push(this.props.selected_files[i].name)
+    }
     return (
       selected_files_names.map((name) => {
         return(
@@ -20,16 +23,17 @@ class TaskerAttachmentInput extends React.Component {
       <label className="row mt-5" style={{marginBottom:"-40px"}}>Add Attachments: </label>
       <label className="row form-group files mt-5" htmlFor="file" id="fileInput">
         <input
+          style={{height:"260px"}}
           type="file"
           id="file"
-          onChange={this.props.onFileInputChange}
+          onChange={this.props.onInputFileChange}
           className="form-control will-colors"
           multiple
         />
       </label>
-      {/* <div style={{marginTop:'-200px', position:"relative"}}>
+      <div style={{marginTop:'-110px', position:"relative"}}>
           {this.generateFileNames()}
-      </div> */}
+      </div>
     </form>
     );
   }
