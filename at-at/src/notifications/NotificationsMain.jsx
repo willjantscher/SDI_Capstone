@@ -43,9 +43,9 @@ class NotificationsMain extends React.Component {
         return notifications;
     }
     handleNotificationClick = async(e) => {
-        const tasker_id = e.target.id;
+        const tasker_id = parseInt(e.target.id);
         const notificationType = e.target.name;
-        
+        console.log(tasker_id, notificationType)
         if(notificationType === 'tasker'){
             this.props.history.push({
                 pathname: '/authenticated_user/tasker_inbox',
