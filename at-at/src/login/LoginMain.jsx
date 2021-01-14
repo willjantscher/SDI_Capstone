@@ -54,7 +54,7 @@ class LoginMain extends React.Component {
             <div className="container-fluid " align="center">
                 <div class="card card-container">
                     <div className="rux-form-field__label"></div>
-                    <form className="container-fluid " onSubmit = {this.handleLogin}>
+                    <form className="container-fluid ">
                         <h1 className="pb-4" >Login</h1>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
                             <label htmlFor="username" className="col-5" >Username:</label>
@@ -80,7 +80,7 @@ class LoginMain extends React.Component {
                         </div>
                         <div className="row pt-3 pb-3"> 
                             <div class="col"/>
-                            <input className="will-colors rux-button col-4" type="submit" value="Login"/>
+                            <rux-button onClick={this.handleLogin}>Login</rux-button>
                             <div class="col"/>
                         </div>
                         <label className=""> 

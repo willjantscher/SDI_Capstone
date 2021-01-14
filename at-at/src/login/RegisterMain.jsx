@@ -80,7 +80,7 @@ class RegisterMain extends React.Component {
             <div className="container " align="center">
                 <div class="card card-container">
                     <div className="rux-form-field__label"></div>
-                    <form className="container-fluid" onSubmit = {this.handleRegistration}>
+                    <form className="container-fluid">
                         <h1 className="pb-4" >Register</h1>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
                             <label htmlFor="first_name" className="col-5" >First Name:</label>
@@ -147,7 +147,7 @@ class RegisterMain extends React.Component {
                         </div>
                         <div className="row pt-3 pb-3"> 
                             <div class="col"/>
-                            <input className="will-colors rux-button col-4" type="submit" value="Register"/>
+                            <rux-button onClick={this.handleRegistration}>Register</rux-button>
                             <div class="col"/>
                         </div>
                         <label className=""> 
