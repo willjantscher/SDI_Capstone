@@ -1,14 +1,20 @@
 /*
-update paths for fetches
 Personal access token for gitlab
 user: will_jantscher
 password: ppHvifzzxzYWCGgVcqAR
 sdi06.staging.dso.mil/sdi06-api/        route to api
+
 username: bigCheese
 password: password
-1. add back end for responding to taskers with attachments
-    updated init.db
-2. add buttons/href in Tasker In Box for all tasker attachments for that 
+
+1. pull attachments for specific tasker in tasker inbox
+2. display attachments as an href
+3. have the href download the proper attachment on click
+    - front end, fetch to href link correct (attachment id)
+    - back end, /download/:attachment_id
+4. add front end for attachments in tasker inbox
+5. add back end for attachments in tasker inbox (reply)
+6. add attachments in the tasker out box (both for taskers and taskers_assigned)
 */
 
 

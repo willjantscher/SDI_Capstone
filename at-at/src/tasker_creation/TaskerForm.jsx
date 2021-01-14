@@ -16,8 +16,8 @@ const TaskerForm = (props) => {
         // console.log(selected_files_names)
         file_names_render = selected_files_names.map((name) => {
             return(
-                <div>
-                    <div style={{textAlign: "center"}}>{name}</div>
+                <div key={selected_files_names.indexOf(name)}>
+                    <div style={{textAlign: "center"}} >{name}</div>
                 </div>
             )
         })
@@ -34,10 +34,6 @@ const TaskerForm = (props) => {
     //inside loop, push all cmd children
     //then next cso child etc...
 
-    // console.log(topChain)
-    // console.log(midChain)
-    // console.log(botChain)
-    // console.log(lowestChain)
     let selectValues = [];
     for(const unit in topChain) {
         // console.log(topChain[unit])
