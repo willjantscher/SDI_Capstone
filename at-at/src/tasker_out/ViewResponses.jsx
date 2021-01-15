@@ -24,7 +24,7 @@ class ViewResponses extends React.Component {
                             <th><h3>Tasker ID</h3></th>
                             <th><h3>Assigned Unit ID</h3></th>
                             <th><h3>Status</h3></th>
-                            <addth><h3>Response</h3></th>
+                            <th><h3>Response</h3></th>
                         </tr>
                     </thead>
                     :""} 
