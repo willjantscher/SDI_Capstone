@@ -59,8 +59,22 @@ class TaskerInboxMain extends React.Component {
   }
 
   fetchTaskers = async(unitId) => {
-    const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'})
-    const taskers = await response.json();
+    const response = await fetch(`${this.apiURL}/inbox/taskers/${unitId}`, {method: 'GET'});
+    const allTaskers = await response.json();
+    const taskers = [];
+    for (let tasker of allTaskers) {
+      // get tasker if it is already in array
+      const includedTasker = taskers.find(arrayTasker => arrayTasker.tasker_id === tasker.tasker_id);
+      // if version of tasker is already in array
+      // and the new tasker's version is greater than what's already in array
+      console.log(includedTasker, tasker);
+      if (includedTasker && (tasker.version_num > includedTasker.version_num)) {
+          // replace that tasker with the newer version
+          taskers[taskers.indexOf(includedTasker)] = tasker;
+      } else {
+        taskers.push(tasker);
+      }
+    }
     return taskers;
   }
 
@@ -186,8 +200,13 @@ class TaskerInboxMain extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="container-fluid">
+        <div className="row">
           <h1 className="pl-4 pb-4 pt-2">Upcoming Taskers</h1>
+        </div>
+        <div className="row">
+          <div className="col-sm-1"/>
+          <div className="col-sm">
             <TaskerList
               taskers={this.state.taskers}
               attachments={this.state.attachments}
@@ -199,6 +218,9 @@ class TaskerInboxMain extends React.Component {
               onSubmitResponse={this.handleResponseSubmit}
               defaultValueResponse={this.state.selectedTasker.response}
             />
+          </div>
+          <div className="col-sm-1"/>
+        </div>
       </div>
     );
   }

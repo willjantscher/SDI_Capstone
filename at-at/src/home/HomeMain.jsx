@@ -1,5 +1,4 @@
 import React from "react"
-import video from "../img/AT-AT_intro_smaller.mp4"
 
 class HomeMain extends React.Component {
     constructor(props) {
@@ -18,12 +17,7 @@ class HomeMain extends React.Component {
 
     render() {
         return(
-            <center> 
-                <video width="500" height="500" autoPlay muted>
-                    <source src={video} type="video/mp4"/>
-                    Your browser does not support the video tag.
-                </video>
-            </center>
+            <div></div>
         )
     }
 
