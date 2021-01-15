@@ -200,13 +200,13 @@ class TaskerInboxMain extends React.Component {
 
   render() {
     return(
-      // <div className="container-fluid">
-      //   <div className="row"><h1 className="ml-3 mt-2">Received Taskers</h1></div>
-      //   <div className="row">
-      //     <div className="col-sm-1"/>
-      //     <div className="col-sm">
-      <div>
+      <div className="container-fluid">
+        <div className="row">
           <h1 className="pl-4 pb-4 pt-2">Upcoming Taskers</h1>
+        </div>
+        <div className="row">
+          <div className="col-sm-1"/>
+          <div className="col-sm">
             <TaskerList
               taskers={this.state.taskers}
               attachments={this.state.attachments}
@@ -218,6 +218,9 @@ class TaskerInboxMain extends React.Component {
               onSubmitResponse={this.handleResponseSubmit}
               defaultValueResponse={this.state.selectedTasker.response}
             />
+          </div>
+          <div className="col-sm-1"/>
+        </div>
       </div>
     );
   }
