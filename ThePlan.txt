@@ -2,9 +2,89 @@ User Profiles for testing:
 buckley         password        unit: 10    Delta 5
 mdelauter       password        unit: 37    SDA
 rrockwell       password        unit: 21    Systems Engineering Integration
+buckley
+
+bigCheese (pass: sdicapstone)
+
+1. Alden : brief intro
+        - Introduction to problem statement
+        - Motivation for the project
+        - AT-AT Aggregate Tasker Administration Tool
+2. Brianna : brief intro
+        - Register a new user (Enterprise Corps)
+        - Show User Profile page
+            - Change unit (Delta-2)
+            - Change password
+        - Logout and login as bigCheese (pass: sdicapstone)
+        - Describe Home page features
+3. Will :brief introduction - Tasker Creation, attachment features, and webpage design
+        - Create a Tasker
+            - To : Space Operations Command (SpOC) - direct
+                 : Space Systems Command (SCC) - direct
+                 :Space Training and REadiness Command (STARCOM) - direct
+            - Tasker Name : Codename Stardust
+            - Suspense Date : 29 Jan 2021
+            - Priority : High
+            - Predicted Workload : 18
+            - Tasker Description : 
+            You may dispense with the pleasantries, Commanders. I'm here to put you back on schedule. Your people are not working fast enough, perhaps I can find new ways to motivate them? The Emperor does not share your optimistic appraisal of the situation; he is most displeased with your apparent lack of progress. For your sake, I hope you are able to get this project back on track. The Emperor is not as forgiving as I am.
+            - Attachments : Codename Stardust
+                - Deathstar_blueprint.jpg
+                - DeathStar_Capabilities_v1.docx
+                - LFT&E.gif
+            SEND TASKER 
+            RELOAD PAGE
+4. Tony : brief intro
+        - Tasker Outbox
+        RELOAD PAGE
+            - Talk about "Received Responses to My Taskers"
+            - My Created Taskers    
+                - Open operation peace
+                    - Description:
+                    Provide feedback on secret plan: Operation Peace. Bring peace, freedom, justice and security to my new EMPIRE! Note: we also have Milk and Cookies. It's a part of our new marketing campaign.
+                    - SUBMIT 
+                - Delete the Morale Survey (don't need it in the new Empire)
+            - LOGOUT
+5. TOM : brief intro
+        - LOGIN (swhiting password)
+        - HOME PAGE 
+            - Click on New Notification "Codename Stardust"
+            - Back to HOME PAGE
+            - Delete some old notifications
+            - Click on "Codename Stardust" Notification
+6. Alden
+        - Explain page
+        - Click on "Astronomical Survey" Tasker
+            - Workload : 8
+            - Response : 
+                The survey showed rebel activity in Alpha Quadrant. Here's some material about rebel tactics and mindset.
+            - Attachments : 
+                - Anti-Terrorist_Magazine.jpeg
+            SUBMIT Response
+        - Click on "Codename Stardust""
+            - Download and OPEN Attachments
+            - Response: 
+                This is an unclassified system, I would recommend we move discussion and dissemination to a TS system. Please see attachments for details.
+            - Attachments: 
+                - Marking_Classified_Information.jpeg
+                - Security_Classification_Guidance.pdf
+            SUBMIT Response
+        - LOGOUT
+7. Will
+        - Login to bigCheese (sdicapstone)
+        - Click new Notification (response to Codename Stardust)
+        - Download Attachments
+
+    That covers our application.
+    Did build the infrastructure to incorperate some additional features that we would incorperate given additional time
+        - Routing : taskers would go through the appropriate chain for approval/routing
+        - Email Notifications : Recieve emails when you get updates
+        - User Permissions : Not everyone can send/reply/edit taskers
+            - Direct taskers to the Big bigCheese
+    Thank you for your time again and with that we will open it up for any questions
 
 
-Presentation:
+
 
 
 
