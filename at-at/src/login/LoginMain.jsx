@@ -52,7 +52,7 @@ class LoginMain extends React.Component {
         return(
             <>
             <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
-            <rux-global-status-bar appname="Aggregate Tasker Administration Tool" version="1.0" theme="dark" style={{ marginTop : '20px', height : '80px' }}>     </rux-global-status-bar>
+            <rux-global-status-bar appname="Aggregate Tasker Administration Tool" version="1.1.0" theme="dark" style={{ marginTop : '20px', height : '80px' }}>     </rux-global-status-bar>
             <div className="container-fluid " align="center" >
                 <div className="card card-container" style={{marginTop:"-100px"}}>
                     <div className="rux-form-field__label"></div>
