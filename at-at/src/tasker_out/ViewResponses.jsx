@@ -59,7 +59,7 @@ class ViewResponses extends React.Component {
                         ? <tr>
                             <td>
                                 <ul>
-                                    {this.props.getAttachmentNames(this.props.responseAttachments)}
+                                    {this.props.getAttachmentNames(this.props.responseAttachments, true)}
                                 </ul>
                             </td>
                         </tr>
