@@ -75,49 +75,18 @@ class NotificationViewer extends React.Component {
         return result;
     } 
 
-    // generateEmptyNotificationList = () => {
-    //     if(this.props.notifications.length === 0){
-    //       return(
-    //         <tr><td colSpan="6">Congratulations! You have no notifications. Sit back and enjoy your day.</td></tr>
-    //       )
-    //     }
-    //   }    
-      
-    //   generateEmptyNotificationHomePage = () => {
-    //     console.log(this.unreadNotificationList)
-    //     if(this.unreadNotificationList.length === 0){
-    //       return(
-    //         <tr><td colSpan="6">You have no new notifications</td></tr>
-    //       )
-    //     }
-    //   }
-
     render() {
         return(
-                <div>
+            
+                <div className="container-fluid">
+                    <div className="row pb-3 pl-5"> 
 
-                    {/* <label id="1"><h1>Unread Notifications</h1></label>
                     <table className="rux-table">
                         <tbody>
-                            {this.unreadNotificationList(this.props.notifications)}
-                        </tbody>
-                    </table>
-
-                    <label id="1"><h1>Read Notifications</h1></label>
-                    <table className="rux-table">
-                        <tbody>
-                            {this.readNotificationList(this.props.notifications)}
-                        </tbody>
-                    </table> */}
-
-                    <label id="1"><h1>Notifications</h1></label>
-                    <table className="rux-table" key="Notifications">
-                        <tbody>
-                            {/* {this.notificationList(this.props.notifications)} */}
                             {this.props.homepage ? this.unreadNotificationList(this.props.notifications) : this.notificationList(this.props.notifications)}
-                            {/* {this.props.homepage ? this.generateEmptyNotificationHomePage() : this.generateEmptyNotificationList()} */}
                         </tbody>
                     </table>
+                    </div>
 
                 </div>
             )

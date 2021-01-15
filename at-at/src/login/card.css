@@ -1,0 +1,16 @@
+.card-container form{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.card{
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -3%);
+
+    border-radius: 2%;
+    box-shadow: 2px 2px 10px black;
+
+    background-color: rgba(0,0,0,0.2) !important;
+}
