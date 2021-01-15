@@ -37,8 +37,6 @@ app.options('*', cors())
 
 app.use(express.json())
 
-
-
 app.use(
   express.urlencoded({
     extended: true,
@@ -168,7 +166,6 @@ app.get('/download/:attachment_id', function(req, res) {
   }
 )
 
-
 app.get('/files_names', function(req, res) {
   pool.query('SELECT originalname, tasker_id FROM tasker_sent_attachments', (error, results)=> {
     if (error) {
@@ -206,7 +203,6 @@ app.post('/upload_response/:units_assigned_taskers_id',function(req, res) {
          })
         //  console.log(req.file)
   })
-
 });
 
 //query for getting attachments from units_assigned_taskers

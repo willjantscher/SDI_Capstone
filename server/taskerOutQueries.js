@@ -29,7 +29,7 @@ const responses = (request, response) => {
     var unitId = request.params.id
     pool.query(
         'SELECT tasker_id, unit_id, current_status, \
-        response FROM units_assigned_taskers INNER JOIN \
+        response, units_assigned_taskers.id FROM units_assigned_taskers INNER JOIN \
         taskers ON units_assigned_taskers.tasker_id = taskers.id \
          WHERE taskers.originator_unit_id =$1;'
     ,[unitId], (error, results) => {
@@ -37,7 +37,7 @@ const responses = (request, response) => {
             throw error
         }
         response.status(200).json(results.rows)
-        console.log(results.rows)
+        
     })
 }
 
