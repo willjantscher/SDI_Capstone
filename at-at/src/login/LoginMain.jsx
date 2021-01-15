@@ -54,10 +54,12 @@ class LoginMain extends React.Component {
             <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
             <rux-global-status-bar appname="Aggregate Tasker Administration Tool" version="1.1.0" theme="dark" style={{ marginTop : '20px', height : '80px' }}>     </rux-global-status-bar>
             <div className="container-fluid " align="center" >
-                <div className="card card-container" style={{marginTop:"-100px"}}>
+                <div className="row">
+                <div className="col"/>
+                <div className="card card-container" style={{marginTop:"100px"}}>
                     <div className="rux-form-field__label"></div>
                     <form className="container-fluid ">
-                        <h1 className="pb-4" >Login</h1>
+                        <h1 className="pb-4 pt-4" >Login</h1>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
                             <label htmlFor="username" className="col-5 pt-1" >Username:</label>
                             <input
@@ -87,15 +89,19 @@ class LoginMain extends React.Component {
                             <rux-button onClick={this.handleLogin}>Login</rux-button>
                             <div className="col"/>
                         </div>
-                        <label className=""> 
-                            Need an account?
-                            <a className="nav-link" href="/register"> Register</a>
-                        </label>
-                    </form>
-
-
+                        <div className="row pt-3 pb-4"> 
+                        <div className="col">
+                            <label align="center"> 
+                                Need an account?
+                                <a className="nav-link" href="/register"> Register</a>
+                            </label>
+                        </div>
+                        </div>
+                    </form> 
                 </div >
-                <div className="" style={{marginTop:"520px"}} >
+                <div className="col"></div>
+                </div>
+                <div className="" style={{marginTop:"100px", marginBottom:"100px"}} >
                     <div className="video-mask" > 
                         <video className="video"autoPlay muted >
                             <source src={video} type="video/mp4"/>
