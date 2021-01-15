@@ -5,6 +5,8 @@
 ## Kobayashi Maru, Section 31 - Problem Statement 2: 
 Distribution and completion of taskers from both internal and external organizations is too slow via the current system (TMT).
 
+## [Deployed AT-AT](https://sdi06.staging.dso.mil/)
+
 ### [Instructions/Requirements](https://learn-2.galvanize.com/cohorts/2242/blocks/1131/content_files/units/instructions.md) & [Project Schedule](https://docs.google.com/spreadsheets/d/1YTrmCJHOMmBMSd7XV9xjTJuAYHYHGg7y88qxi99rLQ0/edit#gid=0)
 
 ### [Project Github Repository](https://github.com/willjantscher/SDI_Capstone)
@@ -77,6 +79,10 @@ Styling: CSS - https://www.astrouxds.com/
 [DB Trees](https://www.postgresql.org/docs/9.3/ltree.html)
 
 [Astro UXDS](https://astro-components.netlify.app/?path=/story/components-tabs--tabs-compact)
+
+[GitLab](https://code.il2.dso.mil/)
+
+[SDI-06 Gitlab](https://code.il2.dso.mil/tron/products/AirmenCoders/sdi06)
 
 https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
 https://grokonez.com/node-js/sequelize/node-js-express-rest-api-postgresql-example-upload-file-download-file-multer-sequelize-crud
