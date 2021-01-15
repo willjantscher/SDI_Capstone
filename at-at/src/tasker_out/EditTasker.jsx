@@ -84,7 +84,7 @@ class EditTasker extends React.Component {
                   </div>
 
                   <div className="row pb-3">  
-                     <input style={{float: 'left'}} className ="rux-button" type='submit' value="Submit"/>{' '}
+                     <input  style={{float: 'left'}} className ="rux-button" type='submit' value="Submit"/>{' '}
                      <button  className ="rux-button" onClick={this.props.hide}>Cancel</button>
                   </div><br></br><br></br>
 

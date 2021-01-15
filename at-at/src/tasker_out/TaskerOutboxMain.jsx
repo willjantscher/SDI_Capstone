@@ -12,8 +12,9 @@ class TaskerOutboxMain extends React.Component {
         super(props) 
         this.state = {
             taskerResponses:[],
+            responseAttachments: [],
             currentTaskers:[],
-            attachments:[],
+            taskerAttachments:[],
             descText: '',
             index:'',
             v:'',
@@ -29,6 +30,7 @@ class TaskerOutboxMain extends React.Component {
                 desc: '',
             },
             selectedTasker: {},
+            selectedResponse: {},
         }
     }
     async handleViewTaskers(){
@@ -79,7 +81,7 @@ async handleUpdate(e){
     
     let v = this.state.values;
 
-    console.log(new Date())
+    
 
     if(v){e.preventDefault();
         if(parseInt(v.tid) !== this.state.currentTaskers[this.state.index].tasker_id){
@@ -90,8 +92,8 @@ async handleUpdate(e){
             return alert("Enter a value for 'Date Updated'")}
         else if(v.tasker_name === ''){
             return alert("Enter a value for 'Tasker Name'")}
-        else if(v.suspense === ''){
-            return alert("Enter a value for 'Suspense Date'")}
+        else if(v.suspense === '' ){
+            return alert("Enter a valid for 'Suspense Date'")}
         else if(v.priority === ''){
             return alert("Enter a value for 'Priority Level'")}
         else if(v.workload === ''){
@@ -152,25 +154,33 @@ async handleDelete(){
     fetchAttachments = async(taskerId, isResponse) => {
         let apiURL = `http://localhost:3001/attachments/${taskerId}`;
         if (isResponse) {
-            apiURL = `http://localhost:3001/attachments/${taskerId}`;
+            apiURL = `http://localhost:3001/units_assigned_taskers/attachments`;
         }
         const response = await fetch(`${apiURL}`, {method: 'GET'});
         const attachments = await response.json();
         return attachments;
     }
 
-    handleRowClick = async(e) => {
+    handleTaskerRowClick = async(e) => {
         const rowIndex = e.currentTarget.id;
         const tasker = this.state.currentTaskers[rowIndex];
         const attachments = await this.fetchAttachments(tasker.tasker_id, false);
-        this.setState({selectedTasker: tasker, attachments: attachments});
+        this.setState({selectedTasker: tasker, taskerAttachments: attachments});
+    }
+
+    handleResponseRowClick = async(e) => {
+        const rowIndex = e.currentTarget.id;
+        const response = this.state.taskerResponses[rowIndex];
+        const allAttachments = await this.fetchAttachments(response.tasker_id, true);
+        const attachments = allAttachments.filter(attachment => attachment.units_assigned_taskers_id === response.id);
+        this.setState({selectedResponse: response, responseAttachments: attachments});
     }
 
 
-    getAttachmentNames = () => {
+    getAttachmentNames = (attachments) => {
         return (
         <div className="col-md-4">
-            {this.state.attachments.map(attachment => {
+            {attachments.map(attachment => {
             return(
                 <p key={attachment.id} className="">
                 <img src={icon} alt="listItemIcon" height="20" width="20"/>
@@ -192,7 +202,11 @@ async handleDelete(){
                 <ViewResponses 
                     hide={this.handleResponseHideButton.bind(this)} 
                     responses={this.state.taskerResponses} 
-                    viewResponses={this.handleViewResponses.bind(this)}/><br></br>
+                    viewResponses={this.handleViewResponses.bind(this)}
+                    onRowClick={this.handleResponseRowClick}
+                    getAttachmentNames={this.getAttachmentNames}
+                    responseAttachments={this.state.responseAttachments}
+                    selectedResponse={this.state.selectedResponse}/><br></br>
                 <div className="container-fluid">
                     <label><h1>My Created Taskers</h1> </label>
                         <button  style={{float: 'left'}} className ="rux-button" type="submit" onClick={this.handleViewTaskers.bind(this)}>View</button> 
@@ -220,7 +234,7 @@ async handleDelete(){
 
                     <tbody>
                         {currentTaskers.map((res, i) => 
-                        <tr className="will-colors" id={i} onClick={this.handleRowClick.bind(this)}>
+                        <tr className="will-colors" id={i} onClick={this.handleTaskerRowClick}>
                             {Object.values(res).filter((val, index) => index !== 7).map((r, index) => 
                             <td>
                                 {index === 2 || index === 4
@@ -255,11 +269,11 @@ async handleDelete(){
                                 </p>
                             </td>
                         </tr>
-                        {this.state.attachments.length > 0
+                        {this.state.taskerAttachments.length > 0
                         ? <tr>
                             <td>
                                 <ul>
-                                    {this.getAttachmentNames()}
+                                    {this.getAttachmentNames(this.state.taskerAttachments)}
                                 </ul>
                             </td>
                         </tr>

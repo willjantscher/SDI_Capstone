@@ -4,8 +4,10 @@ class ViewResponses extends React.Component {
 
     componentDidMount(){
         this.props.viewResponses()
-        
+
     }
+
+    
 
   render() {
     const {responses, viewResponses, hide} = this.props
@@ -24,23 +26,23 @@ class ViewResponses extends React.Component {
                             <th><h3>Tasker ID</h3></th>
                             <th><h3>Assigned Unit ID</h3></th>
                             <th><h3>Status</h3></th>
-                            <addth><h3>Response</h3></th>
+                            <th><h3>Response</h3></th>
                         </tr>
                     </thead>
                     :""} 
 
                     <tbody>
                         {responses.map((res, i) => 
-                        <tr className="will-colors">
-                            {Object.values(res).map(r => 
+                        <tr className="will-colors" id={i} onClick={this.props.onRowClick}>
+                            {Object.values(res).filter((r, index) => index !== 4).map(r => 
                             <td>
                                 {r}
                             </td>)}
                         </tr>)}
                     </tbody>
-            </table>
+            </table><br></br>
 
-            {/* <table className="rux-table">
+            <table className="rux-table">
                     <tbody>
                         <tr>
                             <td>
@@ -48,23 +50,23 @@ class ViewResponses extends React.Component {
                                     className="mt-3 ml-2"
                                     id="taskerDetails"
                                     style={{width: "100%", wordBreak: "break-word", whiteSpace: "normal"}}
-                                ><h3>Tasker Details: </h3>{" "}
-                                    {this.state.selectedTasker.desc_text}
+                                ><h3>Attachments: </h3>{" "}
+                                    {this.props.selectedResponse.desc_text}
                                 </p>
                             </td>
                         </tr>
-                        {this.state.attachments.length > 0
+                        {this.props.responseAttachments.length > 0
                         ? <tr>
                             <td>
                                 <ul>
-                                    {this.getAttachmentNames()}
+                                    {this.props.getAttachmentNames(this.props.responseAttachments)}
                                 </ul>
                             </td>
                         </tr>
                         : ""}
                         
                     </tbody>
-                </table> */}
+                </table>
             <br></br>
        </div>
         )
