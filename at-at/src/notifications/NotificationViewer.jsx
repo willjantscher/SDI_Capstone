@@ -79,9 +79,9 @@ class NotificationViewer extends React.Component {
         return(
             
                 <div className="container-fluid">
-                    <div className="row pb-3 pl-5"> 
+                    <div className="row pb-3 pl-3 pr-3"> 
 
-                    <table className="rux-table">
+                    <table className="rux-table will-colors">
                         <tbody>
                             {this.props.homepage ? this.unreadNotificationList(this.props.notifications) : this.notificationList(this.props.notifications)}
                         </tbody>

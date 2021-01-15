@@ -67,7 +67,7 @@ class TaskerInboxMain extends React.Component {
       const includedTasker = taskers.find(arrayTasker => arrayTasker.tasker_id === tasker.tasker_id);
       // if version of tasker is already in array
       // and the new tasker's version is greater than what's already in array
-      console.log(includedTasker, tasker);
+      // console.log(includedTasker, tasker);
       if (includedTasker && (tasker.version_num > includedTasker.version_num)) {
           // replace that tasker with the newer version
           taskers[taskers.indexOf(includedTasker)] = tasker;
