@@ -177,14 +177,18 @@ async handleDelete(){
     }
 
 
-    getAttachmentNames = (attachments) => {
+    getAttachmentNames = (attachments, isResponse) => {
+        let apiURL = "/"
+        if(isResponse) {
+            apiURL = "/reply/"
+        } 
         return (
         <div className="col-md-4">
             {attachments.map(attachment => {
             return(
                 <p key={attachment.id} className="">
                 <img src={icon} alt="listItemIcon" height="20" width="20"/>
-                <a href={`http://localhost:3001/download/reply/${attachment.id}`}>
+                <a href={`http://localhost:3001/download${apiURL}${attachment.id}`}>
                     {attachment.originalname}
                 </a>
                 
@@ -273,7 +277,7 @@ async handleDelete(){
                         ? <tr>
                             <td>
                                 <ul>
-                                    {this.getAttachmentNames(this.state.taskerAttachments)}
+                                    {this.getAttachmentNames(this.state.taskerAttachments, false)}
                                 </ul>
                             </td>
                         </tr>
