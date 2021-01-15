@@ -4383,3 +4383,18 @@ input:-moz-focusring {
   text-shadow: cyan;
   font-size: small;
 }
+
+.video-mask{
+  size: 40%;
+  width: 640px;
+  height: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.video {
+  position: relative;
+  left: 0;
+  top: 0;
+  opacity: 1;
+}

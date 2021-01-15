@@ -2,6 +2,8 @@ import React from "react"
 import { Redirect } from "react-router-dom";
 import isAuthed from './utils';
 import './card.css';
+import video from "../img/AT-AT_intro_smaller.mp4"
+
 
 const apiURL = 'http://localhost:3001';
 
@@ -51,8 +53,8 @@ class LoginMain extends React.Component {
             <>
             <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
             <rux-global-status-bar appname="Aggregate Tasker Administration Tool" version="1.0" theme="dark" style={{ marginTop : '20px', height : '80px' }}>     </rux-global-status-bar>
-            <div className="container-fluid " align="center">
-                <div className="card card-container">
+            <div className="container-fluid " align="center" >
+                <div className="card card-container" style={{marginTop:"-100px"}}>
                     <div className="rux-form-field__label"></div>
                     <form className="container-fluid ">
                         <h1 className="pb-4" >Login</h1>
@@ -90,6 +92,16 @@ class LoginMain extends React.Component {
                             <a className="nav-link" href="/register"> Register</a>
                         </label>
                     </form>
+
+
+                </div >
+                <div className="" style={{marginTop:"520px"}} >
+                    <div className="video-mask" > 
+                        <video className="video"autoPlay muted >
+                            <source src={video} type="video/mp4"/>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
             </div>
             </>
