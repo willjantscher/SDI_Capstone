@@ -1,6 +1,5 @@
 import React from "react";
 import NotificationViewer from "../notifications/NotificationViewer";
-import TaskerList from '../tasker_in/TaskerList';
 
 import Cookies from 'universal-cookie';
 
@@ -79,8 +78,8 @@ class NotificationsMain extends React.Component {
 
     render() {
         return(
-            <div>
-                 <h1 className="pl-4 pb-4 pt-2">Notifications</h1>
+            <div className="container-fluid">
+                <h1 className="pl-4 pb-4 pt-2">Notifications</h1>
                   <NotificationViewer
                     notifications = {this.state.notifications}
                     onViewClick={this.handleNotificationClick}

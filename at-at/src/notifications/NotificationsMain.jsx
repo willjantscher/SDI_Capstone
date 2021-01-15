@@ -83,15 +83,13 @@ class NotificationsMain extends React.Component {
 
     render() {
         return(
-            <div>
-   
+            <div className="container-fluid">   
                  <h1 className="pl-4 pb-4 pt-2">Notifications</h1>
                   <NotificationViewer
                     notifications = {this.state.notifications}
                     onViewClick={this.handleNotificationClick}
                     onDelete={this.handleDelete}
                  />
-
             </div>
         )
     }

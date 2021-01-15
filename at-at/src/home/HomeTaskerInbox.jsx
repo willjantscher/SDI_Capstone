@@ -120,7 +120,7 @@ class HomeTaskerInbox extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="container-fluid">
       {/* <div className="container-fluid">
         <div className="row">
           <div className="col-sm-1"/>
