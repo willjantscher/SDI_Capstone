@@ -78,10 +78,12 @@ class RegisterMain extends React.Component {
             <rux-classification-marking classification="unclassified" label=""></rux-classification-marking>
             <rux-global-status-bar appname="Aggregate Tasker Administration Tool" version="1.0" theme="dark" style={{ marginTop : '20px', height : '80px' }}>     </rux-global-status-bar>
             <div className="container " align="center">
-                <div class="card card-container">
+                <div class="row">
+                <div class="col"></div>
+                <div class="card card-container" style={{marginTop:"100px", marginBottom:"100px"}}>
                     <div className="rux-form-field__label"></div>
                     <form className="container-fluid">
-                        <h1 className="pb-4" >Register</h1>
+                        <h1 className="pb-4 pt-4" >Register</h1>
                         <div className="row pb-3 pl-5 pr-5" align="left"> 
                             <label htmlFor="first_name" className="col-5 pt-1" >First Name:</label>
                             <input
@@ -155,11 +157,17 @@ class RegisterMain extends React.Component {
                             <rux-button onClick={this.handleRegistration}>Register</rux-button>
                             <div class="col"/>
                         </div>
-                        <label className=""> 
-                            Already have an account?
-                            <a className="nav-link" href="/login"> Login</a>
-                        </label>
+                        <div className="row pt-3 pb-4"> 
+                        <div className="col">
+                            <label align="center"> 
+                                Already have an account?
+                                <a className="nav-link" href="/login"> Login</a>
+                            </label>
+                        </div>
+                        </div>
                     </form>
+                </div>
+                <div class="col"></div>
                 </div>
             </div>
             </>
