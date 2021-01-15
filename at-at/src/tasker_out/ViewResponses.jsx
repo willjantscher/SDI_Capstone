@@ -21,10 +21,10 @@ class ViewResponses extends React.Component {
                 {responses.length > 0 ?
                     <thead>
                         <tr>
-                            <td><h3>Tasker ID</h3></td>
-                            <td><h3>Assigned Unit ID</h3></td>
-                            <td><h3>Status</h3></td>
-                            <td><h3>Response</h3></td>
+                            <th><h3>Tasker ID</h3></th>
+                            <th><h3>Assigned Unit ID</h3></th>
+                            <th><h3>Status</h3></th>
+                            <addth><h3>Response</h3></th>
                         </tr>
                     </thead>
                     :""} 
@@ -39,6 +39,32 @@ class ViewResponses extends React.Component {
                         </tr>)}
                     </tbody>
             </table>
+
+            {/* <table className="rux-table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p
+                                    className="mt-3 ml-2"
+                                    id="taskerDetails"
+                                    style={{width: "100%", wordBreak: "break-word", whiteSpace: "normal"}}
+                                ><h3>Tasker Details: </h3>{" "}
+                                    {this.state.selectedTasker.desc_text}
+                                </p>
+                            </td>
+                        </tr>
+                        {this.state.attachments.length > 0
+                        ? <tr>
+                            <td>
+                                <ul>
+                                    {this.getAttachmentNames()}
+                                </ul>
+                            </td>
+                        </tr>
+                        : ""}
+                        
+                    </tbody>
+                </table> */}
             <br></br>
        </div>
         )
