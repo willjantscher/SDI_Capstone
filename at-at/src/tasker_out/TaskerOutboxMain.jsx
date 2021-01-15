@@ -184,7 +184,7 @@ async handleDelete(){
             return(
                 <p key={attachment.id} className="">
                 <img src={icon} alt="listItemIcon" height="20" width="20"/>
-                <a href={`http://localhost:3001/download/${attachment.id}`}>
+                <a href={`http://localhost:3001/download/reply/${attachment.id}`}>
                     {attachment.originalname}
                 </a>
                 
