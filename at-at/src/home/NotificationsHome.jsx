@@ -1,6 +1,5 @@
 import React from "react";
 import NotificationViewer from "../notifications/NotificationViewer";
-import TaskerList from '../tasker_in/TaskerList';
 
 import Cookies from 'universal-cookie';
 
