@@ -217,6 +217,7 @@ class TaskerInboxMain extends React.Component {
               onRowClick={this.handleTaskerClick}
               onSubmitResponse={this.handleResponseSubmit}
               defaultValueResponse={this.state.selectedTasker.response}
+              selectedTasker={this.state.selectedTasker}
             />
           </div>
           <div className="col-sm-1"/>

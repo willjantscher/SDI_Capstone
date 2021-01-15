@@ -31,7 +31,12 @@ class TaskerList extends React.Component {
 
   isSelected = (tasker) => {
     const rowId = tasker.tasker_id;
-    const isSelected = (rowId === parseInt(this.props.selectedRow.id));
+    let isSelected;
+    if(this.props.selectedTasker){
+      isSelected = (rowId === parseInt(this.props.selectedTasker.tasker_id));
+    } else {
+      isSelected = (rowId === parseInt(this.props.selectedRow.id));
+    }
     return isSelected;
   }
 
