@@ -3,7 +3,7 @@ import React from "react";
 class TaskerAttachmentInput extends React.Component {
   generateFileNames = () => {
     let selected_files_names = [];
-    if(this.props.selected_files) {
+    if(this.props.selected_files) { // this check is because Chrome is strange
       for(var i = 0; i < this.props.selected_files.length; i++) {
           selected_files_names.push(this.props.selected_files[i].name)
       }
