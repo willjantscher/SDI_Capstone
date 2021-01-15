@@ -281,10 +281,10 @@ const TaskerForm = (props) => {
 
                 <div className="col-md-4 container-fluid">
                     <form id="attachments_form" onSubmit={props.onClickUploadFiles}> 
-                        <div className="row mb-2" style={{marginTop:"-10px"}}>
+                        <div className="row mb-2 pr-5" style={{marginTop:"-10px"}}>
                             <label >Add Attachments: </label>
                         </div>
-                        <div className="form-group files mt-0">
+                        <div className="form-group files mt-0 mr-3">
                             <div style={{paddingBottom:'20px'}}></div>
                             <label className="row mb-5" htmlFor="file" id="fileInput" style={{marginTop:"-15px"}}>
                                 <div></div>

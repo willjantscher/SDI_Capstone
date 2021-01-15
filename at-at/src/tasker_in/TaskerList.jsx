@@ -161,9 +161,9 @@ class TaskerList extends React.Component {
   render() {
     return(
       <div className="container-fluid">
-        <div className="row pb-3 pl-5"> 
+        <div className="row pb-3 pl-3 pr-3"> 
 
-        <table className="rux-table">
+        <table className="rux-table will-colors">
           <thead>
             <tr>
               {this.generateColumnHeaders()}
